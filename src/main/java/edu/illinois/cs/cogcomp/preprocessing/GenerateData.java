@@ -30,6 +30,8 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Properties;
 
+import static edu.illinois.cs.cogcomp.utils.StringUtils.pad;
+
 
 /**
  * Created by haowu4 on 1/10/17.
@@ -145,12 +147,16 @@ public class GenerateData {
         int fileCounter = 0;
         int length = files.size();
         int fileCounterNonReset = 0;
+
+        System.out.println("Start processing " + length + " files");
+
         for (String file : files) {
             fileCounterNonReset++;
 
-            System.out.print(String.format("Processed : %d / %d \r",
-                    fileCounterNonReset,
-                    length));
+            System.out.printf("Processed document %s/%s\r",
+                            pad(Integer.toString(fileCounterNonReset),
+                                    9, ' '),
+                            pad(Integer.toString(length), 9, ' '));
 
             Record r = null;
             try {
