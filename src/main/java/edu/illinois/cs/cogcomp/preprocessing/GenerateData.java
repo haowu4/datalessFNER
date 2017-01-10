@@ -143,8 +143,14 @@ public class GenerateData {
         }
 
         int fileCounter = 0;
-
+        int length = files.size();
+        int fileCounterNonReset = 0;
         for (String file : files) {
+            fileCounterNonReset++;
+
+            System.out.print(String.format("Processed : %d / %d \r",
+                    fileCounterNonReset,
+                    length));
 
             Record r = null;
             try {
