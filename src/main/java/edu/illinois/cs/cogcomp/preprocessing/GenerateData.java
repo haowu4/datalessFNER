@@ -126,12 +126,15 @@ public class GenerateData {
             Record r = null;
             try {
                 File input = new File(parameter.recordFolders, file);
-
                 r = deserializeRecord(FileUtils.readFileToByteArray(input));
             } catch (TException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+
+            if (r == null) {
+                continue;
             }
 
             Document d = new Document("kbp", file, r.getRawText());
