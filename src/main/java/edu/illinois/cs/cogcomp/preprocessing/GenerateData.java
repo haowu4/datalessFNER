@@ -2,6 +2,12 @@ package edu.illinois.cs.cogcomp.preprocessing;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.MessageProperties;
 import edu.illinois.cs.cogcomp.annotation.AnnotatorException;
 import edu.illinois.cs.cogcomp.annotation.AnnotatorServiceConfigurator;
 import edu.illinois.cs.cogcomp.annotation.BasicAnnotatorService;
@@ -29,6 +35,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.TimeoutException;
 
 import static edu.illinois.cs.cogcomp.utils.StringUtils.pad;
 
@@ -38,103 +45,61 @@ import static edu.illinois.cs.cogcomp.utils.StringUtils.pad;
  */
 public class GenerateData {
 
+    public static final Gson GSON = new GsonBuilder().create();
+
+    public static class Document {
+        String rawText;
+        String corpId;
+        String textId;
+
+        public Document(String corpId, String textId, String rawText) {
+            this.rawText = rawText;
+            this.corpId = corpId;
+            this.textId = textId;
+        }
+
+        public String getRawText() {
+            return rawText;
+        }
+
+        public String getCorpId() {
+            return corpId;
+        }
+
+        public String getTextId() {
+            return textId;
+        }
+    }
 
     public static class GenerateDataParameter {
+
+        @Parameter(names = {"-h", "-host"}, description = "RabbitMQ Hosts")
+        String host;
+
         @Parameter(names = {"-f", "-folder"}, description = "Folder " +
                 "location that contains the list of Records")
         String recordFolders;
         @Parameter(names = {"-l", "-filelist"}, description = "List of " +
                 "files.")
         String fileLists;
-        @Parameter(names = {"-o", "-output"}, description = "Output location.")
-        String output;
     }
 
     private GenerateDataParameter parameter;
-    private BasicAnnotatorService processor;
 
     public GenerateData(GenerateDataParameter parameter) throws IOException,
             AnnotatorException {
         this.parameter = parameter;
-        Properties props = new Properties();
-
-        props.setProperty(PipelineConfigurator.USE_POS.key,
-                Configurator.TRUE);
-        props.setProperty(PipelineConfigurator.USE_LEMMA.key,
-                Configurator.TRUE);
-        props.setProperty(PipelineConfigurator.USE_SHALLOW_PARSE.key,
-                Configurator.TRUE);
-
-        props.setProperty(PipelineConfigurator.USE_NER_CONLL.key,
-                Configurator.TRUE);
-        props.setProperty(PipelineConfigurator.USE_NER_ONTONOTES.key,
-                Configurator.TRUE);
-        props.setProperty(PipelineConfigurator.USE_STANFORD_PARSE.key,
-                Configurator.FALSE);
-        props.setProperty(PipelineConfigurator.USE_STANFORD_DEP.key,
-                Configurator.TRUE);
-
-        props.setProperty(PipelineConfigurator.USE_SRL_VERB.key,
-                Configurator.FALSE);
-        props.setProperty(PipelineConfigurator.USE_SRL_NOM.key,
-                Configurator.FALSE);
-        props.setProperty(
-                PipelineConfigurator.THROW_EXCEPTION_ON_FAILED_LENGTH_CHECK.key,
-                Configurator.FALSE);
-        props.setProperty(
-                PipelineConfigurator.USE_JSON.key,
-                Configurator.FALSE);
-        props.setProperty(
-                PipelineConfigurator.USE_LAZY_INITIALIZATION.key,
-                Configurator.FALSE);
-        props.setProperty(
-                PipelineConfigurator.USE_SRL_INTERNAL_PREPROCESSOR.key,
-                Configurator.FALSE);
-
-
-        props.setProperty(AnnotatorServiceConfigurator.DISABLE_CACHE.key,
-                Configurator.TRUE);
-        props.setProperty(AnnotatorServiceConfigurator.CACHE_DIR.key,
-                "/tmp/aswdtgffasdfasd");
-        props.setProperty(
-                AnnotatorServiceConfigurator.THROW_EXCEPTION_IF_NOT_CACHED.key,
-                Configurator.FALSE);
-        props.setProperty(
-                AnnotatorServiceConfigurator.FORCE_CACHE_UPDATE.key,
-                Configurator.TRUE);
-
-        processor = PipelineFactory
-                .buildPipeline(new ResourceManager(props));
-    }
-
-    private DB db;
-    private HTreeMap<String, String> map;
-    int conuter = 0;
-
-    public void createNewMap() {
-        if (conuter > 0) {
-            db.commit();
-            map.close();
-            db.close();
-        }
-
-
-        db = DBMaker
-                .fileDB(String.format("%s_%d.db", parameter.output, conuter))
-                .closeOnJvmShutdown()
-                .make();
-
-        map = db.hashMap("ta")
-                .keySerializer(Serializer.STRING)
-                .valueSerializer(Serializer.STRING)
-                .createOrOpen();
-        conuter++;
 
     }
 
-    public void processFiles() {
+    public void processFiles() throws IOException, TimeoutException {
+        ConnectionFactory factory = new ConnectionFactory();
+        factory.setHost(parameter.host);
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
 
-        createNewMap();
+        channel.queueDeclare("test", true, false, false, null);
+
 
         List<String> files = null;
         try {
@@ -154,9 +119,9 @@ public class GenerateData {
             fileCounterNonReset++;
 
             System.out.printf("Processed document %s/%s\r",
-                            pad(Integer.toString(fileCounterNonReset),
-                                    9, ' '),
-                            pad(Integer.toString(length), 9, ' '));
+                    pad(Integer.toString(fileCounterNonReset),
+                            9, ' '),
+                    pad(Integer.toString(length), 9, ' '));
 
             Record r = null;
             try {
@@ -169,31 +134,13 @@ public class GenerateData {
                 e.printStackTrace();
             }
 
-            Labeling token = r.getLabelViews().get("tokens");
-            TextAnnotation ta = CuratorDataStructureInterface
-                    .getTextAnnotationFromRecord
-                            (parameter.recordFolders, file, r, token, r
-                                    .getLabelViews()
-                                    .get("sentences"));
-
-            try {
-                ta = processor.annotateTextAnnotation(ta, false);
-            } catch (AnnotatorException e) {
-                e.printStackTrace();
-            }
+            Document d = new Document("kbp", file, r.getRawText());
+            channel.basicPublish("", "test",
+                    MessageProperties.PERSISTENT_TEXT_PLAIN,
+                    GSON.toJson(d).getBytes());
 
 
-            String json = SerializationHelper.serializeToJson(ta);
-            map.put(file, json);
-            fileCounter++;
-            if (fileCounter == 30000) {
-                fileCounter = 0;
-                createNewMap();
-            }
         }
-        db.commit();
-        map.close();
-        db.close();
     }
 
     public static Record deserializeRecord(byte[] bytes) throws IOException,
@@ -206,7 +153,7 @@ public class GenerateData {
 
 
     public static void main(String[] args) throws IOException,
-            AnnotatorException, TException {
+            AnnotatorException, TException, TimeoutException {
 
         GenerateDataParameter parameters = new GenerateDataParameter();
 
