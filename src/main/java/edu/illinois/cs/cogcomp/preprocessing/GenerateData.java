@@ -70,7 +70,7 @@ public class GenerateData {
         props.setProperty(PipelineConfigurator.USE_NER_ONTONOTES.key,
                 Configurator.TRUE);
         props.setProperty(PipelineConfigurator.USE_STANFORD_PARSE.key,
-                Configurator.TRUE);
+                Configurator.FALSE);
         props.setProperty(PipelineConfigurator.USE_STANFORD_DEP.key,
                 Configurator.TRUE);
 
