@@ -52,6 +52,9 @@ public class GenerateData {
         String corpId;
         String textId;
 
+        public int errorCount = 0;
+
+
         public Document(String corpId, String textId, String rawText) {
             this.rawText = rawText;
             this.corpId = corpId;
