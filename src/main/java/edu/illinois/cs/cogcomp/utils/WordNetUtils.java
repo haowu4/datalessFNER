@@ -47,12 +47,9 @@ public class WordNetUtils {
         return hyponymTree;
     }
 
-    public Synset getSynsetFromNLTKString(String nltkSynsetString) throws JWNLException {
-        String[] tokens = nltkSynsetString.split("\\.");
-        assert tokens.length == 3;
-        String lemma = tokens[0];
+    public POS getPOS(String posString) {
         POS pos = null;
-        switch (tokens[1]) {
+        switch (posString) {
             case "n":
                 pos = POS.NOUN;
                 break;
@@ -68,6 +65,14 @@ public class WordNetUtils {
             default:
                 throw new IllegalArgumentException("Invalid POS in nltk synset string - " + nltkSynsetString);
         }
+        return pos;
+    }
+
+    public Synset getSynsetFromNLTKString(String nltkSynsetString) throws JWNLException {
+        String[] tokens = nltkSynsetString.split("\\.");
+        assert tokens.length == 3;
+        String lemma = tokens[0];
+        POS pos = getPOS(tokens[1]);
         int id = Integer.parseInt(tokens[2])-1;
         IndexWord w = dictionary.lookupIndexWord(pos, lemma);
         if (w == null)
@@ -167,6 +172,14 @@ public class WordNetUtils {
             typeScores.put(type, typeScore);
         }
         return typeScores;
+    }
+
+    private Map<String, Double> getTypeScores(String synsetOffsetPOS, Map<String, List<Synset>> typeToSynsets) throws JWNLException {
+        String[] tokens = synsetOffsetPOS.split("_");
+        POS synsetPOS = getPOS(tokens[1]);
+        long synsetOffset = Long.parseLong(tokens[0]);
+        Synset synset = dictionary.getSynsetAt(synsetPOS, synsetOffset);
+        return getTypeScores(synset, typeToSynsets);
     }
 
     public static void main(String[] args) throws JWNLException, CloneNotSupportedException, IOException {
