@@ -1,0 +1,43 @@
+person.artist	artist.n.01	performer.n.01
+person.author	writer.n.01
+person.engineer	engineer.n.01	engineer.n.02
+person.actor	actor.n.01
+person.musician	musician.n.01	musician.n.02
+person.director	film_director.n.01	conductor.n.01
+person.athlete	athlete.n.01
+person.doctor	medical_practitioner.n.01
+person.soldier	serviceman.n.01
+person.coach	coach.n.01
+person.architect	architect.n.01
+person.terrorist	terrorist.n.01
+person.monarch	sovereign.n.01
+person.politician	politician.n.01	politician.n.02
+person	person.n.01
+music	music.n.01	music.n.02	music.n.03	music.n.04	album.n.01
+game	game.n.01	game.n.02	game.n.03
+location.county	county.n.01	county.n.02	district.n.01
+location.province	state.n.01
+location.city	city.n.01	city.n.02	city.n.03
+location.country	state.n.04	country.n.02	nation.n.02
+location.cemetery	cemetery.n.01
+location.body_of_water	body_of_water.n.01
+location.bridge	bridge.n.01	
+location	location.n.01
+organization.fraternity_sorority	fraternity.n.01	sorority.n.01
+organization.terrorist_organization	terrorist_organization.n.01
+organization.sports_league	league.n.01	
+organization.airline	airline.n.02
+organization.sports_team	team.n.01
+organization.educational_institution	educational_institution.n.01
+organization.company	company.n.01	enterprise.n.02
+organization	organization.n.01
+building.airport	airport.n.01
+building.library	library.n.05
+building.restaurant	restaurant.n.01
+building.power_station	power_station.n.01
+building.sports_facility	athletic_facility.n.01	stadium.n.01	playing_field.n.02	course.n.09	field_house.n.01
+building.theater	theater.n.01
+building.hotel	hotel.n.01
+building.hospital	hospital.n.01
+building.dam	dam.n.01
+building	facility.n.01	building.n.01
