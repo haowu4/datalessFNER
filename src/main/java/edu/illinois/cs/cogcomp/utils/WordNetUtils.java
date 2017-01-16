@@ -63,7 +63,7 @@ public class WordNetUtils {
                 pos = POS.ADVERB;
                 break;
             default:
-                throw new IllegalArgumentException("Invalid POS in nltk synset string - " + nltkSynsetString);
+                throw new IllegalArgumentException("Invalid POS string - " + posString);
         }
         return pos;
     }
