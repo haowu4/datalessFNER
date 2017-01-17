@@ -11,6 +11,8 @@ import edu.illinois.cs.cogcomp.finer.components.TriggerWordFilter;
  */
 public class QuotationFilter implements TriggerWordFilter {
 
+    private static final int MAX_WIN = 5;
+
     @Override
     public boolean filterTriggerWord(Sentence sentence, Constituent
             triggerWord, Constituent mention) {
@@ -20,7 +22,7 @@ public class QuotationFilter implements TriggerWordFilter {
         int mentionStart = mention.getStartSpan();
         int mentionEnd = mention.getEndSpan();
 
-        if (mention.doesConstituentCover(triggerWord)) {
+        if (triggerStart < (mentionStart - MAX_WIN) || triggerEnd > (mentionEnd + MAX_WIN)) {
             return true;
         }
 

@@ -5,13 +5,13 @@ import edu.illinois.cs.cogcomp.finer.components.MentionDetecter;
 import edu.illinois.cs.cogcomp.finer.components.TriggerWordDetecter;
 import edu.illinois.cs.cogcomp.finer.components.TriggerWordFilter;
 import edu.illinois.cs.cogcomp.finer.components.filters.QuotationFilter;
+import edu.illinois.cs.cogcomp.finer.components.filters.TypeFilter;
 import edu.illinois.cs.cogcomp.finer.components.mention.BasicMentionDetection;
+import edu.illinois.cs.cogcomp.finer.components.trigger.BasicTriggerWordDetecter;
 import edu.illinois.cs.cogcomp.finer.datastructure.FineNerType;
 import net.sf.extjwnl.data.Synset;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -19,8 +19,10 @@ import java.util.stream.Collectors;
  */
 public class FinerAnnotator {
     private MentionDetecter mentionDetecter = new BasicMentionDetection();
-    private TriggerWordDetecter triggerWordDetecter;
-    private TriggerWordFilter triggerWordFilter = new QuotationFilter();
+    private TriggerWordDetecter triggerWordDetecter = new BasicTriggerWordDetecter();
+    private List<TriggerWordFilter> triggerWordFilters = Arrays.asList(
+            new QuotationFilter(),
+            new TypeFilter());
     private Map<String, List<Synset>> extractTypes;
 
     public FinerAnnotator(List<FineNerType> extractTypes) {
@@ -60,8 +62,7 @@ public class FinerAnnotator {
 
             for (final Constituent mention : mentions) {
                 List<Constituent> survivedTriggerWords = triggers.stream()
-                        .filter(trigger -> triggerWordFilter
-                                .filterTriggerWord(s, trigger, mention))
+                        .filter(trigger -> triggerWordFilters.stream().allMatch(f -> f.filterTriggerWord(s, trigger, mention)))
                         .collect(Collectors.toList());
                 for (Constituent trigger : survivedTriggerWords) {
                     finer.addRelation(new Relation("triggering", trigger,

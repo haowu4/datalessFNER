@@ -3,14 +3,20 @@ package edu.illinois.cs.cogcomp.utils;
 import edu.illinois.cs.cogcomp.annotation.AnnotatorException;
 import edu.illinois.cs.cogcomp.annotation.AnnotatorServiceConfigurator;
 import edu.illinois.cs.cogcomp.annotation.BasicAnnotatorService;
+import edu.illinois.cs.cogcomp.core.datastructures.ViewNames;
 import edu.illinois.cs.cogcomp.core.utilities.configuration.Configurator;
 import edu.illinois.cs.cogcomp.core.utilities.configuration.ResourceManager;
+import edu.illinois.cs.cogcomp.finer.FinerAnnotator;
 import edu.illinois.cs.cogcomp.finer.datastructure.FineNerType;
 import edu.illinois.cs.cogcomp.pipeline.main.PipelineFactory;
 import edu.illinois.cs.cogcomp.wsd.annotators.WordSenseAnnotator;
+import net.sf.extjwnl.JWNLException;
+import net.sf.extjwnl.data.Synset;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -23,18 +29,18 @@ public class PipelineUtils {
         Properties props = new Properties();
         props.setProperty("usePos", Configurator.TRUE);
         props.setProperty("useLemma",
-                Configurator.FALSE);
+                Configurator.TRUE);
         props.setProperty("useShallowParse",
                 Configurator.TRUE);
 
         props.setProperty("useNerConll",
                 Configurator.TRUE);
         props.setProperty("useNerOntonotes",
-                Configurator.TRUE);
+                Configurator.FALSE);
         props.setProperty("useStanfordParse",
                 Configurator.FALSE);
         props.setProperty("useStanfordDep",
-                Configurator.TRUE);
+                Configurator.FALSE);
 
         props.setProperty("useSrlVerb",
                 Configurator.FALSE);
@@ -55,9 +61,9 @@ public class PipelineUtils {
 
 
         props.setProperty(AnnotatorServiceConfigurator.DISABLE_CACHE.key,
-                Configurator.FALSE);
+                Configurator.TRUE);
         props.setProperty(AnnotatorServiceConfigurator.CACHE_DIR.key,
-                "/tmp/cache");
+                "cache/db");
         props.setProperty(
                 AnnotatorServiceConfigurator.THROW_EXCEPTION_IF_NOT_CACHED.key,
                 Configurator.FALSE);
@@ -103,7 +109,7 @@ public class PipelineUtils {
         );
 
         ResourceManager resourceManager = new ResourceManager(props);
-        WordSenseAnnotator wsd = new WordSenseAnnotator("", new String[]{""},
+        WordSenseAnnotator wsd = new WordSenseAnnotator("SENSE", new String[]{ViewNames.POS},
                 resourceManager);
 
         BasicAnnotatorService processor = PipelineFactory
@@ -113,8 +119,20 @@ public class PipelineUtils {
         return processor;
     }
 
-    public static List<FineNerType> readFinerTypes(String file){
-        throw new RuntimeException("Not implemented..");
+    public static List<FineNerType> readFinerTypes(String file) throws IOException, JWNLException {
+        List<FineNerType> types = new ArrayList<>();
+        List<String> typeStrs = FileUtils.readLines(new File(file));
+        for (String s : typeStrs) {
+            String[] parts = s.split("\t");
+            String typName = parts[0];
+            String[] senseNames = parts[1].split(" ");
+            List<Synset> synsets = new ArrayList<>();
+            for (String sense : senseNames) {
+                synsets.add(WordNetUtils.getInstance().getSynsetOfNoun(sense));
+            }
+            types.add(new FineNerType(typName, synsets));
+        }
+        return types;
     }
 
 }

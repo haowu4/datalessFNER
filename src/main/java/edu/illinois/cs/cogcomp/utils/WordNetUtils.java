@@ -33,6 +33,11 @@ public class WordNetUtils {
         return WORD_NET_UTILS;
     }
 
+    public static WordNetUtils getInstanceFastOrNull() {
+        return WORD_NET_UTILS;
+    }
+
+
     public List<Synset> getSynsets(String lemma, POS pos) throws JWNLException {
         IndexWord w = dictionary.lookupIndexWord(pos, lemma);
         return (w == null) ? new ArrayList<>() : w.getSenses();
@@ -73,7 +78,7 @@ public class WordNetUtils {
         assert tokens.length == 3;
         String lemma = tokens[0];
         POS pos = getPOS(tokens[1]);
-        int id = Integer.parseInt(tokens[2])-1;
+        int id = Integer.parseInt(tokens[2]) - 1;
         IndexWord w = dictionary.lookupIndexWord(pos, lemma);
         if (w == null)
             throw new IllegalArgumentException("Word/Lemma not found in wordnet - " + nltkSynsetString);
@@ -85,7 +90,7 @@ public class WordNetUtils {
     private List<Pointer> getPointers(Synset synset, PointerType type) {
         List<Pointer> pointers = new ArrayList<>();
         // strict matching i.e. instance hyponyms not in hyponyms
-        for (Pointer p: synset.getPointers(type))
+        for (Pointer p : synset.getPointers(type))
             if (p.getType().getKey().equals(type.getKey()))
                 pointers.add(p);
         return pointers;
@@ -110,12 +115,12 @@ public class WordNetUtils {
         StringBuilder words = new StringBuilder();
 
         words.append("( ");
-        for(int i = 0; i < synset.getWords().size(); ++i) {
-            if(i > 0) {
+        for (int i = 0; i < synset.getWords().size(); ++i) {
+            if (i > 0) {
                 words.append(", ");
             }
 
-            words.append(((Word)synset.getWords().get(i)).getLemma());
+            words.append(((Word) synset.getWords().get(i)).getLemma());
         }
         words.append(" )");
 
@@ -123,8 +128,8 @@ public class WordNetUtils {
     }
 
     private void recurseForward(Synset n, Synset t, Map<Synset, Integer> sn) throws JWNLException {
-        sn.put(n, sn.getOrDefault(n, 0)+1);
-        for (Pointer hypPointer: getPointers(n, PointerType.HYPERNYM)) {
+        sn.put(n, sn.getOrDefault(n, 0) + 1);
+        for (Pointer hypPointer : getPointers(n, PointerType.HYPERNYM)) {
             Synset c = hypPointer.getTargetSynset();
             recurseForward(c, t, sn);
         }
@@ -132,7 +137,7 @@ public class WordNetUtils {
 
     private int recurseBackward(Synset n, Synset t, Map<Synset, Integer> nt) throws JWNLException {
         int tmp = 0;
-        for (Pointer hypPointer: getPointers(n, PointerType.HYPERNYM)) {
+        for (Pointer hypPointer : getPointers(n, PointerType.HYPERNYM)) {
             Synset c = hypPointer.getTargetSynset();
             if (!nt.containsKey(c))
                 nt.put(c, recurseBackward(c, t, nt));
@@ -155,8 +160,8 @@ public class WordNetUtils {
         int numPaths = nt.get(synset);
         System.out.println("Number of paths = " + numPaths);
 
-        for (Synset countSynset: nt.keySet())
-            synsetScores.put(countSynset, (double) nt.get(countSynset)*sn.get(countSynset) / numPaths);
+        for (Synset countSynset : nt.keySet())
+            synsetScores.put(countSynset, (double) nt.get(countSynset) * sn.get(countSynset) / numPaths);
 
         return synsetScores;
     }
@@ -164,11 +169,14 @@ public class WordNetUtils {
     private Map<String, Double> getTypeScores(Synset synset, Map<String, List<Synset>> typeToSynsets) throws JWNLException {
         Map<Synset, Double> synsetScores = getSynsetScores(synset);
         Map<String, Double> typeScores = new HashMap<>();
-        for (String type: typeToSynsets.keySet()) {
+        for (String type : typeToSynsets.keySet()) {
             double typeScore = 0;
             for (Synset typeSynset : typeToSynsets.get(type))
                 if (synsetScores.containsKey(typeSynset))
                     typeScore += synsetScores.get(typeSynset);
+            if (typeScore == 0.0) {
+                continue;
+            }
             typeScores.put(type, typeScore);
         }
         return typeScores;
@@ -176,11 +184,24 @@ public class WordNetUtils {
 
     public Map<String, Double> getTypeScores(String synsetOffsetPOS,
                                              Map<String, List<Synset>> typeToSynsets) throws JWNLException {
+        Synset synset = getSynsetByOffset(synsetOffsetPOS);
+        return getTypeScores(synset, typeToSynsets);
+    }
+
+    public Synset getSynsetOfNoun(String readableName) throws JWNLException {
+        String[] parts = readableName.split("\\.");
+        int idx = Integer.valueOf(parts[2]);
+        Synset synset = dictionary.lookupIndexWord(POS.NOUN, parts[0]).getSenses().get(idx - 1);
+
+        return synset;
+    }
+
+    public Synset getSynsetByOffset(String synsetOffsetPOS) throws JWNLException {
         String[] tokens = synsetOffsetPOS.split("_");
         POS synsetPOS = getPOS(tokens[1]);
         long synsetOffset = Long.parseLong(tokens[0]);
         Synset synset = dictionary.getSynsetAt(synsetPOS, synsetOffset);
-        return getTypeScores(synset, typeToSynsets);
+        return synset;
     }
 
     public static void main(String[] args) throws JWNLException, CloneNotSupportedException, IOException {

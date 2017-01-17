@@ -13,6 +13,7 @@ import edu.illinois.cs.cogcomp.finer.components.TriggerWordDetecter;
 import edu.illinois.cs.cogcomp.finer.components.filters.QuotationFilter;
 import edu.illinois.cs.cogcomp.finer.components.mention.BasicMentionDetection;
 import edu.illinois.cs.cogcomp.utils.PipelineUtils;
+import net.sf.extjwnl.JWNLException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -104,15 +105,11 @@ public class WebInterface {
 
 
     public static void main(String[] args) throws IOException,
-            AnnotatorException {
+            AnnotatorException, JWNLException {
 //        BasicAnnotatorService processor = getPipeline();
-        BasicMentionDetection mentionDetection = new BasicMentionDetection();
-        TriggerWordDetecter triggerWordDetecter = null;
-        QuotationFilter filter = new QuotationFilter();
-
 
         FinerAnnotator finerAnnotator = new FinerAnnotator(PipelineUtils
-                .readFinerTypes(""));
+                .readFinerTypes("resources/type_to_wordnet_senses.txt"));
         WebInterface webInterface = new WebInterface(null, finerAnnotator);
 
         externalStaticFileLocation("web");
