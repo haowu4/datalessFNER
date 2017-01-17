@@ -26,27 +26,27 @@ import java.util.Properties;
 public class Main {
 
     public static void visualizeView(TextAnnotation ta, String viewName) {
-    // prints the contents of a text annotation with bracketed notation for spanlabel views with sorted mutually exclusive spans.
-    SpanLabelView view = (SpanLabelView) ta.getView(viewName);
-    Iterator<Constituent> viewIterator = view.getConstituents().iterator();
-    Constituent constituent = null;
-    String[] tokens = ta.getTokens();
-    StringBuilder sb = new StringBuilder();
-    //System.out.println("entered show view");
-    for (int tokenId = 0; tokenId < tokens.length; tokenId++) {
-        if (constituent == null && viewIterator.hasNext())
-            constituent = viewIterator.next();
-        if (constituent != null && constituent.getStartSpan() == tokenId)
-            sb.append("[ ");
-        sb.append(tokens[tokenId]).append(" ");
-        if (constituent != null && constituent.getEndSpan()-1 == tokenId) {
-            sb.append(constituent.getLabel()).append("] ");
-            constituent = null;
+        // prints the contents of a text annotation with bracketed notation for spanlabel views with sorted mutually exclusive spans.
+        SpanLabelView view = (SpanLabelView) ta.getView(viewName);
+        Iterator<Constituent> viewIterator = view.getConstituents().iterator();
+        Constituent constituent = null;
+        String[] tokens = ta.getTokens();
+        StringBuilder sb = new StringBuilder();
+        //System.out.println("entered show view");
+        for (int tokenId = 0; tokenId < tokens.length; tokenId++) {
+            if (constituent == null && viewIterator.hasNext())
+                constituent = viewIterator.next();
+            if (constituent != null && constituent.getStartSpan() == tokenId)
+                sb.append("[ ");
+            sb.append(tokens[tokenId]).append(" ");
+            if (constituent != null && constituent.getEndSpan() - 1 == tokenId) {
+                sb.append(constituent.getLabel()).append("] ");
+                constituent = null;
+            }
         }
+        //System.out.println("done");
+        System.out.println(sb.toString());
     }
-    //System.out.println("done");
-    System.out.println(sb.toString());
-}
 
     public static void main(String[] args) throws IOException,
             AnnotatorException {
@@ -61,7 +61,7 @@ public class Main {
         props.setProperty(PipelineConfigurator.USE_NER_CONLL.key,
                 Configurator.TRUE);
         props.setProperty(PipelineConfigurator.USE_NER_ONTONOTES.key,
-                Configurator.TRUE);
+                Configurator.FALSE);
         props.setProperty(PipelineConfigurator.USE_STANFORD_PARSE.key,
                 Configurator.FALSE);
         props.setProperty(PipelineConfigurator.USE_STANFORD_DEP.key,
@@ -105,7 +105,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        if (processor == null){
+        if (processor == null) {
             System.exit(1);
         }
 
@@ -117,12 +117,10 @@ public class Main {
             TextAnnotation ta = processor.createAnnotatedTextAnnotation("",
                     "", line);
 
-            visualizeView(ta,ViewNames.SHALLOW_PARSE);
-            visualizeView(ta,ViewNames.NER_CONLL );
-            visualizeView(ta,ViewNames.NER_ONTONOTES);
+            visualizeView(ta, ViewNames.SHALLOW_PARSE);
+            visualizeView(ta, ViewNames.NER_CONLL);
+            visualizeView(ta, ViewNames.NER_ONTONOTES);
         }
-
-
 
 
     }
