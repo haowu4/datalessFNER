@@ -41,3 +41,5 @@ building.hotel	hotel.n.01
 building.hospital	hospital.n.01
 building.dam	dam.n.01
 building	facility.n.01	building.n.01
+computer.algorithm
+computer.programming_language
