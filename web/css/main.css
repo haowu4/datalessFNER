@@ -1,3 +1,16 @@
 /**
  * Created by haowu4 on 1/15/17.
  */
+.token{
+    margin-left: 5px;
+    font-size: 150%;
+
+}
+
+.selected-mention{
+    background-color: aqua;
+}
+
+.selected-trigger{
+    background-color: darkorange;
+}

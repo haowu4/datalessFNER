@@ -19,7 +19,7 @@ public class BaseTypes {
         if (isPerson) {
             return baseTypes.equals(PERSON);
         }
-        boolean isLoc = base.equals("location");
+        boolean isLoc = base.equals("location") || base.equals("building");
         if (isLoc) {
             return baseTypes.equals(LOCATION);
 

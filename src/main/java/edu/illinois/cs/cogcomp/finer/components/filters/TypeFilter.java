@@ -26,8 +26,6 @@ public class TypeFilter implements TriggerWordFilter {
             if (!BaseTypes.typeMatches(kv.getKey(), mentionType))
                 return false;
         }
-
         return true;
-
     }
 }
