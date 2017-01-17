@@ -174,7 +174,8 @@ public class WordNetUtils {
         return typeScores;
     }
 
-    private Map<String, Double> getTypeScores(String synsetOffsetPOS, Map<String, List<Synset>> typeToSynsets) throws JWNLException {
+    public Map<String, Double> getTypeScores(String synsetOffsetPOS,
+                                             Map<String, List<Synset>> typeToSynsets) throws JWNLException {
         String[] tokens = synsetOffsetPOS.split("_");
         POS synsetPOS = getPOS(tokens[1]);
         long synsetOffset = Long.parseLong(tokens[0]);
