@@ -10,17 +10,13 @@ import edu.illinois.cs.cogcomp.core.datastructures.textannotation
         .TextAnnotation;
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation.View;
 import edu.illinois.cs.cogcomp.finer.FinerAnnotator;
-import edu.illinois.cs.cogcomp.finer.components.TriggerWordDetecter;
-import edu.illinois.cs.cogcomp.finer.components.filters.QuotationFilter;
-import edu.illinois.cs.cogcomp.finer.components.mention.BasicMentionDetection;
 import edu.illinois.cs.cogcomp.utils.PipelineUtils;
 import net.sf.extjwnl.JWNLException;
+import org.apache.commons.io.FileUtils;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static edu.illinois.cs.cogcomp.utils.PipelineUtils.getPipeline;
@@ -89,7 +85,8 @@ public class WebInterface {
 
         public AnnotationResult(String[] tokens, List<Mention> wsds,
                                 List<Mention> mentions, List<Mention>
-                                        triggers, List<TriggerEdge> triggerEdges) {
+                                        triggers, List<TriggerEdge>
+                                        triggerEdges) {
             this.tokens = tokens;
             this.wsds = wsds;
             this.mentions = mentions;
@@ -104,8 +101,12 @@ public class WebInterface {
         List<TriggerEdge> triggerEdges = new ArrayList<>();
         for (Constituent c : view.getConstituents()) {
             if (c.getAttribute("type").equals("mention")) {
-                mentions.add(new Mention(c.getStartSpan(), c.getEndSpan(), c
-                        .getLabelsToScores()));
+                Mention m =
+                        new Mention(c.getStartSpan(), c.getEndSpan(), c
+                                .getLabelsToScores());
+                m.label = new HashMap<>();
+                m.label.put(c.getAttribute("coarse-type"), 1.0);
+                mentions.add(m);
             } else {
                 triggers.add(new Mention(c.getStartSpan(), c.getEndSpan(), c
                         .getLabelsToScores()));
@@ -113,9 +114,11 @@ public class WebInterface {
         }
 
         for (Relation r : view.getRelations()) {
-            Mention from = new Mention(r.getSource().getStartSpan(), r.getSource().getEndSpan(), r.getSource()
+            Mention from = new Mention(r.getSource().getStartSpan(), r
+                    .getSource().getEndSpan(), r.getSource()
                     .getLabelsToScores());
-            Mention to = new Mention(r.getTarget().getStartSpan(), r.getTarget().getEndSpan(), r.getTarget()
+            Mention to = new Mention(r.getTarget().getStartSpan(), r
+                    .getTarget().getEndSpan(), r.getTarget()
                     .getLabelsToScores());
             triggerEdges.add(new TriggerEdge(from, to));
         }
@@ -138,7 +141,8 @@ public class WebInterface {
         FinerAnnotator finerAnnotator = new FinerAnnotator(PipelineUtils
                 .readFinerTypes("resources/type_to_wordnet_senses.txt"));
         WebInterface webInterface = new WebInterface(processor, finerAnnotator);
-        processor.createAnnotatedTextAnnotation("", "", "This is a test sentence");
+        processor.createAnnotatedTextAnnotation("", "", "This is a test " +
+                "sentence");
         externalStaticFileLocation("web");
 
         String sentence = "Not content with bringing Rocky back to cinema " +
@@ -147,10 +151,18 @@ public class WebInterface {
                 "the third film in the series .";
 
         samples.add(sentence);
+
+        samples.addAll(FileUtils.readLines(new File("sample_data/finer_gen" +
+                ".txt")));
+
         Random random = new Random();
         get("/random", (request, response) -> {
             int i = random.nextInt(samples.size());
             return samples.get(i);
+        });
+
+        get("/rambo", (request, response) -> {
+            return sentence;
         });
 
         post("/annotate", (request, response) -> {

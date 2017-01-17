@@ -158,7 +158,7 @@ public class WordNetUtils {
         recurseBackward(synset, entitySynset, nt);
 
         int numPaths = nt.get(synset);
-        System.out.println("Number of paths = " + numPaths);
+//        System.out.println("Number of paths = " + numPaths);
 
         for (Synset countSynset : nt.keySet())
             synsetScores.put(countSynset, (double) nt.get(countSynset) * sn.get(countSynset) / numPaths);
