@@ -41,5 +41,10 @@ building.hotel	hotel.n.01
 building.hospital	hospital.n.01
 building.dam	dam.n.01
 building	facility.n.01	building.n.01
-computer.algorithm
-computer.programming_language
+computer.algorithm	algorithm.n.01
+computer.programming_language	programming_language.n.01
+news_agency	newspaper.n.02
+newspaper	newspaper.n.01
+government.government	government.n.01
+government.political_party	party.n.01
+government_agency	agency.n.01
