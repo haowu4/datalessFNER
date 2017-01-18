@@ -148,7 +148,9 @@ public class WordNetUtils {
     }
 
     private Map<Synset, Double> getSynsetScores(Synset synset) throws JWNLException {
-        assert synset.getPOS() == POS.NOUN;
+//        assert synset.getPOS() == POS.NOUN;
+        if (synset.getPOS() != POS.NOUN)
+            return new HashMap<>();
         Map<Synset, Double> synsetScores = new HashMap<>();
 
         Map<Synset, Integer> sn = new HashMap<>();
@@ -206,5 +208,8 @@ public class WordNetUtils {
 
     public static void main(String[] args) throws JWNLException, CloneNotSupportedException, IOException {
         WordNetUtils wordNetUtils = WordNetUtils.getInstance();
+
+        Synset quellSynset = wordNetUtils.getSynsets("quell", POS.VERB).get(0);
+        System.out.println(quellSynset.getPOS());
     }
 }

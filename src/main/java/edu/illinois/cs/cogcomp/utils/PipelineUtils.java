@@ -77,7 +77,8 @@ public class PipelineUtils {
 
         if (!new File(embeddingFile).exists()) {
             embeddingFile =
-                    "";
+                    "/shared/preprocessed/muddire2/Google/GoogleNews-vectors" +
+                            "-negative300.combined_500k.txt";
         }
 
         props.setProperty(
@@ -89,7 +90,7 @@ public class PipelineUtils {
 
         if (!new File(embeddingFile).exists()) {
             embeddingFile =
-                    "";
+                    "/shared/preprocessed/muddire2/Google/synset_embeddings_300.txt";
         }
 
         props.setProperty(
@@ -101,7 +102,7 @@ public class PipelineUtils {
 
         if (!new File(embeddingFile).exists()) {
             embeddingFile =
-                    "";
+                    "/shared/preprocessed/muddire2/Google/word_pos_to_synsets.txt";
         }
 
         props.setProperty(
