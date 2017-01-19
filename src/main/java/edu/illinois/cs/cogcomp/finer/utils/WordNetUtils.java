@@ -1,6 +1,5 @@
-package edu.illinois.cs.cogcomp.utils;
+package edu.illinois.cs.cogcomp.finer.utils;
 
-import edu.illinois.cs.cogcomp.core.datastructures.Pair;
 import net.sf.extjwnl.JWNLException;
 import net.sf.extjwnl.data.*;
 import net.sf.extjwnl.data.list.PointerTargetTree;

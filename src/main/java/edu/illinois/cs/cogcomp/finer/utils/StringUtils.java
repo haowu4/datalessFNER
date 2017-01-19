@@ -1,4 +1,4 @@
-package edu.illinois.cs.cogcomp.utils;
+package edu.illinois.cs.cogcomp.finer.utils;
 
 /**
  * Created by haowu4 on 1/10/17.

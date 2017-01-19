@@ -10,7 +10,7 @@ import edu.illinois.cs.cogcomp.core.datastructures.textannotation
         .TextAnnotation;
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation.View;
 import edu.illinois.cs.cogcomp.finer.FinerAnnotator;
-import edu.illinois.cs.cogcomp.utils.PipelineUtils;
+import edu.illinois.cs.cogcomp.finer.utils.PipelineUtils;
 import net.sf.extjwnl.JWNLException;
 import org.apache.commons.io.FileUtils;
 
@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static edu.illinois.cs.cogcomp.utils.PipelineUtils.getPipeline;
+import static edu.illinois.cs.cogcomp.finer.utils.PipelineUtils.getPipeline;
 import static spark.Spark.*;
 
 /**

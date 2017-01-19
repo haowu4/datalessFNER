@@ -1,4 +1,4 @@
-package edu.illinois.cs.cogcomp.utils;
+package edu.illinois.cs.cogcomp.finer.utils;
 
 import edu.illinois.cs.cogcomp.annotation.AnnotatorException;
 import edu.illinois.cs.cogcomp.annotation.AnnotatorServiceConfigurator;
@@ -6,7 +6,6 @@ import edu.illinois.cs.cogcomp.annotation.BasicAnnotatorService;
 import edu.illinois.cs.cogcomp.core.datastructures.ViewNames;
 import edu.illinois.cs.cogcomp.core.utilities.configuration.Configurator;
 import edu.illinois.cs.cogcomp.core.utilities.configuration.ResourceManager;
-import edu.illinois.cs.cogcomp.finer.FinerAnnotator;
 import edu.illinois.cs.cogcomp.finer.datastructure.FineNerType;
 import edu.illinois.cs.cogcomp.pipeline.main.PipelineFactory;
 import edu.illinois.cs.cogcomp.wsd.annotators.WordSenseAnnotator;

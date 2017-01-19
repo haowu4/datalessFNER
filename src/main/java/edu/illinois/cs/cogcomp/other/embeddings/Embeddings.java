@@ -1,4 +1,4 @@
-package edu.illinois.cs.cogcomp.embeddings;
+package edu.illinois.cs.cogcomp.other.embeddings;
 
 import java.io.*;
 import java.util.*;

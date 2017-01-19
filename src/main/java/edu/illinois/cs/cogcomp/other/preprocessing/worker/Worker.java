@@ -1,4 +1,4 @@
-package edu.illinois.cs.cogcomp.preprocessing.worker;
+package edu.illinois.cs.cogcomp.other.preprocessing.worker;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
@@ -13,7 +13,7 @@ import edu.illinois.cs.cogcomp.core.utilities.configuration.Configurator;
 import edu.illinois.cs.cogcomp.core.utilities.configuration.ResourceManager;
 import edu.illinois.cs.cogcomp.pipeline.common.PipelineConfigurator;
 import edu.illinois.cs.cogcomp.pipeline.main.PipelineFactory;
-import edu.illinois.cs.cogcomp.preprocessing.GenerateData;
+import edu.illinois.cs.cogcomp.other.preprocessing.GenerateData;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -22,7 +22,7 @@ import java.util.Properties;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static edu.illinois.cs.cogcomp.preprocessing.GenerateData.GSON;
+import static edu.illinois.cs.cogcomp.other.preprocessing.GenerateData.GSON;
 
 /**
  * Created by haowu4 on 1/10/17.

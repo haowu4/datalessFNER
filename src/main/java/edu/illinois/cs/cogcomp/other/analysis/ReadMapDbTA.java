@@ -1,4 +1,4 @@
-package edu.illinois.cs.cogcomp.analysis;
+package edu.illinois.cs.cogcomp.other.analysis;
 
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation.Constituent;
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation
@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static edu.illinois.cs.cogcomp.utils.ZipUtils.decompress;
+import static edu.illinois.cs.cogcomp.finer.utils.ZipUtils.decompress;
 
 /**
  * Created by haowu4 on 1/18/17.
