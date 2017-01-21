@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface Extractor {
     List<String> extract(TextAnnotation ta, Constituent mention);
+    public String getName();
 }

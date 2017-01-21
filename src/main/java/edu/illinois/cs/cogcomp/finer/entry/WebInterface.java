@@ -152,7 +152,7 @@ public class WebInterface {
 
         samples.add(sentence);
 
-        samples.addAll(FileUtils.readLines(new File("sample_data/finer_gen" +
+        samples.addAll(FileUtils.readLines(new File("sample_data/annotation" +
                 ".txt")));
 
         Random random = new Random();
