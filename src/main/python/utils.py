@@ -1,8 +1,13 @@
+# -*- coding: utf-8 -*-
+
 import sys
 import codecs
 import numpy as np
 from nltk.corpus import wordnet as wn
 import pdb
+
+
+quotes = {"\"", "“", "”"}
 
 
 def read_embeddings(feature_embeddings_file):
@@ -48,6 +53,20 @@ def read_synset_embeddings(synset_offset_pos_embeddings_file, only_noun=True):
         synset2index[synset] = len(synset_embeddings)
         synset_embeddings.append(embedding)
     return synset2index, synset_embeddings
+
+
+def span_tuple1_covers_span_tuple2(span_tuple1, span_tuple2):
+    start1, end1 = span_tuple1
+    start2, end2 = span_tuple2
+    return start1 <= start2 and end1 >= end2
+
+
+def fine_type_to_ontonote_types(fine_type):
+    # validate this with statistics
+    if fine_type.startswith("person"):
+        return ["PERSON"]
+    if fine_type.startswith("building"):
+        return ["ORG", "FACILITY"]
 
 
 def get_size(obj, seen=None):
