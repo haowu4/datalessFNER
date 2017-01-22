@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import os
-import spacy
 
+import config
+import spacy
 from nsd_annotator import NounSenseAnnotator, AverageEmbeddingNSD
 from sense_typer import SynsetFineTyper
 from utils import quotes
-import config
 
 
 def distance_filter(doc, mention_span_tuple, trigger_tuples, max_distance=5):

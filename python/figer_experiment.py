@@ -1,9 +1,8 @@
-import json
 import codecs
-import spacy
+import json
 
-from fine_type_annotator import get_nlp_with_fine_annotator
 import config
+from fine_type_annotator import get_nlp_with_fine_annotator
 
 GOLD_MENTION_VIEW = "gold_mention_view"
 

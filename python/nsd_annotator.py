@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
-import os
 import cPickle as pickle
+import os
+
+import config
+import numpy as np
 import spacy
 from nltk.corpus import wordnet as wn, stopwords
-import numpy as np
-
 from utils import read_embeddings, syn_to_offset_pos
-import config
 
 
 class AverageEmbeddingNSD(object):

@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import os
 import codecs
-from nltk.corpus import wordnet as wn, stopwords
 
-from utils import syn_from_offset_pos
 import config
+from nltk.corpus import wordnet as wn
+from utils import syn_from_offset_pos
 
 
 class SynsetFineTyper(object):
