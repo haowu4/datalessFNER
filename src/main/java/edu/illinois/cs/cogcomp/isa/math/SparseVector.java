@@ -19,8 +19,10 @@ public class SparseVector {
     }
 
     public List<Entry> entries;
+    public int dim;
 
-    public SparseVector() {
+    public SparseVector(int d) {
+        this.dim = d;
         this.entries = new ArrayList<>();
     }
 

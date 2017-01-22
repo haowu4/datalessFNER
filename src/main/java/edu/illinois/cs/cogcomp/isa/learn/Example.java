@@ -8,4 +8,9 @@ import edu.illinois.cs.cogcomp.isa.math.SparseVector;
 public class Example {
     public SparseVector x;
     public int y;
+
+    public Example(SparseVector x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 }
