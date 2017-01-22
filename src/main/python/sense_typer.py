@@ -5,6 +5,7 @@ import codecs
 from nltk.corpus import wordnet as wn, stopwords
 
 from utils import syn_from_offset_pos
+import config
 
 
 class SynsetFineTyper(object):
@@ -75,6 +76,4 @@ class SynsetFineTyper(object):
 if __name__ == '__main__':
     # unit test
 
-    project_root = "./"
-    fine_type_to_synset_file = os.path.join(project_root, "resources", "type_to_wordnet_senses.txt")
-    finetyper = SynsetFineTyper(fine_type_to_synset_file)
+    finetyper = SynsetFineTyper(config.fine_type_to_synset_file)

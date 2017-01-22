@@ -7,6 +7,7 @@ from nltk.corpus import wordnet as wn, stopwords
 import numpy as np
 
 from utils import read_embeddings, syn_to_offset_pos
+import config
 
 
 class AverageEmbeddingNSD(object):
@@ -132,19 +133,13 @@ class NounSenseAnnotator(object):
 
 if __name__ == '__main__':
 
-    embeddings_path = \
-        "/shared/preprocessed/muddire2/Google/GoogleNews-vectors-negative300.combined_500k.txt"
-    synset_offset_pos_embeddings_path = \
-        "/shared/preprocessed/muddire2/Google/synset_embeddings_300.txt"
-
-    nsd_cache_path = "./cache/nsd.pkl"
     nsd = None
-    if os.path.isfile(nsd_cache_path):
+    if os.path.isfile(config.nsd_cache_path):
         try:
-            nsd = AverageEmbeddingNSD.load_from_pickle(nsd_cache_path)
+            nsd = AverageEmbeddingNSD.load_from_pickle(config.nsd_cache_path)
         except:
-            print("Encountered error while loading pickle from " + nsd_cache_path)
-    nsd = nsd if nsd else AverageEmbeddingNSD(embeddings_path, synset_offset_pos_embeddings_path)
+            print("Encountered error while loading pickle from " + config.nsd_cache_path)
+    nsd = nsd if nsd else AverageEmbeddingNSD(config.embeddings_path, config.synset_offset_pos_embeddings_path)
 
     def create_pipeline(nlp):
         return [nlp.tagger, nlp.entity, nlp.parser, NounSenseAnnotator(nsd)]
