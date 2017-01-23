@@ -41,6 +41,16 @@ public class BaseTypes {
         }
     }
 
+    public static String toFineType(String t) {
+        if (maps.containsKey(t)){
+            return maps.get(t).iterator().next();
+        }else {
+            System.err.println("UNK type: " + t);
+            return t;
+        }
+
+    }
+
     public static boolean typeMatches(String finerType, String baseTypes) {
         String finebase = finerType;
         if (finerType.contains(".")) {
