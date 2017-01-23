@@ -77,20 +77,17 @@ public class FigerEval {
         FinerAnnotator finerAnnotator = new FinerAnnotator(PipelineUtils
                 .readFinerTypes("resources/type_to_wordnet_senses.txt"));
 
-        finerAnnotator.setMentionDetecter(new MentionDetecter() {
-            @Override
-            public List<Constituent> getMentionCandidates(Sentence sentence) {
-                View ner = sentence.getView("ONTONOTE-TYPE");
-                List<Constituent> ret = new ArrayList<>();
-                for (Constituent c : ner.getConstituents()) {
-                    Constituent mention = new Constituent("mention", "finer-mention", c
-                            .getTextAnnotation
-                                    (), c.getStartSpan(), c.getEndSpan());
-                    mention.addAttribute("coarse-type", c.getLabel());
-                    ret.add(mention);
-                }
-                return ret;
+        finerAnnotator.setMentionDetecter(sentence -> {
+            View ner = sentence.getView("ONTONOTE-TYPE");
+            List<Constituent> ret = new ArrayList<>();
+            for (Constituent c : ner.getConstituents()) {
+                Constituent mention = new Constituent("mention", "finer-mention", c
+                        .getTextAnnotation
+                                (), c.getStartSpan(), c.getEndSpan());
+                mention.addAttribute("coarse-type", c.getLabel());
+                ret.add(mention);
             }
+            return ret;
         });
 
         Gson gson = new GsonBuilder().create();
