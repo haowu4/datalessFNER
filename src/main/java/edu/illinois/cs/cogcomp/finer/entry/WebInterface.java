@@ -117,7 +117,6 @@ public class WebInterface {
 //                    lbs.put(toFineType(c.getLabel()), 1.0);
 //                }
 
-
                 Mention m =
                         new Mention(c.getStartSpan(), c.getEndSpan(), null);
                 m.label = new HashMap<>();
