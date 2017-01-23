@@ -9,20 +9,19 @@ import edu.illinois.cs.cogcomp.core.datastructures.textannotation
 
 import edu.illinois.cs.cogcomp.core.utilities.SerializationHelper;
 import edu.illinois.cs.cogcomp.finer.FinerAnnotator;
-import edu.illinois.cs.cogcomp.preprocessing.dumper.Dumper;
-import edu.illinois.cs.cogcomp.utils.PipelineUtils;
+import edu.illinois.cs.cogcomp.finer.utils.PipelineUtils;
 import net.sf.extjwnl.JWNLException;
+import org.apache.commons.io.IOUtils;
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
 import org.mapdb.HTreeMap;
 import org.mapdb.Serializer;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-import static edu.illinois.cs.cogcomp.utils.PipelineUtils.getPipeline;
+import static edu.illinois.cs.cogcomp.finer.utils.PipelineUtils.getPipeline;
 
 /**
  * Created by haowu4 on 1/17/17.
@@ -30,11 +29,13 @@ import static edu.illinois.cs.cogcomp.utils.PipelineUtils.getPipeline;
 public class AnnotationFiles {
     public static class AnnotationFilesParameters {
         @Parameter(names = "-input")
-        public String input;
+        public String input = "/home/haowu4/data/1blm/text/train/news.en-00001-of-00100";
         @Parameter(names = "-output")
-        public String output;
+        public String output = "/tmp/dumps";
         @Parameter(names = "-limit")
-        public int limit = 50000;
+        public int limit = 5000000;
+        @Parameter(names = "-offset")
+        public int offset = 0;
     }
 
     private AnnotationFilesParameters parameters;
@@ -67,6 +68,7 @@ public class AnnotationFiles {
 
     public void annotateAndSave(String id, String text) throws
             Exception {
+
         TextAnnotation ta = processor.createAnnotatedTextAnnotation("", id,
                 text);
         finerAnnotator.addView(ta);
@@ -74,62 +76,70 @@ public class AnnotationFiles {
             return;
         }
 
-        String json = SerializationHelper.serializeToJson(ta);
-        store.put(id, gzip(json));
+        byte[] blob = compress(SerializationHelper.serializeTextAnnotationToBytes(ta));
+        store.put(id, blob);
+//        TextAnnotation recovered = SerializationHelper.deserializeTextAnnotationFromBytes(decompress(blob));
+        counter++;
 
-    }
+        if (counter % 50000 == 0) {
+            db.commit();
+            store.close();
+            db.close();
+            System.out.println("New DB made..");
+            db = DBMaker
+                    .fileDB(String.format("%s_%d", parameters.output, (counter / 50000)))
+                    .closeOnJvmShutdown()
+                    .make();
 
-    private static String ungzip(byte[] bytes) throws Exception {
-
-        InputStreamReader isr = new InputStreamReader(new GZIPInputStream(new
-                ByteArrayInputStream(bytes)), StandardCharsets.UTF_8);
-
-        StringWriter sw = new StringWriter();
-
-        char[] chars = new char[1024];
-
-        for (int len; (len = isr.read(chars)) > 0; ) {
-            sw.write(chars, 0, len);
+            store = db.hashMap("annotated")
+                    .keySerializer(Serializer.STRING)
+                    .valueSerializer(Serializer.BYTE_ARRAY)
+                    .createOrOpen();
         }
-        return sw.toString();
 
     }
 
-
-    private static byte[] gzip(String s) throws Exception {
-
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        GZIPOutputStream gzip = new GZIPOutputStream(bos);
-        OutputStreamWriter osw = new OutputStreamWriter(gzip,
-                StandardCharsets.UTF_8);
-
-        osw.write(s);
-        osw.close();
-        return bos.toByteArray();
-
+    public static byte[] compress(byte[] content) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try {
+            GZIPOutputStream gzipOutputStream = new GZIPOutputStream(byteArrayOutputStream);
+            gzipOutputStream.write(content);
+            gzipOutputStream.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return byteArrayOutputStream.toByteArray();
     }
+
+    public static byte[] decompress(byte[] contentBytes) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try {
+            IOUtils.copy(new GZIPInputStream(new ByteArrayInputStream(contentBytes)), out);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return out.toByteArray();
+    }
+
 
     public void startProcess() {
+        int lineCounter = 0;
+
         try (BufferedReader br = new BufferedReader(new FileReader(parameters
                 .input))) {
             String line;
-            int lineCounter = 0;
             while ((line = br.readLine()) != null) {
                 lineCounter++;
+                if (lineCounter < parameters.offset) {
+                    continue;
+                }
                 annotateAndSave(lineCounter + "", line);
 
-                System.out.println(String.format("L" +
+                System.out.print(String.format("L" +
                         "ine processed with " +
                         "annotation %d/%d \r", counter, lineCounter));
                 if (lineCounter > parameters.limit) {
-                    db.commit();
-                    store.close();
-                    db.close();
-                    System.out.println(String.format("L" +
-                            "ine processed with " +
-                            "annotation %d/%d \n", counter, lineCounter));
-                    System.out.println("Finished ");
-                    System.exit(0);
+                    break;
                 }
             }
         } catch (IOException e) {
@@ -138,6 +148,14 @@ public class AnnotationFiles {
             e.printStackTrace();
         }
 
+        db.commit();
+        store.close();
+        db.close();
+        System.out.println(String.format("L" +
+                "ine processed with " +
+                "annotation %d/%d \n", counter, lineCounter));
+        System.out.println("Finished ");
+        System.exit(0);
     }
 
 

@@ -10,7 +10,7 @@ import edu.illinois.cs.cogcomp.core.datastructures.textannotation
         .TextAnnotation;
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation.View;
 import edu.illinois.cs.cogcomp.finer.FinerAnnotator;
-import edu.illinois.cs.cogcomp.utils.PipelineUtils;
+import edu.illinois.cs.cogcomp.finer.utils.PipelineUtils;
 import net.sf.extjwnl.JWNLException;
 import org.apache.commons.io.FileUtils;
 
@@ -19,7 +19,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static edu.illinois.cs.cogcomp.utils.PipelineUtils.getPipeline;
+import static edu.illinois.cs.cogcomp.finer.datastructure.BaseTypes.toFineType;
+import static edu.illinois.cs.cogcomp.finer.utils.PipelineUtils.getPipeline;
 import static spark.Spark.*;
 
 /**
@@ -96,16 +97,30 @@ public class WebInterface {
     }
 
     public static AnnotationResult getResult(View view) {
+        return getResult(view, false);
+    }
+
+
+    public static AnnotationResult getResult(View view, boolean includeWsd) {
         List<Mention> mentions = new ArrayList<>();
         List<Mention> triggers = new ArrayList<>();
         List<TriggerEdge> triggerEdges = new ArrayList<>();
         for (Constituent c : view.getConstituents()) {
             if (c.getAttribute("type").equals("mention")) {
+//                Map<String, Double> lbs = new HashMap<>();
+//                try {
+//                    for (Map.Entry<String, Double> e : c.getLabelsToScores().entrySet()) {
+//                        lbs.put(toFineType(e.getKey()), e.getValue());
+//                    }
+//                } catch (NullPointerException e) {
+//                    System.err.println(c);
+//                    lbs.put(toFineType(c.getLabel()), 1.0);
+//                }
+
                 Mention m =
-                        new Mention(c.getStartSpan(), c.getEndSpan(), c
-                                .getLabelsToScores());
+                        new Mention(c.getStartSpan(), c.getEndSpan(), null);
                 m.label = new HashMap<>();
-                m.label.put(c.getAttribute("coarse-type"), 1.0);
+                m.label.put(toFineType(c.getAttribute("coarse-type")), 1.0);
                 mentions.add(m);
             } else {
                 triggers.add(new Mention(c.getStartSpan(), c.getEndSpan(), c
@@ -122,11 +137,14 @@ public class WebInterface {
                     .getLabelsToScores());
             triggerEdges.add(new TriggerEdge(from, to));
         }
+        List<Mention> wsds = new ArrayList<>();
+        if (includeWsd) {
+            wsds = view.getTextAnnotation().getView("SENSE")
+                    .getConstituents().stream()
+                    .map(c -> new Mention(c.getStartSpan(), c.getEndSpan(), c
+                            .getLabelsToScores())).collect(Collectors.toList());
 
-        List<Mention> wsds = view.getTextAnnotation().getView("SENSE")
-                .getConstituents().stream()
-                .map(c -> new Mention(c.getStartSpan(), c.getEndSpan(), c
-                        .getLabelsToScores())).collect(Collectors.toList());
+        }
 
         return new AnnotationResult(view.getTextAnnotation().getTokens(), wsds,
                 mentions, triggers, triggerEdges);

@@ -4,9 +4,7 @@ import edu.illinois.cs.cogcomp.core.datastructures.textannotation.Constituent;
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation.Sentence;
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation.View;
 import edu.illinois.cs.cogcomp.finer.components.TriggerWordDetecter;
-import edu.illinois.cs.cogcomp.finer.datastructure.FineNerType;
-import edu.illinois.cs.cogcomp.utils.WordNetUtils;
-import edu.illinois.cs.cogcomp.wsd.Constants;
+import edu.illinois.cs.cogcomp.finer.utils.WordNetUtils;
 import net.sf.extjwnl.JWNLException;
 import net.sf.extjwnl.data.Synset;
 

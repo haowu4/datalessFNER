@@ -1,4 +1,4 @@
-package edu.illinois.cs.cogcomp.preprocessing.dumper;
+package edu.illinois.cs.cogcomp.other.preprocessing.dumper;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
@@ -14,8 +14,6 @@ import org.mapdb.Serializer;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.concurrent.TimeoutException;
-
-import static edu.illinois.cs.cogcomp.preprocessing.GenerateData.GSON;
 
 /**
  * Created by haowu4 on 1/10/17.

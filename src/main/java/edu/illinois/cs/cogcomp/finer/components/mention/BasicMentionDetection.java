@@ -17,19 +17,19 @@ import java.util.List;
 public class BasicMentionDetection implements MentionDetecter {
     public static String getLabel(String conllTypeString) {
         if (conllTypeString.equals("PER")) {
-            return BaseTypes.PERSON;
+            return "person";
         }
 
         if (conllTypeString.equals("ORG")) {
-            return BaseTypes.ORGANIZATION;
+            return "organization";
         }
 
         if (conllTypeString.equals("LOC")) {
-            return BaseTypes.LOCATION;
+            return "location";
         }
 
         if (conllTypeString.equals("MISC")) {
-            return BaseTypes.OTHER;
+            return "other";
         }
 
         throw new RuntimeException("Unknown types : " + conllTypeString);

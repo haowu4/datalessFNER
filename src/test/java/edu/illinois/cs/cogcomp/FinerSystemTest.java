@@ -1,25 +1,18 @@
 package edu.illinois.cs.cogcomp;
 
 import edu.illinois.cs.cogcomp.annotation.AnnotatorException;
-import edu.illinois.cs.cogcomp.annotation.AnnotatorServiceConfigurator;
 import edu.illinois.cs.cogcomp.annotation.BasicAnnotatorService;
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation.Constituent;
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation
         .TextAnnotation;
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation.View;
-import edu.illinois.cs.cogcomp.core.utilities.configuration.Configurator;
-import edu.illinois.cs.cogcomp.core.utilities.configuration.ResourceManager;
 import edu.illinois.cs.cogcomp.finer.FinerAnnotator;
-import edu.illinois.cs.cogcomp.pipeline.main.PipelineFactory;
-import edu.illinois.cs.cogcomp.utils.PipelineUtils;
-import edu.illinois.cs.cogcomp.wsd.annotators.WordSenseAnnotator;
+import edu.illinois.cs.cogcomp.finer.utils.PipelineUtils;
 import net.sf.extjwnl.JWNLException;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Properties;
 
-import static edu.illinois.cs.cogcomp.utils.PipelineUtils.getPipeline;
+import static edu.illinois.cs.cogcomp.finer.utils.PipelineUtils.getPipeline;
 
 /**
  * Created by haowu4 on 1/15/17.

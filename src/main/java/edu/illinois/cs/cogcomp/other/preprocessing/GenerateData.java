@@ -1,4 +1,4 @@
-package edu.illinois.cs.cogcomp.preprocessing;
+package edu.illinois.cs.cogcomp.other.preprocessing;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
@@ -9,35 +9,19 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.MessageProperties;
 import edu.illinois.cs.cogcomp.annotation.AnnotatorException;
-import edu.illinois.cs.cogcomp.annotation.AnnotatorServiceConfigurator;
-import edu.illinois.cs.cogcomp.annotation.BasicAnnotatorService;
-import edu.illinois.cs.cogcomp.core.datastructures.textannotation
-        .TextAnnotation;
-import edu.illinois.cs.cogcomp.core.utilities.SerializationHelper;
-import edu.illinois.cs.cogcomp.core.utilities.configuration.Configurator;
-import edu.illinois.cs.cogcomp.core.utilities.configuration.ResourceManager;
-import edu.illinois.cs.cogcomp.curator.CuratorDataStructureInterface;
-import edu.illinois.cs.cogcomp.pipeline.common.PipelineConfigurator;
-import edu.illinois.cs.cogcomp.pipeline.main.PipelineFactory;
-import edu.illinois.cs.cogcomp.thrift.base.Labeling;
 import edu.illinois.cs.cogcomp.thrift.curator.Record;
 import org.apache.commons.io.FileUtils;
 import org.apache.thrift.TDeserializer;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TBinaryProtocol;
-import org.mapdb.DB;
-import org.mapdb.DBMaker;
-import org.mapdb.HTreeMap;
-import org.mapdb.Serializer;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
-import java.util.Properties;
 import java.util.concurrent.TimeoutException;
 
-import static edu.illinois.cs.cogcomp.utils.StringUtils.pad;
+import static edu.illinois.cs.cogcomp.finer.utils.StringUtils.pad;
 
 
 /**

@@ -1,4 +1,4 @@
-package edu.illinois.cs.cogcomp.utils;
+package edu.illinois.cs.cogcomp.finer.utils;
 
 import org.apache.commons.io.IOUtils;
 
