@@ -13,6 +13,19 @@ public class Perceptron implements Model {
     private DenseVector weight;
     private float learnRate;
 
+    public Perceptron(int d) {
+        this(new DenseVector(d), 0.2f);
+    }
+
+    public Perceptron(int d, float lr) {
+        this(new DenseVector(d), lr);
+    }
+
+    public Perceptron(DenseVector weight, float learnRate) {
+        this.weight = weight;
+        this.learnRate = learnRate;
+    }
+
     @Override
     public void fit(List<Example> exampleList) {
         for (Example e : exampleList) {
@@ -29,4 +42,5 @@ public class Perceptron implements Model {
     public int predict(SparseVector v) {
         return weight.dot(v) > 0 ? 1 : 0;
     }
+
 }

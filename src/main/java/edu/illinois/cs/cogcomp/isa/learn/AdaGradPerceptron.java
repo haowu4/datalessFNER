@@ -14,6 +14,12 @@ public class AdaGradPerceptron implements Model {
     private DenseVector g;
     private float learnRate;
 
+    public AdaGradPerceptron(int dim, float v) {
+        this.weight = new DenseVector(dim);
+        this.g = new DenseVector(dim);
+        this.learnRate = v;
+    }
+
     @Override
     public void fit(List<Example> exampleList) {
         for (Example e : exampleList) {

@@ -1,7 +1,8 @@
 package edu.illinois.cs.cogcomp.isa;
 
 import edu.illinois.cs.cogcomp.core.datastructures.textannotation.Constituent;
-import edu.illinois.cs.cogcomp.core.datastructures.textannotation.TextAnnotation;
+import edu.illinois.cs.cogcomp.core.datastructures.textannotation
+        .TextAnnotation;
 
 /**
  * Created by hao on 1/18/17.
