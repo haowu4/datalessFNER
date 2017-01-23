@@ -40,7 +40,9 @@ public class FigerEval {
 
     public static List<TextAnnotation> loadFigerData() throws IOException, AnnotatorException {
         Gson gson = new GsonBuilder().create();
-        List<String> jsontext = FileUtils.readLines(new File("/home/hao/data/figer/ontonote_annotated_line.json"), Charset.defaultCharset());
+        List<String> jsontext = FileUtils.readLines(new File
+                ("/home/haowu4/data/figer/ontonote_annotated_line.json"),
+                Charset.defaultCharset());
         List<FigerMentions> lfs = jsontext.stream()
                 .filter(t -> !t.isEmpty())
                 .map(t -> gson.fromJson(t, FigerMentions.class))
