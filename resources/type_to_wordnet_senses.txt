@@ -4,14 +4,14 @@ person.engineer	engineer.n.01	engineer.n.02
 person.actor	actor.n.01
 person.musician	musician.n.01	musician.n.02
 person.director	film_director.n.01	conductor.n.01
-person.athlete	athlete.n.01
+person.athlete	athlete.n.01	player.n.01
 person.doctor	medical_practitioner.n.01
 person.soldier	serviceman.n.01
 person.coach	coach.n.01
 person.architect	architect.n.01
 person.terrorist	terrorist.n.01
 person.monarch	sovereign.n.01
-person.politician	politician.n.01	politician.n.02
+person.politician	politician.n.01	politician.n.02	head_of_state.n.01	-sovereign.n.01
 person	person.n.01
 music	music.n.01	music.n.02	music.n.03	music.n.04	album.n.01
 game	game.n.01	game.n.02	game.n.03
@@ -40,7 +40,7 @@ building.theater	theater.n.01
 building.hotel	hotel.n.01
 building.hospital	hospital.n.01
 building.dam	dam.n.01
-building	facility.n.01	building.n.01
+building	facility.n.01	building.n.01	structure.n.01
 computer.algorithm	algorithm.n.01
 computer.programming_language	programming_language.n.01
 news_agency	newspaper.n.02
@@ -48,3 +48,9 @@ newspaper	newspaper.n.01
 government.government	government.n.01
 government.political_party	party.n.01
 government_agency	agency.n.01
+written_work	publication.n.01	writing.n.01
+disease	disease.n.01
+drug	drug.n.01
+medicine.medical_treatment
+body_part	body_part.n.01
+medicine.symptom	physical_condition.n.01	symptom.n.01
