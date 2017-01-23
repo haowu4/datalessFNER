@@ -45,6 +45,26 @@ public class FinerAnnotator extends Annotator {
         }
     }
 
+    public void setMentionDetecter(MentionDetecter mentionDetecter) {
+        this.mentionDetecter = mentionDetecter;
+    }
+
+    public void setTriggerWordDetecter(TriggerWordDetecter triggerWordDetecter) {
+        this.triggerWordDetecter = triggerWordDetecter;
+    }
+
+    public void setTriggerWordFilters(List<TriggerWordFilter> triggerWordFilters) {
+        this.triggerWordFilters = triggerWordFilters;
+    }
+
+    public void setPruner(TriggerMentionPruner pruner) {
+        this.pruner = pruner;
+    }
+
+    public void setExtractTypes(Map<String, List<Synset>> extractTypes) {
+        this.extractTypes = extractTypes;
+    }
+
     /**
      * @param ta Input TextAnnotation object should have POS, chunker,
      *           NER-conll,

@@ -13,7 +13,6 @@ person.terrorist	terrorist.n.01
 person.monarch	sovereign.n.01
 person.politician	politician.n.01	politician.n.02	head_of_state.n.01	-sovereign.n.01
 person	person.n.01
-music	music.n.01	music.n.02	music.n.03	music.n.04	album.n.01
 game	game.n.01	game.n.02	game.n.03
 location.county	county.n.01	county.n.02	district.n.01
 location.province	state.n.01
@@ -21,11 +20,11 @@ location.city	city.n.01	city.n.02	city.n.03
 location.country	state.n.04	country.n.02	nation.n.02
 location.cemetery	cemetery.n.01
 location.body_of_water	body_of_water.n.01
-location.bridge	bridge.n.01	
+location.bridge	bridge.n.01
 location	location.n.01
 organization.fraternity_sorority	fraternity.n.01	sorority.n.01
 organization.terrorist_organization	terrorist_organization.n.01
-organization.sports_league	league.n.01	
+organization.sports_league	league.n.01
 organization.airline	airline.n.02
 organization.sports_team	team.n.01
 organization.educational_institution	educational_institution.n.01
@@ -45,12 +44,12 @@ computer.algorithm	algorithm.n.01
 computer.programming_language	programming_language.n.01
 news_agency	newspaper.n.02
 newspaper	newspaper.n.01
-government.government	government.n.01
-government.political_party	party.n.01
-government_agency	agency.n.01
+organization.government.government	government.n.01
+organization.government.political_party	party.n.01
+organization.government_agency	agency.n.01
 written_work	publication.n.01	writing.n.01
+art.music	music.n.01	music.n.02	music.n.03	music.n.04	album.n.01
 disease	disease.n.01
 drug	drug.n.01
-medicine.medical_treatment
 body_part	body_part.n.01
 medicine.symptom	physical_condition.n.01	symptom.n.01
