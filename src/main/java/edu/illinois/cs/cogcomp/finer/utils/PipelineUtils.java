@@ -123,7 +123,7 @@ public class PipelineUtils {
         List<FineNerType> types = new ArrayList<>();
         List<String> typeStrs = FileUtils.readLines(new File(file));
         for (String s : typeStrs) {
-            String[] parts = s.split("\t");
+            String[] parts = s.split("\\t");
             String typName = parts[0];
             String[] senseNames = parts[1].split(" ");
             List<Synset> synsets = new ArrayList<>();

@@ -1,0 +1,10 @@
+PERSON	person
+OPG	organization
+GPE	location
+LOC	location
+DATE	time
+FAC	building
+EVENT	event
+WORK_OF_ART	art
+PRODUCT	product
+LAW	law

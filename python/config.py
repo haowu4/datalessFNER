@@ -5,6 +5,7 @@ embeddings_path = "/home/haowu4/data/autoextend/GoogleNews-vectors-negative300.c
 synset_offset_pos_embeddings_path = "/home/haowu4/data/autoextend/synset_embeddings_300.txt"
 
 project_root = "/home/haowu4/codes/dataless_finer"
+project_root = "//home/haowu4/codes/datalessFNER"
 
 fine_type_to_synset_file = os.path.join(project_root, "resources", "type_to_wordnet_senses.txt")
 nsd_cache_path = os.path.join(project_root, "cache/nsd.pkl")
