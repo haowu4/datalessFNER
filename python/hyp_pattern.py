@@ -138,7 +138,7 @@ class HypPatterns(object):
 
     def __init__(self, nlp):
         self.strings = nlp.vocab.strings
-        self.paths = {}
+        self._patterns = {}
         self.init_patterns()
 
     def add_prep_of_to_path(self, path, pre=True):
@@ -165,8 +165,8 @@ class HypPatterns(object):
                               symbols.amod, Direction.OUT, True, None)] ]
         path.append(Step(self._noun_targets, symbols.pobj, Direction.OUT, True, constraints))
 
-        self.paths["hearst1"] = path
-        self.paths["hearst1_of"] = self.add_prep_of_to_path(path)
+        self._patterns["hearst1"] = path
+        self._patterns["hearst1_of"] = self.add_prep_of_to_path(path)
 
         # hearst2
         # {Presidents} like [Obama] (and) [Bush]
@@ -175,8 +175,8 @@ class HypPatterns(object):
                          symbols.prep, Direction.OUT, True, None))
         path.append(Step(self._noun_targets, symbols.pobj, Direction.OUT, True, None))
 
-        self.paths["hearst2"] = path
-        self.paths["hearst2_of"] = self.add_prep_of_to_path(path)
+        self._patterns["hearst2"] = path
+        self._patterns["hearst2_of"] = self.add_prep_of_to_path(path)
 
         # hearst3
         # Obama (and) other {presidents}
@@ -185,7 +185,7 @@ class HypPatterns(object):
                               symbols.amod, Direction.OUT, True, None)] ]
         path.append(Step(None, Node, None, True, constraints))
         path.append(Step(self._noun_targets, symbols.conj, Direction.IN, True, None))
-        self.paths["hearst3"] = path
+        self._patterns["hearst3"] = path
 
         # hearst4
         # {Presidents} including [Obama] (and) [Bush]
@@ -202,8 +202,8 @@ class HypPatterns(object):
                          symbols.prep, Direction.OUT, True, None))
         path.append(Step(self._noun_targets, symbols.pobj, Direction.OUT, True, None))
 
-        self.paths["hearst4"] = path
-        self.paths["hearst4_of"] = self.add_prep_of_to_path(path)
+        self._patterns["hearst4"] = path
+        self._patterns["hearst4_of"] = self.add_prep_of_to_path(path)
 
         # hearst4 verb
         # An FBI list of 22 "most wanted {terrorists}"
@@ -214,8 +214,8 @@ class HypPatterns(object):
                          symbols.nsubj, Direction.IN, True, None))
         path.append(Step(self._noun_targets, symbols.dobj, Direction.OUT, True, None))
 
-        self.paths["hearst4_verb"] = path
-        self.paths["hearst4_verb_of"] = self.add_prep_of_to_path(path)
+        self._patterns["hearst4_verb"] = path
+        self._patterns["hearst4_verb_of"] = self.add_prep_of_to_path(path)
 
         # hearst4 through verb
         # The fresh battles came hours after LTTE gunmen stormed a police post
@@ -229,7 +229,7 @@ class HypPatterns(object):
                          symbols.prep, Direction.OUT, True, None))
         path.append(Step(self._noun_targets, symbols.pobj, Direction.OUT, True, None))
 
-        self.paths["hearst4_thr_verb"] = path
+        self._patterns["hearst4_thr_verb"] = path
 
         # hearst 5
         # Obama, like all presidents, works at the White house
@@ -248,7 +248,7 @@ class HypPatterns(object):
         path.append(Step(self._verb_targets,
                          symbols.prep, Direction.IN, True, None))
         path.append(Step(self._noun_targets, symbols.nsubj, Direction.OUT, True, None))
-        self.paths["hearst5"] = path
+        self._patterns["hearst5"] = path
 
         # hearst copular
         # [Obama] is the {president}
@@ -256,7 +256,7 @@ class HypPatterns(object):
         path.append(Step([Node(self.strings["be"], symbols.VERB, None)],
                          symbols.attr, Direction.IN, True, None))
         path.append(Step(self._noun_targets, symbols.nsubj, Direction.OUT, True, None))
-        self.paths["hearst_copular"] = path
+        self._patterns["hearst_copular"] = path
 
         # hearst reverse copular
         # The {president} is Obama.
@@ -264,19 +264,19 @@ class HypPatterns(object):
         path.append(Step([Node(self.strings["be"], symbols.VERB, None)],
                          symbols.nsubj, Direction.IN, True, None))
         path.append(Step(self._noun_targets, symbols.attr, Direction.OUT, True, None))
-        self.paths["hearst_rev_copular"] = path
+        self._patterns["hearst_rev_copular"] = path
 
         # hearst appos
         # [Obama], the US {president}, was born in Hawai
         path = list()
         path.append(Step(self._noun_targets, symbols.appos, Direction.IN, True, None))
-        self.paths["hearst_appos"] = path
+        self._patterns["hearst_appos"] = path
 
         # hearst noun compound modifier
         # Today's talk was given Republican {Senator} John [McCain].
         path = list()
         path.append(Step(self._noun_targets, self.strings["compound"], Direction.IN, False, None))
-        self.paths["hearst_ncompmod"] = path
+        self._patterns["hearst_ncompmod"] = path
 
         # hearst among
         # Joe [Biden] among other vice {presidents}.
@@ -284,7 +284,7 @@ class HypPatterns(object):
         path.append(Step([Node(self.strings["among"], None, self.strings["IN"])],
                          symbols.pobj, Direction.IN, True, None))
         path.append(Step(self._noun_targets, symbols.prep, Direction.IN, True, None))
-        self.paths["hearst_among"] = path
+        self._patterns["hearst_among"] = path
 
         # hearst among through verb
         # Clinton counts Joe [Biden] among other vice {presidents}.
@@ -293,7 +293,7 @@ class HypPatterns(object):
                          symbols.pobj, Direction.IN, True, None))
         path.append(Step(self._verb_targets, symbols.prep, Direction.IN, True, None))
         path.append(Step(self._noun_targets, symbols.dobj, Direction.OUT, True, None))
-        self.paths["hearst_among_thr_verb"] = path
+        self._patterns["hearst_among_thr_verb"] = path
 
         # hearst enough
         # [Messi] is enough of a {player}.
@@ -304,21 +304,23 @@ class HypPatterns(object):
                          symbols.prep, Direction.IN, True, None))
         path.append(Step(self._verb_targets, symbols.acomp, Direction.IN, True, None))
         path.append(Step(self._noun_targets, symbols.nsubj, Direction.OUT, True, None))
-        self.paths["hearst_enough"] = path
+        self._patterns["hearst_enough"] = path
 
         # hearst as
         # [Obama] as a {senator}.
         path = list()
+        constraints = [[Step([Node(None, symbols.DET, None)],
+                             symbols.det, Direction.OUT, False, None)]]
         path.append(Step([Node(self.strings["as"], None, self.strings["IN"])],
-                         symbols.pobj, Direction.IN, True, None))
+                         symbols.pobj, Direction.IN, True, constraints))
         path.append(Step(self._noun_targets, symbols.prep, Direction.IN, True, None))
-        self.paths["hearst_as"] = path
+        self._patterns["hearst_as"] = path
 
         # hearst as with prep_of attachment
         # The emergence of [USA] as a global {superpower} concided with the rise of USSR.
         # use previous path
         # WRONG
-        self.paths["hearst_as_of"] = self.add_prep_of_to_path(self.paths["hearst_as"], pre=False)
+        self._patterns["hearst_as_of"] = self.add_prep_of_to_path(self._patterns["hearst_as"], pre=False)
 
         # hearst as verb
         # [Michelle] was working as a {model}.
@@ -327,19 +329,22 @@ class HypPatterns(object):
                          symbols.pobj, Direction.IN, True, None))
         path.append(Step(self._verb_targets, symbols.prep, Direction.IN, True, None))
         path.append(Step(self._noun_targets, symbols.nsubj, Direction.OUT, True, None))
-        self.paths["hearst_as_verb"] = path
+        self._patterns["hearst_as_verb"] = path
 
         # custom patterns
         # Today's talk was given {Republican} Senator John [McCain].
         path = list()
         path.append(Step(self._noun_targets, symbols.amod, Direction.IN, False, None))
         path.append(Step(self._noun_targets, self.strings["compound"], Direction.IN, False, None))
-        self.paths["custom_amod_ncompmod"] = path
+        self._patterns["custom_amod_ncompmod"] = path
 
-    def apply_pattern_on_token(self, pattern_name, token, add_conjs=True):
-        assert pattern_name in self.paths, "given pattern name - %s missing from the existing patterns" % pattern_name
+    def apply_pattern_on_token(self, pattern_name, token, add_conjs=True, detect_conjs=True):
+        assert pattern_name in self._patterns, "given pattern name - %s missing from the existing patterns" % pattern_name
         try:
-            matches = filter(lambda match: match != token, execute(iter(self.paths[pattern_name]), [token]))
+            tokens = [token]
+            if detect_conjs:
+                tokens += get_conjs(token)
+            matches = filter(lambda match: match != token, execute(iter(self._patterns[pattern_name]), tokens))
             conjs = []
             if add_conjs:
                 conjs = \
@@ -351,7 +356,7 @@ class HypPatterns(object):
             print "got error while executing the pattern : %s" % pattern_name
 
     def apply_pattern_on_doc(self, pattern_name, doc, add_conjs=True):
-        assert pattern_name in self.paths, "given pattern name - %s missing from the existing patterns" % pattern_name
+        assert pattern_name in self._patterns, "given pattern name - %s missing from the existing patterns" % pattern_name
         results = []
         for token in doc:
             matches = self.apply_pattern_on_token(pattern_name, token, add_conjs)
@@ -359,6 +364,15 @@ class HypPatterns(object):
                 results.append((token, matches))
 
         return results
+
+    def apply_all_patterns_on_doc(self, doc, add_conjs=True):
+        pattern_results = {}
+        for pattern_name in self._patterns.keys():
+            results = self.apply_pattern_on_doc(pattern_name, doc, add_conjs)
+            if len(results) > 0:
+                pattern_results[pattern_name] = results
+
+        return pattern_results
 
 
 if __name__ == '__main__':
@@ -406,16 +420,16 @@ if __name__ == '__main__':
                     'hearst_appos',
                     'hearst_copular', 'hearst_rev_copular']
 
-    nlp = spacy.load('en')
-    hyp_patterns = HypPatterns(nlp)
-
-    def print_example(hearst_pattern_name, string):
-        doc = nlp(string.decode('utf-8'))
-        print string
-        for (token, matches) in hyp_patterns.apply_pattern_on_doc(hearst_pattern_name, doc, add_conjs=True):
-            print "%d: %s <= %s" % (token.i, token, matches)
-
-    print "\n" * 3
-    for string, hearst_pattern_name in zip(strings, hearst_funcs):
-        print_example(hearst_pattern_name, string)
-        print ""
+    # nlp = spacy.load('en')
+    # hyp_patterns = HypPatterns(nlp)
+    #
+    # def print_example(hearst_pattern_name, string):
+    #     doc = nlp(string.decode('utf-8'))
+    #     print string
+    #     for (token, matches) in hyp_patterns.apply_pattern_on_doc(hearst_pattern_name, doc, add_conjs=True):
+    #         print "%d: %s <= %s" % (token.i, token, matches)
+    #
+    # print "\n" * 3
+    # for string, hearst_pattern_name in zip(strings, hearst_funcs):
+    #     print_example(hearst_pattern_name, string)
+    #     print ""
