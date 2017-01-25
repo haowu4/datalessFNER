@@ -57,9 +57,9 @@ title	title.n.06	title.n.09
 transportation.road	road.n.01	-line.n.14
 rail.railway	railroad_track.n.01	line.n.14
 internet.website	web_site.n.01
-education.department	academic_department.n.01
+organization.education.department	academic_department.n.01
 education.educational_degree	academic_degree.n.01
 medicine.medical_treatment	treatment.n.01
 livingthing.animal	animal.n.01
-military	united_states_army.n.01	army.n.01	military.n.01
+organization.military	united_states_army.n.01	army.n.01	military.n.01
 livingthing	animal.n.01
