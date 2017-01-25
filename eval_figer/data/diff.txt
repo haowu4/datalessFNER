@@ -1,0 +1,62 @@
+2403c2403
+< organization	I-/organization
+---
+> organization	O
+2637,2641c2637,2641
+< UW	B-/location,/organization,/organization/educational_institution
+< School	I-/location,/organization,/organization/educational_institution
+< of	I-/location,/organization,/organization/educational_institution
+< Social	I-/location,/organization,/organization/educational_institution
+< Work	I-/location,/organization,/organization/educational_institution
+---
+> UW	B-/organization,/organization/educational_institution
+> School	B-/organization,/organization/educational_institution
+> of	I-/organization,/organization/educational_institution
+> Social	I-/organization,/organization/educational_institution
+> Work	I-/organization,/organization/educational_institution
+3402c3402
+< UW	B-/organization/educational_institution,/organization
+---
+> UW	B-/organization/educational_insititution,/organization
+4590c4590
+< Change	B-/organization
+---
+> Change	I-/organization
+5295,5297c5295,5297
+< Court	B-/government_agency,/organization
+< of	I-/government_agency,/organization
+< Appeals	I-/government_agency,/organization
+---
+> Court	B-/government_agency
+> of	I-/government_agency
+> Appeals	I-/government_agency
+5892c5892
+< UW	B-/organization/educational_institution,/organization
+---
+> UW	B-/organization,/organization/educational_institution
+7053c7053
+< Asian	I-/people/ethnicity
+---
+> Asian	I-/poeple/ethnicity
+7691,7694c7691,7694
+< Foster	B-/organization,/education/department
+< School	I-/organization,/education/department
+< of	I-/organization,/education/department
+< Business	I-/organization,/education/department
+---
+> Foster	B-/organization,/organization/educational_institution
+> School	I-/organization,/organization/educational_institution
+> of	I-/organization,/organization/educational_institution
+> Business	I-/organization,/organization/educational_institution
+9429c9429
+< cards	I-/product
+---
+> cards	O
+10015c10015
+< Veterinary	I-/organization,/organization/educational_institution
+---
+> Veterinary	B-/organization,/organization/educational_institution
+10046c10046
+< Veterinary	I-/organization
+---
+> Veterinary	B-/organization
