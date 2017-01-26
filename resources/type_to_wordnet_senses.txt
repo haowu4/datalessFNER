@@ -57,7 +57,7 @@ title	title.n.06	title.n.09
 transportation.road	road.n.01	-line.n.14
 rail.railway	railroad_track.n.01	line.n.14
 internet.website	web_site.n.01
-education.department	academic_department.n.01
+organization.education.department	academic_department.n.01
 education.educational_degree	academic_degree.n.01
 medicine.medical_treatment	treatment.n.01
 livingthing.animal	animal.n.01
@@ -69,8 +69,4 @@ product.car	car.n.01
 product.camera	camera.n.01	television_camera.n.01
 product.ship	ship.n.01
 product.weapon	weapon.n.01
-product.instrument	
-product.mobile_phone
-product.engine_device
-product.
 product	vehicle.n.01	machine.n.01	device.n.01	camera.n.01	television_camera.n.01
