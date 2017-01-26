@@ -4,8 +4,6 @@ import sys
 import codecs
 import numpy as np
 from nltk.corpus import wordnet as wn
-import pdb
-
 
 quotes = {"\"", "“", "”"}
 
@@ -41,7 +39,8 @@ def syn_from_offset_pos(offset, pos):
 
 
 def read_synset_embeddings(synset_offset_pos_embeddings_file, only_noun=True):
-    synset_offset_pos2index, embeddings = read_embeddings(synset_offset_pos_embeddings_file)
+    synset_offset_pos2index, embeddings = read_embeddings(
+        synset_offset_pos_embeddings_file)
     # pdb.set_trace()
     synset2index, synset_embeddings = {}, []
     all_synsets = wn.all_synsets(wn.NOUN if only_noun else None)
