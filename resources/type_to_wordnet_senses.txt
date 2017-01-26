@@ -63,3 +63,14 @@ medicine.medical_treatment	treatment.n.01
 livingthing.animal	animal.n.01
 military	united_states_army.n.01	army.n.01	military.n.01
 livingthing	animal.n.01
+product.computer	computer.n.01
+product.airplane	airplane.n.01
+product.car	car.n.01
+product.camera	camera.n.01	television_camera.n.01
+product.ship	ship.n.01
+product.weapon	weapon.n.01
+product.instrument	
+product.mobile_phone
+product.engine_device
+product.
+product	vehicle.n.01	machine.n.01	device.n.01	camera.n.01	television_camera.n.01
