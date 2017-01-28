@@ -1,6 +1,7 @@
 import os
 import json
 import codecs
+from collections import OrderedDict
 
 
 class Mention(object):
@@ -21,6 +22,7 @@ class Mention(object):
             ("doc_id",self.doc_id),
             ("tokens",self.tokens)]
         return json.dumps(OrderedDict(o), indent=4)
+
 
 def get_sentence(tokens, labels):
     entities = []
@@ -45,6 +47,7 @@ def get_sentence(tokens, labels):
         entities.append(Mention(current_start, len(labels), current_labels, tokens))
 
     return entities
+
 
 def read_figer(file = "/home/haowu4/data/figer/exp.label"):
     tokens = []

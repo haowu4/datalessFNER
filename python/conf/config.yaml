@@ -13,6 +13,7 @@ pavankumar :
     figer_test_json :
       "/Users/pavankumar/Developer/NLPResearch/NER/\
       FNER/data/ner-datasets/Wiki/test.json"
+    figer_test : "/Users/pavankumar/Developer/NLPResearch/figer/aaai/exp.label"
     nsd_cache_path :
       "/Users/pavankumar/Developer/NLPResearch/NER/\
       Annotation/datalessFNER/cache/nsd.pkl"
@@ -22,6 +23,9 @@ pavankumar :
     synset_offset_pos_embeddings_path :
       "/Users/pavankumar/Developer/NLPResearch/NER/\
       Annotation/finer_annotation/synset_embeddings_300.txt"
+    ontonotes_train_path : "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/ontonotes-data/Train"
+    ontonotes_train_and_dev_path : "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/ontonotes-data/TrainAndDev"
+    ontonotes_test_path : "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/ontonotes-data/Test"
 
 
 muddire2 :
@@ -42,6 +46,9 @@ muddire2 :
     nsd_cache_path : "/home/muddire2/nlpresearch2/datalessFNER/cache/nsd.pkl"
     embeddings_path : "/shared/preprocessed/muddire2/Google/GoogleNews-vectors-negative300.combined_500k.txt"
     synset_offset_pos_embeddings_path : "/shared/preprocessed/muddire2/Google/synset_embeddings_300.txt"
+    ontonotes_train_path : "/home/muddire2/nlpresearch2/data/ontonotes/ColumnFormat/Train"
+    ontonotes_train_and_dev_path : "/home/muddire2/nlpresearch2/data/ontonotes/ColumnFormat/TrainAndDev"
+    ontonotes_test_path : "/home/muddire2/nlpresearch2/data/ontonotes/ColumnFormat/Test"
 
 
 haowu4 :
