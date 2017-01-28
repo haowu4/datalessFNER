@@ -4,6 +4,7 @@ import sys
 import codecs
 import numpy as np
 from nltk.corpus import wordnet as wn
+import cPickle as pickle
 
 quotes = {"\"", "“", "”"}
 
@@ -90,6 +91,18 @@ def simple_decorator(decorator):
     new_decorator.__doc__ = decorator.__doc__
     new_decorator.__dict__.update(decorator.__dict__)
     return new_decorator
+
+
+def load_pickle(fpath):
+    with open(fpath, 'rb') as fp:
+        contents = pickle.load(fp)
+    return contents
+
+
+def dump_pickle(contents, fpath):
+    with open(fpath, 'wb') as fp:
+        pickle.dump(contents, fp, protocol=pickle.HIGHEST_PROTOCOL)
+
 
 
 def get_size(obj, seen=None):
