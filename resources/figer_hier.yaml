@@ -259,7 +259,7 @@ train :
     parent : product
     is_figer_type : true
 astral_body : 
-    parent : location
+    parent : geography
     is_figer_type : true
 person : 
     parent : null
