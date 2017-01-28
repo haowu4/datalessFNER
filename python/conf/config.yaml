@@ -45,7 +45,7 @@ muddire2 :
 
 
 haowu4 :
-  "<str(uuid.getnode())>" :
+  "264800833789999" :
     figer_type_senses : "/home/haowu4/codes/datalessFNER/resources/figer_type_senses.yaml"
     figer_hierarchy : "/home/haowu4/codes/datalessFNER/resources/figer_hier.yaml"
     figer_test_json : null
