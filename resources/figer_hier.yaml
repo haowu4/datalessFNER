@@ -43,17 +43,8 @@ person.politician :
 person.religious_leader : 
     parent : person
     is_figer_type : true
-person : 
-    parent : null
-    is_figer_type : true
-astral_body : 
-    parent : null
-    is_figer_type : true
 broadcast_program : 
     parent : work
-    is_figer_type : true
-event : 
-    parent : null
     is_figer_type : true
 event.election : 
     parent : event
@@ -75,12 +66,6 @@ event.protest :
     is_figer_type : true
 event.sports_event : 
     parent : event
-    is_figer_type : true
-finance.currency : 
-    parent : null
-    is_figer_type : true
-finance.stock_exchange : 
-    parent : null
     is_figer_type : true
 food : 
     parent : product
@@ -148,12 +133,6 @@ building.hospital :
 building.dam : 
     parent : building
     is_figer_type : true
-building : 
-    parent : null
-    is_figer_type : true
-organization : 
-    parent : null
-    is_figer_type : true
 organization.fraternity_sorority : 
     parent : organization
     is_figer_type : true
@@ -205,9 +184,6 @@ computer.programming_language :
 language : 
     parent : norpl
     is_figer_type : true
-law : 
-    parent : null
-    is_figer_type : true
 newspaper : 
     parent : written_work
     is_figer_type : true
@@ -229,28 +205,13 @@ play :
 music : 
     parent : work
     is_figer_type : true
-disease : 
-    parent : null
-    is_figer_type : true
 medicine.drug : 
     parent : medicine
     is_figer_type : true
 medicine.symptom : 
     parent : medicine
     is_figer_type : true
-title : 
-    parent : null
-    is_figer_type : true
-transportation.road : 
-    parent : null
-    is_figer_type : true
-internet.website : 
-    parent : null
-    is_figer_type : true
 
-award : 
-    parent : null
-    is_figer_type : true
 education.educational_degree : 
     parent : award
     is_figer_type : true
@@ -261,9 +222,6 @@ livingthing.animal :
     parent : livingthing
     is_figer_type : true
 
-living_thing : 
-    parent : null
-    is_figer_type : true
 product.engine_device : 
     parent : product
     is_figer_type : true
@@ -294,14 +252,50 @@ product.instrument :
 product.mobile_phone : 
     parent : product
     is_figer_type : true
-product : 
-    parent : null
-    is_figer_type : true
 people.ethnicity :
     parent : norpl
     is_figer_type : true
 train : 
     parent : product
+    is_figer_type : true
+astral_body : 
+    parent : location
+    is_figer_type : true
+person : 
+    parent : null
+    is_figer_type : true
+event : 
+    parent : null
+    is_figer_type : true
+finance.currency : 
+    parent : null
+    is_figer_type : true
+finance.stock_exchange : 
+    parent : null
+    is_figer_type : true
+building : 
+    parent : null
+    is_figer_type : true
+organization : 
+    parent : null
+    is_figer_type : true
+law : 
+    parent : null
+    is_figer_type : true
+title : 
+    parent : null
+    is_figer_type : true
+transportation.road : 
+    parent : null
+    is_figer_type : true
+award : 
+    parent : null
+    is_figer_type : true
+living_thing : 
+    parent : null
+    is_figer_type : true
+product : 
+    parent : null
     is_figer_type : true
 software : 
     parent : null
