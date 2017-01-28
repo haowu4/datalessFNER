@@ -39,14 +39,14 @@ class RuleBasedFineTypeAnnotator(object):
 
     FINE_TYPE_VIEW = "fine_type_view"
 
-    def __init__(self, sense_typer, use_view=None):
+    def __init__(self, sense_typer, mention_view=None):
         """
 
         :param sense_typer: Instance of SynsetFineTyper - converts a given offset_pos string outputs fine types.
-        :param use_view: View to be used for mentions. If not given uses inbuilt entity detection for mentions.
+        :param mention_view: View to be used for mentions. If not given uses inbuilt entity detection for mentions.
         """
         self.sense_typer = sense_typer
-        self.use_view = use_view
+        self.use_view = mention_view
 
     def __call__(self, doc):
         # doc should have NSD_VIEW
@@ -94,12 +94,12 @@ class RuleBasedFineTypeAnnotator(object):
         doc.user_data[self.FINE_TYPE_VIEW] = fine_ent_view
 
 
-def get_nlp_with_fine_annotator(config, use_view=None):
+def get_nlp_with_fine_annotator(config, mention_view=None):
     sense_typer = SynsetFineTyper(config["figer_type_senses"])
 
-    nsd_cache_path = default_config["nsd_cache_path"]
-    embeddings_path = default_config["embeddings_path"]
-    synset_offset_pos_embeddings_path = default_config["synset_offset_pos_embeddings_path"]
+    nsd_cache_path = config["nsd_cache_path"]
+    embeddings_path = config["embeddings_path"]
+    synset_offset_pos_embeddings_path = config["synset_offset_pos_embeddings_path"]
 
     nsd = None
     if os.path.isfile(nsd_cache_path):
@@ -112,7 +112,7 @@ def get_nlp_with_fine_annotator(config, use_view=None):
 
     def create_pipeline(nlp):
         return [nlp.tagger, nlp.entity, nlp.parser, NounSenseAnnotator(nsd),
-                RuleBasedFineTypeAnnotator(sense_typer, use_view)]
+                RuleBasedFineTypeAnnotator(sense_typer, mention_view)]
     nlp = spacy.load('en', create_pipeline=create_pipeline)
 
     return nlp

@@ -3,7 +3,7 @@
 
 pavankumar :
   # unique id for your computer
-  "66002175793550" :  # run `import uuid; uuid.getnode()` to get this unique id based on computer"s mac address
+  "66002175793550" :  # run `import uuid; str(uuid.getnode())` to get this unique id based on computer"s mac address
     figer_type_senses :
       "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/\
       datalessFNER/resources/figer_type_senses.yaml"

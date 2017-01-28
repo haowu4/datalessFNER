@@ -94,10 +94,10 @@ class NounSenseAnnotator(object):
     NSD_VIEW = "nsd_view"
     INDEX_TO_OFFSET_POS = "index_to_offset_pos"
 
-    def __init__(self, nsd, ngram=2):
+    def __init__(self, nsd, ngram_length=2):
         self.nsd = nsd
         self.index2synset_offset_pos = nsd.index2synset_offset_pos
-        self.ngram_length = ngram
+        self.ngram_length = ngram_length
 
     def __call__(self, doc):
         doc_len = len(doc)
