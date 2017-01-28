@@ -2,17 +2,18 @@
 
 import codecs
 
-import config
+import yaml
+import dfiner
 from nltk.corpus import wordnet as wn
-from utils import syn_from_offset_pos
+from dfiner.utils import syn_from_offset_pos, get_default_config
 
 
 class SynsetFineTyper(object):
 
-    def __init__(self, fine_type_to_synset_path):
+    def __init__(self, figer_type_senses):
         """
 
-        :param fine_type_to_synset_path: Path to fine type to synset map
+        :param figer_type_senses: Path to fine type to synset map
             Assumes the following convention for each line -
 
                  <fine_type>\t<synset_id_1> <synset_id_2> ... <synset_id_n>\n
@@ -23,7 +24,7 @@ class SynsetFineTyper(object):
         """
         self.entity_synset = wn.synset("entity.n.01")
         self.synset_to_type_positive, self.synset_to_type_negative = \
-            self._read_synset_to_type(fine_type_to_synset_path)
+            self._read_synset_to_type(figer_type_senses)
         # we will do lazy population of synset_offset_pos_to_types
         self.synset_offset_pos_to_types = {}
 
@@ -53,21 +54,20 @@ class SynsetFineTyper(object):
         self.synset_offset_pos_to_types[synset_offset_pos] = fine_types
         return fine_types
 
-    def _read_synset_to_type(self, fine_type_to_synsets_file):
+    def _read_synset_to_type(self, figer_type_senses):
         synset_to_type_positive = {}
         synset_to_type_negative = {}
-        with codecs.open(fine_type_to_synsets_file, mode='r', encoding='utf-8') as f_in:
-            for line in f_in:
-                tokens = line.strip().split("\t")
-                fine_type = tokens[0]
-                for synset_id in tokens[1:]:
+        with codecs.open(figer_type_senses, mode='r', encoding='utf-8') as f_in:
+            figer_type_to_senses = yaml.load(f_in)
+            for fine_type, synset_ids in figer_type_to_senses.iteritems():
+                for synset_id in synset_ids:
                     if synset_id.startswith("-"):
                         synset = wn.synset(synset_id[1:])
-                        assert synset not in synset_to_type_negative
+                        # assert synset not in synset_to_type_negative
                         synset_to_type_negative[synset] = fine_type
                     else:
                         synset = wn.synset(synset_id)
-                        assert synset not in synset_to_type_positive
+                        # assert synset not in synset_to_type_positive
                         synset_to_type_positive[synset] = fine_type
         return synset_to_type_positive, synset_to_type_negative
 
@@ -75,4 +75,5 @@ class SynsetFineTyper(object):
 if __name__ == '__main__':
     # unit test
 
-    finetyper = SynsetFineTyper(config.fine_type_to_synset_file)
+    default_config = get_default_config()
+    sense_typer = SynsetFineTyper(default_config["figer_type_senses"])

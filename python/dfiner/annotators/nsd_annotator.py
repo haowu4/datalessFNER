@@ -2,11 +2,10 @@
 import cPickle as pickle
 import os
 
-import config
 import numpy as np
 import spacy
 from nltk.corpus import wordnet as wn, stopwords
-from utils import read_embeddings, syn_to_offset_pos
+from dfiner.utils.utils import read_embeddings, syn_to_offset_pos, get_default_config
 
 
 class AverageEmbeddingNSD(object):
@@ -71,7 +70,7 @@ class AverageEmbeddingNSD(object):
                          self._stopwords_set, self.index2synset_offset_pos), f_out, pickle.HIGHEST_PROTOCOL)
 
     @classmethod
-    def load_from_pickle(cls, pickle_path):
+    def load_instance_from_pickle(cls, pickle_path):
         with open(pickle_path) as f_in:
             data = pickle.load(f_in)
         instance = cls.__new__(cls)
@@ -98,7 +97,7 @@ class NounSenseAnnotator(object):
     def __init__(self, nsd, ngram=2):
         self.nsd = nsd
         self.index2synset_offset_pos = nsd.index2synset_offset_pos
-        self.ngram = ngram
+        self.ngram_length = ngram
 
     def __call__(self, doc):
         doc_len = len(doc)
@@ -107,7 +106,7 @@ class NounSenseAnnotator(object):
         starts_with_NN = [token.tag_.startswith("NN") for token in doc]
         i = 0
         while i <= doc_len-1:
-            for n in xrange(self.ngram, 0, -1):
+            for n in xrange(self.ngram_length, 0, -1):
                 start, end = i, i+n
                 # ensure ngram is within doc and
                 # first and last one is noun (Random rule I came up with. Validate this)
@@ -132,13 +131,19 @@ class NounSenseAnnotator(object):
 
 if __name__ == '__main__':
 
+    # default config
+    default_config = get_default_config()
+
     nsd = None
-    if os.path.isfile(config.nsd_cache_path):
+    nsd_cache_path = default_config["nsd_cache_path"]
+    embeddings_path = default_config["embeddings_path"]
+    synset_offset_pos_embeddings_path = default_config["synset_offset_pos_embeddings_path"]
+    if os.path.isfile(nsd_cache_path):
         try:
-            nsd = AverageEmbeddingNSD.load_from_pickle(config.nsd_cache_path)
+            nsd = AverageEmbeddingNSD.load_instance_from_pickle(nsd_cache_path)
         except:
-            print("Encountered error while loading pickle from " + config.nsd_cache_path)
-    nsd = nsd if nsd else AverageEmbeddingNSD(config.embeddings_path, config.synset_offset_pos_embeddings_path)
+            print("Encountered error while loading pickle from " + nsd_cache_path)
+    nsd = nsd if nsd else AverageEmbeddingNSD(embeddings_path, synset_offset_pos_embeddings_path)
 
     def create_pipeline(nlp):
         return [nlp.tagger, nlp.entity, nlp.parser, NounSenseAnnotator(nsd)]

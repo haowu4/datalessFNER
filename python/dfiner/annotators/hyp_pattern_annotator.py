@@ -1,5 +1,5 @@
 import spacy
-from hyp_pattern import HypPatterns
+from dfiner.annotators.annotator_helpers.hyp_pattern import HypPatterns
 
 
 class HypPatternAnnotator(object):

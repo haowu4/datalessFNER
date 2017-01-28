@@ -1,0 +1,54 @@
+# all the configuration of a user should go into the respective username
+
+
+pavankumar :
+  # unique id for your computer
+  "66002175793550" :  # run `import uuid; uuid.getnode()` to get this unique id based on computer"s mac address
+    figer_type_senses :
+      "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/\
+      datalessFNER/resources/figer_type_senses.yaml"
+    figer_hierarchy :
+      "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/\
+      datalessFNER/resources/figer_hier.yaml"
+    figer_test_json :
+      "/Users/pavankumar/Developer/NLPResearch/NER/\
+      FNER/data/ner-datasets/Wiki/test.json"
+    nsd_cache_path :
+      "/Users/pavankumar/Developer/NLPResearch/NER/\
+      Annotation/datalessFNER/cache/nsd.pkl"
+    embeddings_path :
+      "/Users/pavankumar/Developer/NLPResearch/embeddings/\
+      google/GoogleNews-vectors-negative300.combined_500k.txt"
+    synset_offset_pos_embeddings_path :
+      "/Users/pavankumar/Developer/NLPResearch/NER/\
+      Annotation/finer_annotation/synset_embeddings_300.txt"
+
+
+muddire2 :
+  # dickens config
+  "22095312515053" :
+    figer_type_senses : "/home/muddire2/nlpresearch/datalessFNER/resources/figer_type_senses.yaml"
+    figer_hierarchy : "/home/muddire2/nlpresearch/datalessFNER/resources/figer_hier.yaml"
+    figer_test_json : "/home/muddire2/nlpresearch/ner-datasets/Wiki/test.json"
+    nsd_cache_path : "/home/muddire2/nlpresearch/datalessFNER/cache/nsd.pkl"
+    embeddings_path : "/save/muddire2/GoogleNews-vectors-negative300.combined_500k.txt"
+    synset_offset_pos_embeddings_path : "/home/muddire2/nlpresearch/finer_annotation/synset_embeddings_300.txt"
+
+  # bronte/austen config
+  "220037194737469" :
+    figer_type_senses : "/home/muddire2/nlpresearch2/datalessFNER/resources/figer_type_senses.yaml"
+    figer_hierarchy : "/home/muddire2/nlpresearch2/datalessFNER/resources/figer_hier.yaml"
+    figer_test_json : "/home/muddire2/nlpresearch2/ner-datasets/Wiki/test.json"
+    nsd_cache_path : "/home/muddire2/nlpresearch2/datalessFNER/cache/nsd.pkl"
+    embeddings_path : "/shared/preprocessed/muddire2/Google/GoogleNews-vectors-negative300.combined_500k.txt"
+    synset_offset_pos_embeddings_path : "/shared/preprocessed/muddire2/Google/synset_embeddings_300.txt"
+
+
+haowu4 :
+  "<str(uuid.getnode())>" :
+    figer_type_senses : "/home/haowu4/codes/datalessFNER/resources/figer_type_senses.yaml"
+    figer_hierarchy : "/home/haowu4/codes/datalessFNER/resources/figer_hier.yaml"
+    figer_test_json : null
+    nsd_cache_path : "/home/haowu4/codes/datalessFNER/cache/nsd.pkl"
+    embeddings_path : "/home/haowu4/data/autoextend/GoogleNews-vectors-negative300.combined_500k.txt"
+    synset_offset_pos_embeddings_path : "/home/haowu4/data/autoextend/synset_embeddings_300.txt"

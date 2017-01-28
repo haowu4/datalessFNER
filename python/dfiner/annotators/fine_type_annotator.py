@@ -2,11 +2,10 @@
 
 import os
 
-import config
 import spacy
-from nsd_annotator import NounSenseAnnotator, AverageEmbeddingNSD
-from sense_typer import SynsetFineTyper
-from utils import quotes
+from dfiner.annotators.annotator_helpers.sense_typer import SynsetFineTyper
+from dfiner.annotators.nsd_annotator import NounSenseAnnotator, AverageEmbeddingNSD
+from dfiner.utils.utils import quotes, get_default_config
 
 
 def distance_filter(doc, mention_span_tuple, trigger_tuples, max_distance=5):
@@ -41,6 +40,11 @@ class RuleBasedFineTypeAnnotator(object):
     FINE_TYPE_VIEW = "fine_type_view"
 
     def __init__(self, sense_typer, use_view=None):
+        """
+
+        :param sense_typer: Instance of SynsetFineTyper - converts a given offset_pos string outputs fine types.
+        :param use_view: View to be used for mentions. If not given uses inbuilt entity detection for mentions.
+        """
         self.sense_typer = sense_typer
         self.use_view = use_view
 
@@ -90,21 +94,25 @@ class RuleBasedFineTypeAnnotator(object):
         doc.user_data[self.FINE_TYPE_VIEW] = fine_ent_view
 
 
-def get_nlp_with_fine_annotator(use_view=None):
-    finetyper = SynsetFineTyper(config.fine_type_to_synset_file)
+def get_nlp_with_fine_annotator(config, use_view=None):
+    sense_typer = SynsetFineTyper(config["figer_type_senses"])
+
+    nsd_cache_path = default_config["nsd_cache_path"]
+    embeddings_path = default_config["embeddings_path"]
+    synset_offset_pos_embeddings_path = default_config["synset_offset_pos_embeddings_path"]
 
     nsd = None
-    if os.path.isfile(config.nsd_cache_path):
+    if os.path.isfile(nsd_cache_path):
         try:
-            nsd = AverageEmbeddingNSD.load_from_pickle(config.nsd_cache_path)
+            nsd = AverageEmbeddingNSD.load_instance_from_pickle(nsd_cache_path)
         except:
-            print("Encountered error while loading pickle from " + config.nsd_cache_path)
+            print("Encountered error while loading pickle from " + nsd_cache_path)
 
-    nsd = nsd if nsd else AverageEmbeddingNSD(config.embeddings_path, config.synset_offset_pos_embeddings_path)
+    nsd = nsd if nsd else AverageEmbeddingNSD(embeddings_path, synset_offset_pos_embeddings_path)
 
     def create_pipeline(nlp):
         return [nlp.tagger, nlp.entity, nlp.parser, NounSenseAnnotator(nsd),
-                RuleBasedFineTypeAnnotator(finetyper, use_view)]
+                RuleBasedFineTypeAnnotator(sense_typer, use_view)]
     nlp = spacy.load('en', create_pipeline=create_pipeline)
 
     return nlp
@@ -112,7 +120,9 @@ def get_nlp_with_fine_annotator(use_view=None):
 
 if __name__ == '__main__':
 
-    nlp = get_nlp_with_fine_annotator()
+    # use default config
+    default_config = get_default_config()
+    nlp = get_nlp_with_fine_annotator(default_config)
 
     doc = nlp(
         "Barack Hussein Obama II (US Listeni/bəˈrɑːk huːˈseɪn oʊˈbɑːmə/ bə-rahk hoo-sayn oh-bah-mə;[1][2] born August 4, 1961) is an American politician who served as the 44th President of the United States from 2009 to 2017. Obama is a member of the Democratic Party, and was the first African American and first person born outside the contiguous United States to serve as president.".decode(

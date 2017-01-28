@@ -1,5 +1,4 @@
-import spacy
-from union_find import UnionFind
+from dfiner.utils.union_find import UnionFind
 from spacy import symbols
 
 

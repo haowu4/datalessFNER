@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 
-import sys
+import sys, os
 import codecs
+import getpass, uuid
+import yaml
 import numpy as np
 from nltk.corpus import wordnet as wn
 import cPickle as pickle
+
+import dfiner
 
 quotes = {"\"", "“", "”"}
 
@@ -102,6 +106,22 @@ def load_pickle(fpath):
 def dump_pickle(contents, fpath):
     with open(fpath, 'wb') as fp:
         pickle.dump(contents, fp, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+def get_default_config():
+    # load default config
+    project_root = os.path.dirname(dfiner.__file__)
+    username = getpass.getuser()
+    uuid_node = str(uuid.getnode())
+    config_yaml_path = os.path.join(project_root, "..", "conf/config.yaml")
+    with open(config_yaml_path) as f_in:
+        config = yaml.load(f_in)
+        try:
+            user_config = config[username][uuid_node]
+        except KeyError:
+            raise KeyError("Didn't find config for user -> %s with uuid_node -> %s" % (username, uuid_node))
+
+    return user_config
 
 
 

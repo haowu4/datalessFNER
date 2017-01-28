@@ -1,10 +1,13 @@
+import os
+import getpass
+import uuid
 import codecs
-import json
+import json, yaml
 
-import config
+import dfiner
 import spacy
-from fine_type_annotator import get_nlp_with_fine_annotator
-from hyp_pattern import HypPatterns
+from dfiner.annotators.annotator_helpers.hyp_pattern import HypPatterns
+from dfiner.utils import get_default_config
 
 GOLD_MENTION_VIEW = "gold_mention_view"
 
@@ -27,9 +30,13 @@ def load_figer_data(data_path, nlp):
 
 if __name__ == '__main__':
 
+    # use default config
+    default_config = get_default_config()
+
     # nlp = get_nlp_with_fine_annotator(use_view=GOLD_MENTION_VIEW)
     nlp = spacy.load('en')
-    figer_docs = load_figer_data(config.figer_test_json, nlp)
+
+    figer_docs = load_figer_data(default_config["figer_test_json"], nlp)
     hyp_patterns = HypPatterns(nlp)
 
     def print_example(doc):
