@@ -5,7 +5,7 @@ import os
 import spacy
 from dfiner.annotators.annotator_helpers.sense_typer import SynsetFineTyper
 from dfiner.annotators.nsd_annotator import NounSenseAnnotator, AverageEmbeddingNSD
-from dfiner.utils.utils import quotes, get_default_config
+from dfiner.utils import quotes, get_default_config
 
 
 def distance_filter(doc, mention_span_tuple, trigger_tuples, max_distance=5):

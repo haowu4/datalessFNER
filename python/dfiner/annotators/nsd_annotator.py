@@ -5,7 +5,7 @@ import os
 import numpy as np
 import spacy
 from nltk.corpus import wordnet as wn, stopwords
-from dfiner.utils.utils import read_embeddings, syn_to_offset_pos, get_default_config
+from dfiner.utils import read_embeddings, syn_to_offset_pos, get_default_config
 
 
 class AverageEmbeddingNSD(object):
