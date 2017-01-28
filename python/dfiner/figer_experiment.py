@@ -32,7 +32,6 @@ if __name__ == '__main__':
     figer_docs = load_figer_data(config.figer_test_json, nlp)
     hyp_patterns = HypPatterns(nlp)
 
-
     def print_example(doc):
         print doc
         for (pattern_name, results) in hyp_patterns.apply_all_patterns_on_doc(doc, add_conjs=True).iteritems():
