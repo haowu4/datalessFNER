@@ -271,7 +271,7 @@ finance.currency :
     parent : null
     is_figer_type : true
 finance.stock_exchange : 
-    parent : null
+    parent : organization
     is_figer_type : true
 building : 
     parent : null
