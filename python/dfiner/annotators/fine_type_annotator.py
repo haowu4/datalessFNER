@@ -4,26 +4,27 @@ import os
 
 import spacy
 from dfiner.annotators.annotator_helpers.sense_typer import SynsetFineTyper
-from dfiner.annotators.nsd_annotator import NounSenseAnnotator, AverageEmbeddingNSD
+from dfiner.annotators.nsd_annotator import NounSenseAnnotator, AverageEmbeddingNSD, NSDView
+from dfiner.datastructures import View
 from dfiner.utils import quotes, get_default_config
 
 
-def distance_filter(doc, mention_span_tuple, trigger_tuples, max_distance=5):
+def distance_filter(doc, mention_span_tuple, constituents, max_distance=5):
     mention_start, mention_end = mention_span_tuple
 
-    def is_close(trigger_tuple):
-        (trigger_start, trigger_end), _ = trigger_tuple
+    def is_close(constituent):
+        trigger_start, trigger_end = constituent.start, constituent.end
         return not (trigger_start < mention_start - max_distance or
                     trigger_end > mention_end + max_distance)
 
-    return filter(is_close, trigger_tuples)
+    return filter(is_close, constituents)
 
 
-def quotation_filter(doc, mention_span_tuple, trigger_tuples):
+def quotation_filter(doc, mention_span_tuple, constituents):
     mention_start, mention_end = mention_span_tuple
 
-    def is_quote_in_middle(trigger_tuple):
-        (trigger_start, trigger_end), _ = trigger_tuple
+    def is_quote_in_middle(constituent):
+        trigger_start, trigger_end = constituent.start, constituent.end
         for i in xrange(mention_start+1, trigger_start):
             if doc[i].text in quotes:
                 return False
@@ -32,12 +33,17 @@ def quotation_filter(doc, mention_span_tuple, trigger_tuples):
                 return False
         return True
 
-    return filter(is_quote_in_middle, trigger_tuples)
+    return filter(is_quote_in_middle, constituents)
+
+
+class FineTypeView(View):
+    FINE_TYPE_VIEW_NAME = 'fine_type_view'
+
+    def __init__(self):
+        super(FineTypeView, self).__init__(FineTypeView.FINE_TYPE_VIEW_NAME)
 
 
 class RuleBasedFineTypeAnnotator(object):
-
-    FINE_TYPE_VIEW = "fine_type_view"
 
     def __init__(self, sense_typer, mention_view=None):
         """
@@ -46,52 +52,52 @@ class RuleBasedFineTypeAnnotator(object):
         :param mention_view: View to be used for mentions. If not given uses inbuilt entity detection for mentions.
         """
         self.sense_typer = sense_typer
-        self.use_view = mention_view
+        self.mention_view = mention_view
 
     def __call__(self, doc):
         # doc should have NSD_VIEW
-        if not NounSenseAnnotator.NSD_VIEW in doc.user_data:
-            raise ValueError("NSD_VIEW missing from doc.user_data")
-        if not NounSenseAnnotator.INDEX_TO_OFFSET_POS in doc.user_data:
-            raise ValueError("INDEX_TO_OFFSET_POS missing from doc.user_data")
-        if self.use_view and self.use_view not in doc.user_data:
-            raise ValueError(self.use_view + " missing from doc.user_data")
-        nsd_view = doc.user_data[NounSenseAnnotator.NSD_VIEW]
-        fine_ent_view = []
-        if self.use_view:
-            view = doc.user_data[self.use_view]
-            for mention_span_tuple, _ in view:
-                filtered_trigger_tuples = \
-                    quotation_filter(doc, mention_span_tuple, distance_filter(doc, mention_span_tuple, nsd_view))
+        if NSDView.NSD_VIEW_NAME not in doc.user_data:
+            raise ValueError("%s view missing from doc.user_data" % NSDView.NSD_VIEW_NAME)
+        if self.mention_view and self.mention_view not in doc.user_data:
+            raise ValueError(self.mention_view + " view missing from doc.user_data")
+        nsd_view = doc.user_data[NSDView.NSD_VIEW_NAME]
+        fine_ent_view = FineTypeView()
+        if self.mention_view:
+            view = doc.user_data[self.mention_view]
+            for mention_constituent in view.constituents:
+                mention_span_tuple = (mention_constituent.start, mention_constituent.end)
+                filtered_constituents = \
+                    quotation_filter(doc, mention_span_tuple, distance_filter(doc, mention_span_tuple,
+                                                                              nsd_view.constituents))
                 # Currently set for high recall. So outputs all the fine types of all trigger words after filtering
                 fine_types = set()
-                for trigger_tuple in filtered_trigger_tuples:
-                    _, sense_scores = trigger_tuple
+                for constituent in filtered_constituents:
+                    sense_scores = constituent.label2score
                     # sense is same as synset_offset_pos
-                    for synset_index in sense_scores:
-                        offset_pos =  doc.user_data[NounSenseAnnotator.INDEX_TO_OFFSET_POS][synset_index]
+                    for offset_pos in sense_scores:
                         for fine_type in self.sense_typer.get_fine_types(offset_pos):
                             fine_types.add(fine_type)
                 if len(fine_types) > 0:
-                    fine_ent_view.append((mention_span_tuple, fine_types))
+                    fine_ent_view.add_constituent_from_args(mention_span_tuple[0], mention_span_tuple[1],
+                                                            label2score={fine_type: 1. for fine_type in fine_types})
         else:
             for ent in doc.ents:
                 ent_span_tuple = (ent.start, ent.end)
-                filtered_trigger_tuples = quotation_filter(doc, ent_span_tuple,
-                                                           distance_filter(doc, ent_span_tuple, nsd_view))
+                filtered_constituents = quotation_filter(doc, ent_span_tuple,
+                                                           distance_filter(doc, ent_span_tuple, nsd_view.constituents))
                 # Currently set for high recall. So outputs all the fine types of all trigger words after filtering
                 fine_types = set()
-                for trigger_tuple in filtered_trigger_tuples:
-                    _, sense_scores = trigger_tuple
+                for constituent in filtered_constituents:
+                    sense_scores = constituent.label2score
                     # sense is same as synset_offset_pos
-                    for synset_index in sense_scores:
-                        offset_pos =  doc.user_data[NounSenseAnnotator.INDEX_TO_OFFSET_POS][synset_index]
+                    for offset_pos in sense_scores:
                         for fine_type in self.sense_typer.get_fine_types(offset_pos):
                             fine_types.add(fine_type)
                 if len(fine_types) > 0:
-                    fine_ent_view.append((ent_span_tuple, fine_types))
+                    fine_ent_view.add_constituent_from_args(ent.start, ent.end,
+                                                            label2score={fine_type: 1. for fine_type in fine_types})
 
-        doc.user_data[self.FINE_TYPE_VIEW] = fine_ent_view
+        doc.user_data[FineTypeView.FINE_TYPE_VIEW_NAME] = fine_ent_view
 
 
 def get_nlp_with_fine_annotator(config, mention_view=None):
