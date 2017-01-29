@@ -11,6 +11,9 @@ class Constituent(object):
         self.outgoing_relations = None
         self.incoming_relations = None
 
+    def get_id(self):
+        return self.start, self.end, self.name
+
     @staticmethod
     def hash(start, end, name):
         return start * 41 + end * 43 + (name.__hash__() * 53 if name else 0)
@@ -67,16 +70,16 @@ class View(object):
         self._constituents_map = {}
 
     def add_constituent_from_args(self, start, end, name=None, score=None, label2score=None):
-        hash = Constituent.hash(start, end, name)
-        if hash not in self._constituents_map:
-            self._constituents_map[hash] = Constituent(start, end, name, score, label2score)
-        return hash
+        c_id = (start, end, name)
+        if c_id not in self._constituents_map:
+            self._constituents_map[c_id] = Constituent(start, end, name, score, label2score)
+        return c_id
 
     def add_constituent(self, constituent):
-        constituent_hash = constituent.__hash__()
-        if constituent_hash not in self._constituents_map:
-            self._constituents_map[constituent_hash] = constituent
-        return constituent_hash
+        c_id = constituent.get_id()
+        if c_id not in self._constituents_map:
+            self._constituents_map[c_id] = constituent
+        return c_id
 
     def add_constituents(self, constituents):
         for constituent in constituents:
@@ -84,12 +87,12 @@ class View(object):
         return None
 
     def get_constituent_from_args_or_none(self, start, end, name=None, score=None, label2score=None):
-        hash = Constituent.hash(start, end, name)
-        return self._constituents_map.get(hash, None)
+        c_id = start, end, name
+        return self._constituents_map.get(c_id, None)
 
     def get_constituent_from_args_or_create(self, start, end, name=None, score=None, label2score=None):
-        constituent_hash = self.add_constituent_from_args(start, end, name, score, label2score)
-        return self._constituents_map[constituent_hash]
+        c_id = self.add_constituent_from_args(start, end, name, score, label2score)
+        return self._constituents_map[c_id]
 
     def add_token_constituent_from_args(self, index, name=None, score=None, label2score=None):
         return self.add_constituent_from_args(index, index + 1, name, score, label2score)
@@ -101,8 +104,8 @@ class View(object):
         return self.add_constituents(token_constituents)
 
     def get_token_constituent_from_args_or_create(self, index, name=None, score=None, label2score=None):
-        constituent_hash = self.add_token_constituent_from_args(index, name, score, label2score)
-        return self._constituents_map[constituent_hash]
+        c_id = self.add_token_constituent_from_args(index, name, score, label2score)
+        return self._constituents_map[c_id]
 
     @property
     def constituents(self):
