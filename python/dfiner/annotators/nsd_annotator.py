@@ -5,6 +5,8 @@ import os
 import numpy as np
 import spacy
 from nltk.corpus import wordnet as wn, stopwords
+
+from dfiner.datastructures import View
 from dfiner.utils import read_embeddings, syn_to_offset_pos, get_default_config
 
 
@@ -25,7 +27,6 @@ class AverageEmbeddingNSD(object):
         self._word2index, self._word_embeddings = read_embeddings(word_embeddings_path)
         self._synset_offset_pos2index, self._synset_embeddings = read_embeddings(synset_offset_pos_embeddings_path)
         self._stopwords_set = stopwords_set if stopwords_set else set(stopwords.words('english'))
-        self.index2synset_offset_pos = {index: synset for synset, index in self._synset_offset_pos2index.iteritems()}
 
     def disambiguate_or_none(self, doc, target_span):
         """
@@ -59,15 +60,15 @@ class AverageEmbeddingNSD(object):
                 syn_emb = self._synset_embeddings[self._synset_offset_pos2index[syn_offset_pos]]
                 norm = np.linalg.norm(syn_emb)
                 syn_emb /= (norm if norm > 0 else 1.)
-                syn_scores[self._synset_offset_pos2index[syn_offset_pos]] = syn_emb.dot(context_emb)
+                syn_scores[syn_offset_pos] = syn_emb.dot(context_emb)
             else:
-                syn_scores[self._synset_offset_pos2index[syn_offset_pos]] = 0.
+                syn_scores[syn_offset_pos] = 0.
         return syn_scores
 
     def save_to_pickle(self, pickle_path):
         with open(pickle_path, "wb") as f_out:
             pickle.dump((self._synset_offset_pos2index, self._synset_embeddings, self._word2index, self._word_embeddings,
-                         self._stopwords_set, self.index2synset_offset_pos), f_out, pickle.HIGHEST_PROTOCOL)
+                         self._stopwords_set), f_out, pickle.HIGHEST_PROTOCOL)
 
     @classmethod
     def load_instance_from_pickle(cls, pickle_path):
@@ -75,8 +76,15 @@ class AverageEmbeddingNSD(object):
             data = pickle.load(f_in)
         instance = cls.__new__(cls)
         (instance._synset_offset_pos2index, instance._synset_embeddings, instance._word2index,
-         instance._word_embeddings, instance._stopwords_set, instance.index2synset_offset_pos) = data
+         instance._word_embeddings, instance._stopwords_set) = data
         return instance
+
+
+class NSDView(View):
+    NSD_VIEW_NAME = 'nsd_view'
+
+    def __init__(self):
+        super(NSDView, self).__init__(NSDView.NSD_VIEW_NAME)
 
 
 class NounSenseAnnotator(object):
@@ -91,18 +99,14 @@ class NounSenseAnnotator(object):
 
     """
 
-    NSD_VIEW = "nsd_view"
-    INDEX_TO_OFFSET_POS = "index_to_offset_pos"
-
     def __init__(self, nsd, ngram_length=2):
         self.nsd = nsd
-        self.index2synset_offset_pos = nsd.index2synset_offset_pos
         self.ngram_length = ngram_length
 
     def __call__(self, doc):
         doc_len = len(doc)
-        nsd_view = []
-        doc.user_data[self.NSD_VIEW] = nsd_view
+        nsd_view = NSDView()
+
         starts_with_NN = [token.tag_.startswith("NN") for token in doc]
         i = 0
         while i <= doc_len-1:
@@ -117,13 +121,14 @@ class NounSenseAnnotator(object):
                     break
             # whether break happened or not the n is the number to skip forward to
             i += n
-        doc.user_data[self.INDEX_TO_OFFSET_POS] = self.index2synset_offset_pos
 
-    def check_and_add_ngram_sense_scores(self, doc, i, n, view):
+        doc.user_data[NSDView.NSD_VIEW_NAME] = nsd_view
+
+    def check_and_add_ngram_sense_scores(self, doc, i, n, nsd_view):
         span_tuple = (i, i+n)
         ngram_sense_scores = self.nsd.disambiguate_or_none(doc, span_tuple)
         if ngram_sense_scores:
-            view.append((span_tuple, ngram_sense_scores))
+            nsd_view.add_constituent_from_args(span_tuple[0], span_tuple[1], label2score=ngram_sense_scores)
             return True
         else:
             return False

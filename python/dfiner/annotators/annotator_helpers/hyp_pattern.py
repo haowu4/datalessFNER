@@ -350,7 +350,8 @@ class HypPatterns(object):
                     [conj for match in matches
                      for conj in get_conjs(match, only_noun=True)
                      if conj != match and conj != token]
-            return matches + conjs
+            matches += conjs
+            return map(lambda match_token: match_token.i, matches)
         except:
             print "got error while executing the pattern : %s" % pattern_name
 
@@ -360,7 +361,7 @@ class HypPatterns(object):
         for token in doc:
             matches = self.apply_pattern_on_token(pattern_name, token, add_conjs)
             if len(matches) > 0:
-                results.append((token, matches))
+                results.append((token.i, matches))
 
         return results
 
