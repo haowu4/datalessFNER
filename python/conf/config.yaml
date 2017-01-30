@@ -64,3 +64,5 @@ haowu4 :
     synset_offset_pos_embeddings_path : "/home/haowu4/data/autoextend/synset_embeddings_300.txt"
     mention_to_type_dist: "/home/haowu4/codes/dataless_finer/resources/mention_to_type_dist.txt.gz"
     ontonote_to_figer_map: "/home/haowu4/codes/dataless_finer/resources/mention_to_type_dist.txt.gz"
+    ontonotes_train_path : ""
+    figer_path : ""
