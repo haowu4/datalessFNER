@@ -7,59 +7,62 @@ from spacy.strings import hash_string
 
 
 _DOC_BYTE_STRING = "doc_byte_string"
-_USER_DATA_PICKLE_STRING = "user_data_pickle_string"
+_USER_DATA = "user_data"
+_HASH = "doc_hash"
 
 
-def get_key_value_for_doc(doc):
+def serialize_doc(doc):
     doc_byte_string = doc.to_bytes()
-    doc_user_data_string = "" if len(doc.user_data) == 0 else pickle.dumps(doc.user_data, pickle.HIGHEST_PROTOCOL)
-    key = hash_string(doc.string)
-    value = {_DOC_BYTE_STRING: doc_byte_string, _USER_DATA_PICKLE_STRING: doc_user_data_string}
-    return key, value
+    # doc_user_data_string = "" if len(doc.user_data) == 0 else pickle.dumps(doc.user_data, pickle.HIGHEST_PROTOCOL)
+    value = {_DOC_BYTE_STRING: str(doc_byte_string),
+             _USER_DATA: doc.user_data,
+             _HASH: str(hash_string(doc.string))}
+    return pickle.dumps(value, pickle.HIGHEST_PROTOCOL).encode('base64')
 
 
-def retreive_doc_from_key_value(nlp, key, value):
+def unserialize_doc(nlp, serialized_string):
+    value = pickle.loads(serialized_string.decode('base64'))
     doc_byte_string = value[_DOC_BYTE_STRING]
-    doc_user_data_string = value[_USER_DATA_PICKLE_STRING]
+    user_data = value[_USER_DATA]
+    doc_hash = value[_HASH]
     doc = Doc(nlp.vocab).from_bytes(doc_byte_string)
-    assert hash_string(doc.string) == key, "the hash doesn't map the given key"
-    user_data = pickle.loads(doc_user_data_string) if len(doc_user_data_string) > 0 else {}
+    assert str(hash_string(doc.string)) == doc_hash, "the hash doesn't match the hash"
     doc.user_data = user_data
     return doc
 
 
-def docs_to_serialized_dict(docs, tolerate_errors=True):
-    j = {}
+def serialize_docs(docs, tolerate_errors=True):
+    serialized_strings = []
     errors = 0
     for doc in docs:
         try:
-            key, value = get_key_value_for_doc(doc)
-            j[key] = value
+            serialized_string = serialize_doc(doc)
+            serialized_strings.append(serialized_string)
         except Exception as e:
             errors += 1
             if not tolerate_errors:
                 raise e
     print("encountered %d errors while serializing docs" % (errors))
-    return j
+    return serialized_strings
 
 
-def docs_to_json(docs, json_path, tolerate_errors=True):
-    j = docs_to_serialized_dict(docs, tolerate_errors)
-    with codecs.open(json_path, 'w', 'utf-8') as f_out:
-        json.dump(j, f_out)
+def serialize_docs_to_file(docs, serialization_path, tolerate_errors=True):
+    serialized_strings = serialize_docs(docs, tolerate_errors)
+    with codecs.open(serialization_path, 'w') as f_out:
+        json.dump(serialized_strings, f_out)
 
 
-def docs_from_json(nlp, json_path, tolerate_errors=True):
-    with codecs.open(json_path, 'r', 'utf-8') as f_in:
-        j = json.load(f_in)
+def unserialize_docs_from_file(nlp, serialization_path, tolerate_errors=True):
     docs = []
     errors = 0
-    for k, v in j.iteritems():
-        try:
-            docs.append(retreive_doc_from_key_value(nlp, k, v))
-        except Exception as e:
-            errors += 1
-            if not tolerate_errors:
-                raise e
+    with codecs.open(serialization_path, 'r') as f_in:
+        strings = json.load(f_in)
+        for string in strings:
+            try:
+                docs.append(unserialize_doc(nlp, string))
+            except Exception as e:
+                errors += 1
+                if not tolerate_errors:
+                    raise e
     print("encountered %d errors while loading docs" % (errors))
     return docs

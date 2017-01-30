@@ -44,7 +44,7 @@ def get_sentence_doc(nlp, tokens, labels):
     return doc
 
 
-def load_ontonotes(nlp, file):
+def load_ontonotes(nlp, file, max_docs=None):
     tokens = []
     labels = []
     docs = []
@@ -61,6 +61,8 @@ def load_ontonotes(nlp, file):
                 docs.append(sent_doc)
                 tokens = []
                 labels = []
+                if len(docs) >= max_docs:
+                    break
                 continue
             line = line.split("\t")
             word, label = line[5], line[0]
@@ -92,4 +94,7 @@ if __name__ == '__main__':
     nlp.pipeline = [nlp.tagger]
     non_default_annotators = \
         get_non_default_annotator(nlp, config, ngram_length=5, mention_view=GoldMentionView.GOLD_MENTION_VIEW_NAME)
-    test_mentions = load_ontonotes(nlp, config["ontonotes_test_path"])
+    test_mentions = load_ontonotes(nlp, config["ontonotes_test_path"], max_docs=100)
+    for doc in test_mentions:
+        for annotator in non_default_annotators:
+            annotator(doc)
