@@ -3,11 +3,12 @@ import json
 import codecs
 
 import spacy
+import time
 
 from dfiner.annotators import get_nlp_with_all_annotators, get_non_default_annotator
-
 from dfiner.datastructures import View
 from dfiner.utils import get_default_config
+from dfiner.utils.doc_serialization_utils import serialize_docs_to_file
 
 
 class GoldMentionView(View):
@@ -61,7 +62,7 @@ def load_ontonotes(nlp, file, max_docs=None):
                 docs.append(sent_doc)
                 tokens = []
                 labels = []
-                if len(docs) >= max_docs:
+                if max_docs and len(docs) >= max_docs:
                     break
                 continue
             line = line.split("\t")
@@ -88,13 +89,37 @@ def load_all_data(nlp, base_folder):
     return all_docs
 
 
+def load_annotate_and_cache(nlp, extra_annotators, ontonotes_file_path, serialization_path):
+    start_time = time.time()
+    print "loading mentions from %s ... " % ontonotes_file_path,
+    mentions = load_ontonotes(nlp, ontonotes_file_path, max_docs=None)
+    print " done (%ds)" % (time.time() - start_time)
+    print "annotating extra annotators ... ",
+    start_time = time.time()
+    for doc in mentions:
+        for annotator in extra_annotators:
+            annotator(doc)
+    print " done (%ds)" % (time.time() - start_time)
+    print "serializing ... ",
+    start_time = time.time()
+    serialize_docs_to_file(mentions, serialization_path)
+    print " done (%ds)" % (time.time() - start_time)
+
+
 if __name__ == '__main__':
     config = get_default_config()
     nlp = spacy.load('en')
-    nlp.pipeline = [nlp.tagger]
+    nlp.pipeline = [nlp.tagger, nlp.parser]
     non_default_annotators = \
         get_non_default_annotator(nlp, config, ngram_length=5, mention_view=GoldMentionView.GOLD_MENTION_VIEW_NAME)
-    test_mentions = load_ontonotes(nlp, config["ontonotes_test_path"], max_docs=100)
-    for doc in test_mentions:
-        for annotator in non_default_annotators:
-            annotator(doc)
+    non_default_annotators = []
+    print()
+    cache_root = config["cache_root"]
+    for filepath, name in zip(
+            [config["ontonotes_test_path"], config["ontonotes_dev_path"], config["ontonotes_train_path"]],
+            ["test_wo", "dev_wo", "train_wo"]
+    ):
+        load_annotate_and_cache(nlp, non_default_annotators,
+                                filepath,
+                                os.path.join(cache_root, "%s.serial.json" % name))
+        print ""
