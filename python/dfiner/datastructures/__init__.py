@@ -14,8 +14,9 @@ class Constituent(object):
         self.name = name
         self.score = score
         self.label2score = label2score
-        self.best_label_name = max(
-            label2score.keys(), key=lambda x: label2score[x])
+        if label2score:
+            self.best_label_name = max(
+                label2score.keys(), key=lambda x: label2score[x])
         self.outgoing_relations = None
         self.incoming_relations = None
 

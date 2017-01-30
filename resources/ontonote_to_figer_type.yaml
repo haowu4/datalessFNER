@@ -1,20 +1,10 @@
-PERSON:
-	person
-ORG:
-	organization
-GPE:
-	location
-LOC:
-	location
-DATE:
-	time
-FAC:
-	building
-EVENT:
-	event
-WORK_OF_ART:
-	art
-PRODUCT:
-	product
-LAW:
-	law
+PERSON : "person"
+ORG : "organization"
+GPE : "location"
+LOC : "location"
+DATE : "time"
+FAC : "building"
+EVENT : "event"
+WORK_OF_ART : "art"
+PRODUCT : "product"
+LAW : "law"
