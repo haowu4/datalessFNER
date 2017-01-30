@@ -6,7 +6,7 @@ from dfiner.annotators.fine_type_annotator import RuleBasedFineTypeAnnotator
 from dfiner.annotators.hyp_pattern_annotator import HypPatternAnnotator
 
 
-def get_nlp_with_all_annotators(nlp, config, ngram_length=5, mention_view=None):
+def get_non_default_annotator(nlp, config, ngram_length=5, mention_view=None):
     sense_typer = SynsetFineTyper(config["figer_type_senses"])
 
     nsd_cache_path = config["nsd_cache_path"]
@@ -22,14 +22,19 @@ def get_nlp_with_all_annotators(nlp, config, ngram_length=5, mention_view=None):
 
     nsd = nsd if nsd else AverageEmbeddingNSD(embeddings_path, synset_offset_pos_embeddings_path)
 
-    pipeline =  [
-        nlp.tagger, nlp.entity, nlp.parser,
+    pipeline = [
         HypPatternAnnotator(nlp),
         NounSenseAnnotator(nsd, ngram_length),
         RuleBasedFineTypeAnnotator(sense_typer, mention_view)
     ]
 
+    return pipeline
+
+
+def get_nlp_with_all_annotators(nlp, config, ngram_length=5, mention_view=None):
+    non_default_pipeline = get_non_default_annotator(nlp, config, ngram_length, mention_view)
+    pipeline = [nlp.tagger, nlp.entity, nlp.parser] + non_default_pipeline
+
     nlp.pipeline = pipeline
 
     return nlp
-
