@@ -78,18 +78,18 @@ def load_ontonotes(nlp, file, max_docs=None):
     return docs
 
 
-def read_figer(figer_path):
+def read_figer(nlp, figer_path):
     tokens = []
     labels = []
     docs = []
-    with codecs.open(file, "r", "utf-8") as input:
+    with codecs.open(figer_path, "r", "utf-8") as input:
         for i, line in enumerate(input):
             line = line.strip()
             if len(line) == 0:
                 # New sentence
                 if len(tokens) == 0:
                     continue
-                sent_doc = get_sentence_doc(tokens, labels)
+                sent_doc = get_sentence_doc(nlp, tokens, labels)
                 docs.append(sent_doc)
                 tokens = []
                 labels = []
@@ -102,7 +102,7 @@ def read_figer(figer_path):
     if len(tokens) == 0:
         return docs
 
-    sent_doc = get_sentence_doc(tokens, labels)
+    sent_doc = get_sentence_doc(nlp, tokens, labels)
     docs.append(sent_doc)
     return docs
 
