@@ -19,7 +19,19 @@ class FinerTypeSystem(object):
         while self.tree[it]["parent"]:
             if self.tree[it]["parent"] == coarse:
                 return True
+            it = self.tree[it]["parent"]
         return False
+
+    def has_type(self, t):
+        return t in self.tree
+
+    def get_path(self, node):
+        path = []
+        it = node
+        while self.tree[it]["parent"]:
+            path.append(self.tree[it]["parent"])
+            it = self.tree[it]["parent"]
+        return path
 
 
 if __name__ == '__main__':

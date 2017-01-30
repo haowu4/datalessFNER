@@ -1,13 +1,21 @@
 # cog-comp style constituent with token offsets - [start, end)
 class Constituent(object):
-    __slots__ = 'start', 'end', 'name', 'score', 'label2score', 'outgoing_relations', 'incoming_relations'
+    __slots__ = ('start', 'end', 'name', 'score', 'label2score',
+                 'best_label_name', 'outgoing_relations', 'incoming_relations')
 
-    def __init__(self, start, end, name=None, score=None, label2score=None, outgoing_relations=None, incoming_relations=None):
+    def __init__(self, start, end,
+                 name=None,
+                 score=None,
+                 label2score=None,
+                 outgoing_relations=None,
+                 incoming_relations=None):
         self.start = start
         self.end = end
         self.name = name
         self.score = score
         self.label2score = label2score
+        self.best_label_name = max(
+            label2score.keys(), key=lambda x: label2score[x])
         self.outgoing_relations = None
         self.incoming_relations = None
 

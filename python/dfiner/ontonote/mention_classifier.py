@@ -65,8 +65,19 @@ def generate_vecs(objs,
 
 class MentionClassifier(object):
 
-    def __init__(self, feature_functions, dense_feature_functions):
+    @classmethod
+    def load_classifier(clz):
         pass
+
+    def __init__(self,
+                 model=None,
+                 feature_lex=None,
+                 type_lex=None,
+                 feature_functions=None,
+                 dense_feature_functions=None):
+        self.model = None
+        self.feature_functions = None
+        self.dense_feature_functions = None
 
     def train(self, typ_function):
         lex, type_lex, xs_train, ys_train = generate_vecs(train_mentions,
