@@ -73,7 +73,7 @@ def load_ontonotes(nlp, file, max_docs=None):
     if len(tokens) == 0:
         return docs
 
-    sent_doc = get_sentence_doc(tokens, labels)
+    sent_doc = get_sentence_doc(nlp, tokens, labels)
     docs.append(sent_doc)
     return docs
 
