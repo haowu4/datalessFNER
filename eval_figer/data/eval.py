@@ -76,7 +76,8 @@ def load_labels(file):
                 tokens = []
                 labels = []
                 continue
-            word, label = line.split("\t")
+            line = line.split("\t")
+            word, label = line[0], line[1]
             tokens.append(word)
             labels.append(label)
 
