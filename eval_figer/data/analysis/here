@@ -1,0 +1,3466 @@
+7,10c7,10
+< UW	B-/organization/educational_institution,/organization
+< Department	B-/education/department,/organization
+< of	I-/education/department,/organization
+< Chemistry	I-/education/department,/organization
+---
+> UW	B-/organization
+> Department	B-/organization
+> of	I-/organization
+> Chemistry	I-/organization
+36c36
+< 	
+---
+> 
+52c52
+< Science	B-/written_work
+---
+> Science	B-/organization
+55,57c55,57
+< Science	B-/written_work
+< Translational	I-/written_work
+< Medicine	I-/written_work
+---
+> Science	B-/organization
+> Translational	I-/organization
+> Medicine	I-/organization
+59c59
+< 	
+---
+> 
+71c71
+< Fellows	B-/title
+---
+> Fellows	B-/person
+107c107
+< 	
+---
+> 
+114c114
+< UW	B-/organization/educational_institution,/organization
+---
+> UW	B-/organization
+118c118
+< 	
+---
+> 
+123c123
+< AAAS	B-/organization
+---
+> AAAS	O
+135,136c135,136
+< Paul	B-/person
+< Hopkins	I-/person
+---
+> Paul	B-/organization
+> Hopkins	I-/organization
+138c138
+< 	
+---
+> 
+151,152c151,152
+< 	
+< Hopkins	B-/person
+---
+> 
+> Hopkins	B-/organization
+167c167
+< 	
+---
+> 
+181c181
+< 	
+---
+> 
+208c208
+< 	
+---
+> 
+242c242
+< 	
+---
+> 
+255,258c255,258
+< UW	B-/organization/educational_institution,/organization
+< Department	B-/education/department,/organization
+< of	I-/education/department,/organization
+< Chemistry	I-/education/department,/organization
+---
+> UW	B-/organization
+> Department	B-/organization
+> of	I-/organization
+> Chemistry	I-/organization
+268,270c268,270
+< Karen	B-/person
+< I.	I-/person
+< Goldberg	I-/person
+---
+> Karen	B-/organization
+> I.	I-/organization
+> Goldberg	I-/organization
+277c277
+< 	
+---
+> 
+296c296
+< 	
+---
+> 
+310c310
+< 	
+---
+> 
+325c325
+< 	
+---
+> 
+347c347
+< 	
+---
+> 
+350c350
+< Gamelin	B-/person
+---
+> Gamelin	B-/location
+369c369
+< Goldberg	B-/person
+---
+> Goldberg	B-/location
+388c388
+< 	
+---
+> 
+403c403
+< 	
+---
+> 
+426c426
+< 	
+---
+> 
+443c443
+< Vancouver	B-/location,/location/city
+---
+> Vancouver	B-/location
+445c445
+< B.C	B-/location,/location/province
+---
+> B.C	B-/location
+447,450c447,450
+< 	
+< The	B-/event
+< Fellows	I-/event
+< Forum	I-/event
+---
+> 
+> The	B-/organization
+> Fellows	I-/organization
+> Forum	I-/organization
+474c474
+< 	
+---
+> 
+497c497
+< 	
+---
+> 
+502,505c502,505
+< Feb.	B-/time
+< 16	I-/time
+< –	I-/time
+< 20	I-/time
+---
+> Feb.	O
+> 16	O
+> –	O
+> 20	O
+507c507
+< 	
+---
+> 
+511c511
+< UW	B-/organization/educational_institution,/organization
+---
+> UW	B-/organization
+529c529
+< 	
+---
+> 
+564c564
+< 	
+---
+> 
+576c576
+< 	
+---
+> 
+589,591c589,591
+< School	B-/organization,/organization/educational_institution
+< of	I-/organization,/organization/educational_institution
+< Oceanography	I-/organization,/organization/educational_institution
+---
+> School	B-/organization
+> of	I-/organization
+> Oceanography	I-/organization
+598,600c598,600
+< Department	B-/organization,/education/department
+< of	I-/organization,/education/department
+< Pharmacology	I-/organization,/education/department
+---
+> Department	B-/organization
+> of	I-/organization
+> Pharmacology	I-/organization
+609,611c609,611
+< School	B-/organization,/organization/educational_institution
+< of	I-/organization,/organization/educational_institution
+< Pharmacy	I-/organization,/organization/educational_institution
+---
+> School	B-/organization
+> of	I-/organization
+> Pharmacy	I-/organization
+618,620c618,620
+< Department	B-/organization,/education/department
+< of	I-/organization,/education/department
+< Physics	I-/organization,/education/department
+---
+> Department	B-/organization
+> of	I-/organization
+> Physics	I-/organization
+622c622
+< 	
+---
+> 
+645,646c645,646
+< Federal	B-/location,/location/city
+< Way	I-/location,/location/city
+---
+> Federal	B-/location
+> Way	I-/location
+648c648
+< 	
+---
+> 
+663,665c663,665
+< Pacific	B-/location,/transportation/road
+< Highway	I-/location,/transportation/road
+< South	I-/location,/transportation/road
+---
+> Pacific	B-/building
+> Highway	I-/building
+> South	I-/building
+683c683
+< 	
+---
+> 
+708,711c708,711
+< U.S.	B-/organization,/government_agency
+< Attorney	I-/organization,/government_agency
+< ’s	I-/organization,/government_agency
+< Office	I-/organization,/government_agency
+---
+> U.S.	B-/organization
+> Attorney	I-/organization
+> ’s	I-/organization
+> Office	I-/organization
+715c715
+< 	
+---
+> 
+723c723
+< Wednesday	B-/time
+---
+> Wednesday	O
+735c735
+< 	
+---
+> 
+769c769
+< 	
+---
+> 
+784c784
+< 	
+---
+> 
+799c799
+< 	
+---
+> 
+814,818c814,818
+< U.S.	B-/government_agency,/organization
+< Immigration	I-/government_agency,/organization
+< and	I-/government_agency,/organization
+< Customs	I-/government_agency,/organization
+< Enforcement	I-/government_agency,/organization
+---
+> U.S.	B-/organization
+> Immigration	I-/organization
+> and	I-/organization
+> Customs	I-/organization
+> Enforcement	I-/organization
+825c825
+< 	
+---
+> 
+843,844c843,844
+< U.S.	B-/title
+< Attorney	I-/title
+---
+> U.S.	B-/organization
+> Attorney	I-/organization
+850c850
+< 	
+---
+> 
+867c867
+< 	
+---
+> 
+874c874
+< Thursday	B-/time
+---
+> Thursday	B-/person
+889c889
+< Milton	B-/location,/location/city
+---
+> Milton	B-/location
+901c901
+< 	
+---
+> 
+917c917
+< 	
+---
+> 
+920c920
+< Thursday	B-/time
+---
+> Thursday	B-/person
+929,930c929,930
+< Federal	B-/location,/location/city
+< Way	I-/location,/location/city
+---
+> Federal	B-/location
+> Way	I-/location
+942c942
+< 	
+---
+> 
+950c950
+< Seattle	B-/location/city,/location
+---
+> Seattle	B-/location
+960c960
+< 	
+---
+> 
+967,968c967,968
+< Federal	B-/location/city,/location
+< Way	I-/location/city,/location
+---
+> Federal	B-/location
+> Way	I-/location
+980c980
+< 	
+---
+> 
+988,989c988,989
+< Federal	B-/location/city,/location
+< Way	I-/location/city,/location
+---
+> Federal	B-/location
+> Way	I-/location
+1005c1005
+< 	
+---
+> 
+1023c1023
+< 	
+---
+> 
+1028,1030c1028,1030
+< Sung	B-/person
+< Hee	I-/person
+< Han	I-/person
+---
+> Sung	O
+> Hee	O
+> Han	O
+1040,1041c1040,1041
+< Federal	B-/location/city,/location
+< Way	I-/location/city,/location
+---
+> Federal	B-/location
+> Way	I-/location
+1047,1048c1047,1048
+< 	
+< Han	B-/person
+---
+> 
+> Han	O
+1072c1072
+< 	
+---
+> 
+1079,1080c1079,1080
+< Los	B-/location,/location/city
+< Angeles	I-/location,/location/city
+---
+> Los	B-/location
+> Angeles	I-/location
+1083c1083
+< 	
+---
+> 
+1093,1095c1093,1095
+< 	
+< Seattle	B-/government_agency,/organization
+< police	I-/government_agency,/organization
+---
+> 
+> Seattle	B-/organization
+> police	I-/organization
+1121c1121
+< 	
+---
+> 
+1147c1147
+< 	
+---
+> 
+1175,1176c1175,1176
+< United	B-/location,/location/country
+< States	I-/location,/location/country
+---
+> United	B-/location
+> States	I-/location
+1181c1181
+< 	
+---
+> 
+1195,1198c1195,1198
+< 	
+< Seattle	B-/government/government,/organization
+< City	I-/government/government,/organization
+< Council	I-/government/government,/organization
+---
+> 
+> Seattle	B-/organization
+> City	I-/organization
+> Council	I-/organization
+1206,1208c1206,1208
+< Mayor	B-/title
+< Mike	B-/person,/person/politician
+< McGinn	I-/person,/person/politician
+---
+> Mayor	B-/location
+> Mike	B-/person
+> McGinn	I-/person
+1231c1231
+< NBA	B-/organization/sports_league,/organization
+---
+> NBA	B-/organization
+1235c1235
+< Seattle	B-/location/city,/location
+---
+> Seattle	B-/location
+1242c1242
+< 	
+---
+> 
+1252c1252
+< 	
+---
+> 
+1257,1260c1257,1260
+< the	B-/government_agency,/organization
+< Mayor	I-/government_agency,/organization
+< 's	I-/government_agency,/organization
+< Office	I-/government_agency,/organization
+---
+> the	B-/organization
+> Mayor	I-/organization
+> 's	I-/organization
+> Office	I-/organization
+1290,1292c1290,1292
+< Councilmember	B-/title
+< Richard	B-/person,/person/politician
+< Conlin	I-/person,/person/politician
+---
+> Councilmember	B-/person
+> Richard	B-/person
+> Conlin	I-/person
+1294,1295c1294,1295
+< 	
+< McGinn	B-/person
+---
+> 
+> McGinn	B-/organization
+1303c1303
+< July	B-/time
+---
+> July	B-/location
+1314,1315c1314,1315
+< 	
+< McGinn	B-/person
+---
+> 
+> McGinn	B-/product
+1335c1335
+< 	
+---
+> 
+1341c1341
+< Hirsh	B-/person
+---
+> Hirsh	B-/organization
+1366,1368c1366,1368
+< The	B-/organization/company,/news_agency,/organization
+< Seattle	I-/organization/company,/news_agency,/organization
+< Times	I-/organization/company,/news_agency,/organization
+---
+> The	B-/organization
+> Seattle	I-/organization
+> Times	I-/organization
+1370c1370
+< December	B-/time
+---
+> December	B-/location
+1387c1387
+< NBA	B-/organization/sports_league,/organization
+---
+> NBA	B-/organization
+1390c1390
+< Seattle	B-/location/city,/location
+---
+> Seattle	B-/location
+1392c1392
+< 	
+---
+> 
+1419,1421c1419,1421
+< Councilmember	B-/title
+< Sally	B-/person,/person/politician
+< Clark	I-/person,/person/politician
+---
+> Councilmember	B-/person
+> Sally	B-/person
+> Clark	I-/person
+1423,1424c1423,1424
+< 	
+< McGinn	B-/person
+---
+> 
+> McGinn	B-/organization
+1451c1451
+< Seattle	B-/location/city,/location
+---
+> Seattle	B-/location
+1454,1456c1454,1456
+< 	
+< The	B-/organization/company,/news_agency,/organization
+< Times	I-/organization/company,/news_agency,/organization
+---
+> 
+> The	B-/organization
+> Times	I-/organization
+1468,1469c1468,1469
+< San	B-/location/city,/location
+< Francisco	I-/location/city,/location
+---
+> San	B-/location
+> Francisco	I-/location
+1480c1480
+< Seattle	B-/location,/location/city
+---
+> Seattle	B-/location
+1482,1483c1482,1483
+< 	
+< McGinn	B-/person
+---
+> 
+> McGinn	B-/organization
+1496c1496
+< 	
+---
+> 
+1516c1516
+< 	
+---
+> 
+1541,1542c1541,1542
+< Initiative	B-/written_work
+< 91	I-/written_work
+---
+> Initiative	B-/time
+> 91	I-/time
+1563,1566c1563,1566
+< 	
+< The	B-/organization/company,/news_agency,/organization
+< Seattle	I-/organization/company,/news_agency,/organization
+< Times	I-/organization/company,/news_agency,/organization
+---
+> 
+> The	B-/organization
+> Seattle	I-/organization
+> Times	I-/organization
+1583,1584c1583,1584
+< 	
+< McGinn	B-/person
+---
+> 
+> McGinn	B-/organization
+1607c1607
+< 	
+---
+> 
+1643c1643
+< Seattle	B-/location/city,/location
+---
+> Seattle	B-/location
+1656c1656
+< I-91	B-/written_work
+---
+> I-91	O
+1659c1659
+< McGinn	B-/person
+---
+> McGinn	B-/organization
+1666,1667c1666,1667
+< 	
+< McGinn	B-/person
+---
+> 
+> McGinn	B-/organization
+1679c1679
+< 	
+---
+> 
+1691,1692c1691,1692
+< City	B-/government_agency,/organization
+< Council	I-/government_agency,/organization
+---
+> City	B-/organization
+> Council	I-/organization
+1703c1703
+< 	
+---
+> 
+1725c1725
+< 	
+---
+> 
+1731c1731
+< Sonics	B-/organization/sports_team,/organization
+---
+> Sonics	O
+1737c1737
+< 	
+---
+> 
+1762c1762
+< 	
+---
+> 
+1766c1766
+< 	
+---
+> 
+1771c1771
+< Sonics	B-/organization/sports_team,/organization
+---
+> Sonics	B-/organization
+1784c1784
+< KeyArena	B-/building/sports_facility,/building
+---
+> KeyArena	O
+1788,1789c1788,1789
+< 	
+< Schultz	B-/person
+---
+> 
+> Schultz	B-/organization
+1799c1799
+< 	
+---
+> 
+1811c1811
+< NBA	B-/organization/sports_league,/organization
+---
+> NBA	B-/organization
+1818,1819c1818,1819
+< Oklahoma	B-/location/city,/location
+< City	I-/location/city,/location
+---
+> Oklahoma	B-/location
+> City	I-/location
+1829c1829
+< 	
+---
+> 
+1836c1836
+< KeyArena	B-/building/sports_facility,/building
+---
+> KeyArena	B-/organization
+1842c1842
+< NBA	B-/organization/sports_league,/organization
+---
+> NBA	B-/organization
+1844c1844
+< NHL	B-/organization/sports_league,/organization
+---
+> NHL	B-/organization
+1851c1851
+< 	
+---
+> 
+1857,1858c1857,1858
+< Stafford	B-/organization
+< Sports	I-/organization
+---
+> Stafford	B-/location
+> Sports	I-/location
+1860,1861c1860,1861
+< New	B-/location,/location/province
+< Jersey	I-/location,/location/province
+---
+> New	B-/location
+> Jersey	I-/location
+1866,1868c1866,1868
+< San	B-/organization/sports_team,/organization
+< Antonio	I-/organization/sports_team,/organization
+< Spurs	I-/organization/sports_team,/organization
+---
+> San	O
+> Antonio	O
+> Spurs	O
+1877,1878c1877,1878
+< AT&T	B-/building/sports_facility,/building
+< Center	I-/building/sports_facility,/building
+---
+> AT&T	B-/location
+> Center	I-/location
+1880c1880
+< 	
+---
+> 
+1887c1887
+< Orlando	B-/location,/location/city
+---
+> Orlando	B-/location
+1894,1895c1894,1895
+< Orlando	B-/organization,/organization/sports_team
+< Magic	I-/organization,/organization/sports_team
+---
+> Orlando	B-/location
+> Magic	I-/location
+1908,1914c1908,1914
+< Madison	B-/building,/building/sports_facility
+< Square	I-/building,/building/sports_facility
+< Garden	I-/building,/building/sports_facility
+< in	O
+< New	B-/location,/location/city
+< York	I-/location/city,/location
+< City	I-/location/city,/location
+---
+> Madison	B-/building
+> Square	I-/building
+> Garden	I-/building
+> in	O
+> New	B-/location
+> York	I-/location
+> City	I-/location
+1916c1916
+< 	
+---
+> 
+1933c1933
+< NBA	B-/organization/sports_league,/organization
+---
+> NBA	B-/organization
+1935,1937c1935,1937
+< New	B-/organization,/organization/sports_team
+< Jersey	I-/organization,/organization/sports_team
+< Nets	I-/organization,/organization/sports_team
+---
+> New	B-/organization
+> Jersey	I-/organization
+> Nets	I-/organization
+1946c1946
+< Brooklyn	B-/location/city,/location
+---
+> Brooklyn	B-/location
+1948c1948
+< 	
+---
+> 
+1963c1963
+< 	
+---
+> 
+1989,1991c1989,1991
+< Hansen	B-/organization/company,/organization
+< investment	I-/organization/company,/organization
+< group	I-/organization/company,/organization
+---
+> Hansen	B-/organization
+> investment	I-/organization
+> group	I-/organization
+1999c1999
+< 	
+---
+> 
+2006c2006
+< Hansen	B-/organization/company
+---
+> Hansen	B-/organization
+2016,2018c2016,2018
+< Occidental	B-/location,/transportation/road
+< Avenue	I-/location,/transportation/road
+< South	I-/location,/transportation/road
+---
+> Occidental	B-/location
+> Avenue	I-/location
+> South	I-/location
+2020,2021c2020,2021
+< South	B-/location,/transportation/road
+< Massachusetts	I-/location,/transportation/road
+---
+> South	B-/location
+> Massachusetts	I-/location
+2023,2024c2023,2024
+< South	B-/location,/transportation/road
+< Holgate	I-/location,/transportation/road
+---
+> South	B-/location
+> Holgate	I-/location
+2027c2027
+< 	
+---
+> 
+2031,2032c2031,2032
+< San	B-/organization,/organization/sports_team
+< Antonio	I-/organization,/organization/sports_team
+---
+> San	B-/location
+> Antonio	I-/location
+2048,2051c2048,2051
+< 	
+< The	B-/building,/building/sports_facility
+< AT&T	I-/building,/building/sports_facility
+< Center	I-/building,/building/sports_facility
+---
+> 
+> The	B-/organization
+> AT&T	I-/organization
+> Center	I-/organization
+2059c2059
+< Spurs	B-/organization/sports_team,/organization
+---
+> Spurs	B-/organization
+2062c2062
+< WNBA	B-/organization/sports_league,/organization
+---
+> WNBA	B-/organization
+2064,2065c2064,2065
+< Silver	B-/organization/sports_team,/organization
+< Stars	I-/organization/sports_team,/organization
+---
+> Silver	B-/organization
+> Stars	I-/organization
+2068,2070c2068,2070
+< American	B-/organization/sports_league,/organization
+< Hockey	I-/organization/sports_league,/organization
+< League	I-/organization/sports_league,/organization
+---
+> American	B-/organization
+> Hockey	I-/organization
+> League	I-/organization
+2072c2072
+< Rampage	B-/organization/sports_team,/organization
+---
+> Rampage	B-/organization
+2074c2074
+< 	
+---
+> 
+2088c2088
+< 	
+---
+> 
+2099c2099
+< Spurs	B-/organization/sports_team,/organization
+---
+> Spurs	O
+2102,2103c2102,2103
+< San	B-/location/city,/location
+< Antonio	I-/location/city,/location
+---
+> San	B-/location
+> Antonio	I-/location
+2139,2141c2139,2141
+< San	B-/organization/sports_team,/organization
+< Antonio	I-/organization/sports_team,/organization
+< Spurs	I-/organization/sports_team,/organization
+---
+> San	O
+> Antonio	O
+> Spurs	O
+2144c2144
+< 	
+---
+> 
+2161c2161
+< Seattle	B-/location,/location/city
+---
+> Seattle	B-/location
+2163c2163
+< 	
+---
+> 
+2183c2183
+< 	
+---
+> 
+2193c2193
+< 	
+---
+> 
+2203c2203
+< 	
+---
+> 
+2206c2206
+< 	
+---
+> 
+2217c2217
+< 	
+---
+> 
+2221c2221
+< 	
+---
+> 
+2232c2232
+< McGinn	B-/person,/person/politician
+---
+> McGinn	B-/location
+2265c2265
+< 	
+---
+> 
+2286c2286
+< Seattle	B-/location,/location/city
+---
+> Seattle	B-/location
+2300c2300
+< 	
+---
+> 
+2321c2321
+< 	
+---
+> 
+2356c2356
+< 	
+---
+> 
+2361c2361
+< U-District	B-/location
+---
+> U-District	O
+2377,2381c2377,2381
+< UW	B-/organization,/organization/educational_institution
+< School	B-/organization,/organization/educational_institution
+< of	I-/organization,/organization/educational_institution
+< Social	I-/organization,/organization/educational_institution
+< Work	I-/organization,/organization/educational_institution
+---
+> UW	B-/organization
+> School	B-/organization
+> of	I-/organization
+> Social	I-/organization
+> Work	I-/organization
+2386c2386
+< 	
+---
+> 
+2393,2395c2393,2395
+< Sanctuary	B-/building
+< Art	I-/building
+< Center	I-/building
+---
+> Sanctuary	B-/organization
+> Art	I-/organization
+> Center	I-/organization
+2411c2411
+< 	
+---
+> 
+2428c2428
+< 	
+---
+> 
+2469c2469
+< 	
+---
+> 
+2492c2492
+< 	
+---
+> 
+2527c2527
+< 	
+---
+> 
+2529,2531c2529,2531
+< Sanctuary	B-/building
+< Art	I-/building
+< Center	I-/building
+---
+> Sanctuary	O
+> Art	O
+> Center	O
+2543,2544c2543,2544
+< Interagency	B-/organization,/organization/educational_institution
+< Academy	I-/organization,/organization/educational_institution
+---
+> Interagency	B-/organization
+> Academy	I-/organization
+2550c2550
+< Seattle	B-/location/city,/location
+---
+> Seattle	B-/location
+2567c2567
+< 	
+---
+> 
+2584c2584
+< 	
+---
+> 
+2625c2625
+< 	
+---
+> 
+2637,2641c2637,2641
+< UW	B-/organization,/organization/educational_institution
+< School	B-/organization,/organization/educational_institution
+< of	I-/organization,/organization/educational_institution
+< Social	I-/organization,/organization/educational_institution
+< Work	I-/organization,/organization/educational_institution
+---
+> UW	B-/organization
+> School	B-/organization
+> of	I-/organization
+> Social	I-/organization
+> Work	I-/organization
+2654c2654
+< 	
+---
+> 
+2665,2668c2665,2668
+< School	B-/organization,/organization/educational_institution
+< of	I-/organization,/organization/educational_institution
+< Social	I-/organization,/organization/educational_institution
+< Work	I-/organization,/organization/educational_institution
+---
+> School	B-/organization
+> of	I-/organization
+> Social	I-/organization
+> Work	I-/organization
+2697c2697
+< 	
+---
+> 
+2727c2727
+< 	
+---
+> 
+2751c2751
+< 	
+---
+> 
+2762c2762
+< UW	B-/organization,/organization/educational_institution
+---
+> UW	O
+2812c2812
+< 	
+---
+> 
+2873c2873
+< 	
+---
+> 
+2904c2904
+< 	
+---
+> 
+2908,2910c2908,2910
+< Sanctuary	B-/building
+< Art	I-/building
+< Center	I-/building
+---
+> Sanctuary	O
+> Art	O
+> Center	O
+2924c2924
+< 	
+---
+> 
+2935c2935
+< Seattle	B-/location,/location/city
+---
+> Seattle	B-/location
+2942c2942
+< 	
+---
+> 
+2957c2957
+< 	
+---
+> 
+2981c2981
+< 	
+---
+> 
+2984c2984
+< Sanctuary	B-/organization
+---
+> Sanctuary	B-/person
+3006c3006
+< 	
+---
+> 
+3019c3019
+< 	
+---
+> 
+3026,3027c3026,3027
+< Kevin	B-/person,/person/coach
+< McGuff	I-/person,/person/coach
+---
+> Kevin	B-/organization
+> McGuff	I-/organization
+3044c3044
+< 	
+---
+> 
+3057c3057
+< Huskies	B-/organization/sports_team,/organization
+---
+> Huskies	B-/location
+3069,3070c3069,3070
+< Washington	B-/organization,/organization/educational_institution
+< State	I-/organization,/organization/educational_institution
+---
+> Washington	B-/organization
+> State	I-/organization
+3074c3074
+< Wash.	B-/location,/location/province
+---
+> Wash.	B-/location
+3078c3078
+< UW	B-/organization,/organization/educational_institution
+---
+> UW	B-/organization
+3089c3089
+< Cougars	B-/organization/sports_team,/organization
+---
+> Cougars	O
+3091c3091
+< 	
+---
+> 
+3098c3098
+< McGuff	B-/person
+---
+> McGuff	B-/product
+3103,3104c3103,3104
+< Regina	B-/person,/person/athlete
+< Rogers	I-/person,/person/athlete
+---
+> Regina	B-/organization
+> Rogers	I-/organization
+3107c3107
+< Utah	B-/organization,/organization/sports_team
+---
+> Utah	B-/person
+3109c3109
+< Saturday	B-/time
+---
+> Saturday	B-/location
+3111,3112c3111,3112
+< 	
+< Rogers	B-/person,/person/athlete
+---
+> 
+> Rogers	B-/person
+3115c3115
+< UW	B-/organization,/organization/educational_institution
+---
+> UW	B-/organization
+3137,3138c3137,3138
+< Washington	B-/organization/educational_institution,/organization
+< State	I-/organization/educational_institution,/organization
+---
+> Washington	B-/organization
+> State	I-/organization
+3140c3140
+< 	
+---
+> 
+3153c3153
+< ”	O	
+---
+> ”	O
+3162c3162
+< 	
+---
+> 
+3178c3178
+< 	
+---
+> 
+3181,3182c3181,3182
+< Rogers	B-/person
+< ’	I-/person
+---
+> Rogers	B-/location
+> ’	I-/location
+3194c3194
+< 	
+---
+> 
+3206,3207c3206,3207
+< Marjie	B-/person,/person/athlete
+< Heard	I-/person,/person/athlete
+---
+> Marjie	B-/person
+> Heard	I-/person
+3218,3219c3218,3219
+< Talia	B-/person,/person/athlete
+< Walton	I-/person,/person/athlete
+---
+> Talia	B-/person
+> Walton	I-/person
+3234c3234
+< Huskies	B-/organization/sports_team,/organization
+---
+> Huskies	O
+3251,3252c3251,3252
+< Washington	B-/organization/educational_institution,/organization
+< State	I-/organization/educational_institution,/organization
+---
+> Washington	B-/organization
+> State	I-/organization
+3254c3254
+< 	
+---
+> 
+3278,3279c3278,3279
+< Mackenzie	B-/person,/person/athlete
+< Argens	I-/person,/person/athlete
+---
+> Mackenzie	O
+> Argens	O
+3281,3282c3281,3282
+< Mollie	B-/person,/person/athlete
+< Williams	I-/person,/person/athlete
+---
+> Mollie	B-/person
+> Williams	I-/person
+3284c3284
+< 	
+---
+> 
+3310c3310
+< Cougars	B-/organization/sports_team,/organization
+---
+> Cougars	O
+3312c3312
+< Rogers	B-/person,/person/athlete
+---
+> Rogers	B-/person
+3315c3315
+< 	
+---
+> 
+3325c3325
+< UW	B-/organization,/organization/educational_institution
+---
+> UW	B-/organization
+3351c3351
+< 	
+---
+> 
+3353c3353
+< Heard	B-/person,/person/athlete
+---
+> Heard	B-/person
+3372c3372
+< 	
+---
+> 
+3374c3374
+< Huskies	B-/organization/sports_team,/organization
+---
+> Huskies	B-/person
+3390c3390
+< 	
+---
+> 
+3397c3397
+< Cougar	B-/organization/sports_team,/organization
+---
+> Cougar	B-/organization
+3402c3402
+< UW	B-/organization/educational_institution,/organization
+---
+> UW	O
+3423c3423
+< Stanford	B-/organization/educational_institution,/organization
+---
+> Stanford	B-/organization
+3425c3425
+< Cal	B-/organization/educational_institution,/organization
+---
+> Cal	B-/location
+3427c3427
+< 	
+---
+> 
+3437c3437
+< Cougars	B-/organization/sports_team,/organization
+---
+> Cougars	O
+3445,3446c3445,3446
+< 	
+< McGuff	B-/person
+---
+> 
+> McGuff	B-/product
+3467c3467
+< 	
+---
+> 
+3480c3480
+< 	
+---
+> 
+3514,3516c3514,3516
+< 	
+< Washington	B-/organization/educational_institution,/organization
+< State	I-/organization/educational_institution,/organization
+---
+> 
+> Washington	B-/organization
+> State	I-/organization
+3541,3543c3541,3543
+< 	
+< The	B-/organization/sports_team,/organization
+< Cougars	I-/organization/sports_team,/organization
+---
+> 
+> The	B-/person
+> Cougars	I-/person
+3551,3552c3551,3552
+< June	B-/person,/person/coach
+< Daugherty	I-/person,/person/coach
+---
+> June	B-/person
+> Daugherty	I-/person
+3567c3567
+< 	
+---
+> 
+3570c3570
+< Huskies	B-/organization/sports_team,/organization
+---
+> Huskies	O
+3579c3579
+< Rogers	B-/person,/person/athlete
+---
+> Rogers	B-/organization
+3583,3584c3583,3584
+< Jazmine	B-/person,/person/athlete
+< Davis	I-/person,/person/athlete
+---
+> Jazmine	B-/person
+> Davis	I-/person
+3599c3599
+< 	
+---
+> 
+3604c3604
+< McGuff	B-/person
+---
+> McGuff	B-/product
+3616c3616
+< 	
+---
+> 
+3636c3636
+< 	
+---
+> 
+3671c3671
+< 	
+---
+> 
+3673c3673
+< Rogers	B-/person,/person/athlete
+---
+> Rogers	B-/person
+3680c3680
+< Huskies	B-/organization/sports_team,/organization
+---
+> Huskies	B-/product
+3689c3689
+< Cougars	B-/organization/sports_team,/organization
+---
+> Cougars	B-/product
+3694c3694
+< 	
+---
+> 
+3711,3712c3711,3712
+< Washington	B-/organization,/organization/educational_institution
+< State	I-/organization,/organization/educational_institution
+---
+> Washington	O
+> State	O
+3720c3720
+< 	
+---
+> 
+3722c3722
+< Safeway	B-/organization/company,/organization
+---
+> Safeway	B-/building
+3725c3725
+< U-District	B-/location
+---
+> U-District	O
+3737c3737
+< 	
+---
+> 
+3754c3754
+< 	
+---
+> 
+3760c3760
+< 	
+---
+> 
+3784c3784
+< 	
+---
+> 
+3797,3798c3797,3798
+< Edward	B-/person
+< McClain	I-/person
+---
+> Edward	B-/organization
+> McClain	I-/organization
+3813c3813
+< 	
+---
+> 
+3826c3826
+< 	
+---
+> 
+3837c3837
+< McClain	B-/person
+---
+> McClain	B-/product
+3849c3849
+< 	
+---
+> 
+3854c3854
+< Jackson	B-/location,/location/city
+---
+> Jackson	B-/location
+3856c3856
+< Miss.	B-/location,/location/province
+---
+> Miss.	B-/location
+3862c3862
+< Chicago	B-/location,/location/city
+---
+> Chicago	B-/location
+3864c3864
+< 	
+---
+> 
+3868,3870c3868,3870
+< bachelor	B-/education/educational_degree
+< ’s	I-/education/educational_degree
+< degree	I-/education/educational_degree
+---
+> bachelor	B-/person
+> ’s	I-/person
+> degree	I-/person
+3877,3879c3877,3879
+< Northern	B-/organization,/organization/educational_institution
+< Illinois	I-/organization,/organization/educational_institution
+< University	I-/organization,/organization/educational_institution
+---
+> Northern	B-/organization
+> Illinois	I-/organization
+> University	I-/organization
+3887,3888c3887,3888
+< Concordia	B-/organization/educational_institution,/organization
+< University	I-/organization/educational_institution,/organization
+---
+> Concordia	B-/organization
+> University	I-/organization
+3890c3890
+< Canada	B-/location,/location/country
+---
+> Canada	B-/location
+3892c3892
+< 	
+---
+> 
+3898c3898
+< Minnesota	B-/location,/location/province
+---
+> Minnesota	B-/location
+3917c3917
+< 	
+---
+> 
+3929c3929
+< 	
+---
+> 
+3934c3934
+< McClain	B-/person
+---
+> McClain	B-/product
+3947c3947
+< 	
+---
+> 
+3958c3958
+< ”	O	
+---
+> ”	O
+3962c3962
+< 	
+---
+> 
+3973c3973
+< 	
+---
+> 
+3984c3984
+< 	
+---
+> 
+3986c3986
+< McClain	B-/person
+---
+> McClain	B-/organization
+3999c3999
+< 	
+---
+> 
+4026c4026
+< 	
+---
+> 
+4054c4054
+< 	
+---
+> 
+4065c4065
+< 	
+---
+> 
+4084c4084
+< 	
+---
+> 
+4097c4097
+< 	
+---
+> 
+4101c4101
+< 	
+---
+> 
+4112c4112
+< 	
+---
+> 
+4131c4131
+< 	
+---
+> 
+4143c4143
+< 	
+---
+> 
+4159c4159
+< 	
+---
+> 
+4177c4177
+< 	
+---
+> 
+4181c4181
+< Safeway	B-/organization/company,/organization
+---
+> Safeway	B-/person
+4225c4225
+< 	
+---
+> 
+4231c4231
+< McClain	B-/person
+---
+> McClain	B-/product
+4240c4240
+< 	
+---
+> 
+4249c4249
+< McClain	B-/person
+---
+> McClain	O
+4255c4255
+< Safeway	B-/organization,/organization/company
+---
+> Safeway	B-/organization
+4257c4257
+< 	
+---
+> 
+4260c4260
+< McClain	B-/person
+---
+> McClain	O
+4278c4278
+< 	
+---
+> 
+4303,4304c4303,4304
+< 	
+< McClain	B-/person
+---
+> 
+> McClain	B-/organization
+4309c4309
+< Safeway	B-/organization/company,/organization
+---
+> Safeway	B-/organization
+4317c4317
+< 	
+---
+> 
+4325c4325
+< McClain	B-/person
+---
+> McClain	B-/organization
+4337c4337
+< 	
+---
+> 
+4364c4364
+< 	
+---
+> 
+4384c4384
+< 	
+---
+> 
+4395c4395
+< 	
+---
+> 
+4409c4409
+< Seattle	B-/location/city,/location
+---
+> Seattle	B-/location
+4419c4419
+< 	
+---
+> 
+4426c4426
+< McClain	B-/person
+---
+> McClain	O
+4437c4437
+< 	
+---
+> 
+4466c4466
+< 	
+---
+> 
+4485c4485
+< 	
+---
+> 
+4519c4519
+< 	
+---
+> 
+4532c4532
+< 	
+---
+> 
+4538c4538
+< McClain	B-/person
+---
+> McClain	B-/product
+4546c4546
+< 	
+---
+> 
+4562,4563c4562,4563
+< 	
+< McClain	B-/person
+---
+> 
+> McClain	B-/organization
+4585c4585
+< Safeway	B-/organization,/organization/company
+---
+> Safeway	B-/location
+4596c4596
+< 	
+---
+> 
+4642c4642
+< 	
+---
+> 
+4659c4659
+< 	
+---
+> 
+4690c4690
+< 	
+---
+> 
+4700,4701c4700,4701
+< 	
+< McClain	B-/person
+---
+> 
+> McClain	O
+4704c4704
+< Safeway	B-/organization,/organization/company
+---
+> Safeway	B-/location
+4723c4723
+< 	
+---
+> 
+4742c4742
+< 	
+---
+> 
+4763c4763
+< 	
+---
+> 
+4781c4781
+< 	
+---
+> 
+4803c4803
+< 	
+---
+> 
+4807,4810c4807,4810
+< UW	B-/organization,/organization/educational_institution
+< School	B-/organization,/education/department
+< of	I-/organization,/education/department
+< Law	I-/organization,/education/department
+---
+> UW	B-/organization
+> School	B-/law
+> of	I-/law
+> Law	I-/law
+4835,4836c4835,4836
+< Washington	B-/location,/location/province
+< State	I-/location,/location/province
+---
+> Washington	B-/location
+> State	I-/location
+4838,4841c4838,4841
+< 	
+< House	B-/law
+< Bill	I-/law
+< 2221	I-/law
+---
+> 
+> House	B-/organization
+> Bill	I-/organization
+> 2221	I-/organization
+4866c4866
+< 	
+---
+> 
+4903c4903
+< 	
+---
+> 
+4923,4929c4923,4929
+< House	B-/event
+< Committee	I-/event
+< on	I-/event
+< Judiciary	I-/event
+< ’s	I-/event
+< public	I-/event
+< hearing	I-/event
+---
+> House	B-/organization
+> Committee	I-/organization
+> on	I-/organization
+> Judiciary	I-/organization
+> ’s	I-/organization
+> public	I-/organization
+> hearing	I-/organization
+4932c4932
+< 	
+---
+> 
+4944,4945c4944,4945
+< UW	B-/organization,/organization/educational_institution
+< Law	B-/organization,/education/department
+---
+> UW	B-/organization
+> Law	B-/person
+4951c4951
+< 	
+---
+> 
+4984c4984
+< 	
+---
+> 
+5023c5023
+< 	
+---
+> 
+5031c5031
+< Legislature	B-/organization
+---
+> Legislature	B-/person
+5059c5059
+< 	
+---
+> 
+5072c5072
+< 	
+---
+> 
+5111c5111
+< 	
+---
+> 
+5149c5149
+< 	
+---
+> 
+5160c5160
+< 	
+---
+> 
+5176c5176
+< 	
+---
+> 
+5181c5181
+< Zarowsky	B-/person
+---
+> Zarowsky	B-/organization
+5186c5186
+< 	
+---
+> 
+5211c5211
+< IPNW	B-/organization
+---
+> IPNW	B-/person
+5213c5213
+< 	
+---
+> 
+5228c5228
+< 	
+---
+> 
+5236c5236
+< ”	O	
+---
+> ”	O
+5240c5240
+< 	
+---
+> 
+5273c5273
+< 	
+---
+> 
+5289c5289
+< Washington	B-/location,/location/province
+---
+> Washington	B-/location
+5295,5297c5295,5297
+< Court	B-/government_agency,/organization
+< of	I-/government_agency,/organization
+< Appeals	I-/government_agency,/organization
+---
+> Court	B-/organization
+> of	I-/organization
+> Appeals	I-/organization
+5303c5303
+< 	
+---
+> 
+5339c5339
+< 	
+---
+> 
+5347c5347
+< 	
+---
+> 
+5362c5362
+< 	
+---
+> 
+5382c5382
+< 	
+---
+> 
+5391c5391
+< 	
+---
+> 
+5411,5413c5411,5413
+< Rep.	B-/title
+< Tina	B-/person,/person/politician
+< Orwall	I-/person,/person/politician
+---
+> Rep.	O
+> Tina	B-/person
+> Orwall	I-/person
+5421c5421
+< 	
+---
+> 
+5433c5433
+< 	
+---
+> 
+5457c5457
+< 	
+---
+> 
+5484c5484
+< 	
+---
+> 
+5501c5501
+< 	
+---
+> 
+5528c5528
+< 	
+---
+> 
+5541c5541
+< 	
+---
+> 
+5554c5554
+< 	
+---
+> 
+5571c5571
+< 	
+---
+> 
+5608,5609c5608,5609
+< 	
+< Shebeck	B-/person
+---
+> 
+> Shebeck	B-/organization
+5611c5611
+< Hudson	B-/person
+---
+> Hudson	B-/organization
+5617c5617
+< IPNW	B-/organization
+---
+> IPNW	O
+5629c5629
+< 	
+---
+> 
+5631c5631
+< Zarowsky	B-/person
+---
+> Zarowsky	B-/organization
+5650c5650
+< 	
+---
+> 
+5681c5681
+< 	
+---
+> 
+5699c5699
+< 	
+---
+> 
+5722c5722
+< 	
+---
+> 
+5746c5746
+< 	
+---
+> 
+5756,5757c5756,5757
+< Washington	B-/location,/location/province
+< state	I-/location,/location/province
+---
+> Washington	B-/location
+> state	I-/location
+5772c5772
+< 	
+---
+> 
+5791c5791
+< 	
+---
+> 
+5810c5810
+< 	
+---
+> 
+5825c5825
+< ”	O	
+---
+> ”	O
+5829c5829
+< 	
+---
+> 
+5853c5853
+< 	
+---
+> 
+5876c5876
+< 	
+---
+> 
+5888c5888
+< 	
+---
+> 
+5892c5892
+< UW	B-/organization/educational_institution,/organization
+---
+> UW	B-/organization
+5911,5915c5911,5915
+< The	B-/art
+< Desire	I-/art
+< of	I-/art
+< the	I-/art
+< Museum	I-/art
+---
+> The	B-/person
+> Desire	I-/person
+> of	I-/person
+> the	I-/person
+> Museum	I-/person
+5919,5920c5919,5920
+< Whitney	B-/building
+< Museum	I-/building
+---
+> Whitney	B-/organization
+> Museum	I-/organization
+5922,5923c5922,5923
+< New	B-/location,/location/city
+< York	I-/location,/location/city
+---
+> New	B-/location
+> York	I-/location
+5925c5925
+< 	
+---
+> 
+5943c5943
+< 	
+---
+> 
+5955,5956c5955,5956
+< New	B-/location,/location/city
+< York	I-/location,/location/city
+---
+> New	B-/location
+> York	I-/location
+5962c5962
+< Netherlands	B-/location,/location/country
+---
+> Netherlands	B-/location
+5964c5964
+< ”	O	
+---
+> ”	O
+5968c5968
+< 	
+---
+> 
+5998c5998
+< 	
+---
+> 
+6005,6006c6005,6006
+< Whitney	B-/building
+< Museum	I-/building
+---
+> Whitney	B-/organization
+> Museum	I-/organization
+6025c6025
+< 	
+---
+> 
+6040,6041c6040,6041
+< Carel	B-/person,/person/artist
+< Balth	I-/person,/person/artist
+---
+> Carel	B-/person
+> Balth	I-/person
+6043c6043
+< 	
+---
+> 
+6056,6057c6056,6057
+< New	B-/location,/location/city
+< York	I-/location,/location/city
+---
+> New	B-/location
+> York	I-/location
+6059c6059
+< 	
+---
+> 
+6065c6065
+< Balth	B-/person
+---
+> Balth	B-/organization
+6068,6069c6068,6069
+< Laser	B-/art
+< Paintings	I-/art
+---
+> Laser	B-/person
+> Paintings	I-/person
+6072c6072
+< 	
+---
+> 
+6079c6079
+< Balth	B-/person
+---
+> Balth	B-/location
+6083c6083
+< Amsterdam	B-/location,/location/city
+---
+> Amsterdam	B-/location
+6087c6087
+< 	
+---
+> 
+6103c6103
+< ”	O	
+---
+> ”	O
+6107c6107
+< 	
+---
+> 
+6119c6119
+< 	
+---
+> 
+6127c6127
+< 	
+---
+> 
+6138c6138
+< 	
+---
+> 
+6154,6156c6154,6156
+< Henry	B-/building
+< Art	I-/building
+< Gallery	I-/building
+---
+> Henry	B-/person
+> Art	I-/person
+> Gallery	I-/person
+6165c6165
+< Videowatercolors	B-/art
+---
+> Videowatercolors	B-/person
+6168c6168
+< 	
+---
+> 
+6174,6176c6174,6176
+< Henry	B-/building
+< Art	I-/building
+< Gallery	I-/building
+---
+> Henry	B-/person
+> Art	I-/person
+> Gallery	I-/person
+6188c6188
+< 	
+---
+> 
+6208c6208
+< Wieczorek	B-/person
+---
+> Wieczorek	O
+6217c6217
+< 	
+---
+> 
+6235,6236c6235,6236
+< Betsey	B-/person,/person/artist
+< Brock	I-/person,/person/artist
+---
+> Betsey	B-/person
+> Brock	I-/person
+6239,6241c6239,6241
+< Henry	B-/building
+< Art	I-/building
+< Gallery	I-/building
+---
+> Henry	B-/person
+> Art	I-/person
+> Gallery	I-/person
+6250c6250
+< 	
+---
+> 
+6272c6272
+< 	
+---
+> 
+6274c6274
+< Wieczorek	B-/person
+---
+> Wieczorek	B-/organization
+6293c6293
+< 	
+---
+> 
+6318c6318
+< 	
+---
+> 
+6334c6334
+< ”	O	
+---
+> ”	O
+6338c6338
+< 	
+---
+> 
+6350c6350
+< 	
+---
+> 
+6358c6358
+< 	
+---
+> 
+6375c6375
+< 	
+---
+> 
+6404c6404
+< 	
+---
+> 
+6413c6413
+< 	
+---
+> 
+6419c6419
+< Videowatercolor	B-/art
+---
+> Videowatercolor	B-/person
+6424,6425c6424,6425
+< Moving	B-/art
+< II	I-/art
+---
+> Moving	B-/person
+> II	I-/person
+6428c6428
+< Balth	B-/person,/person/artist
+---
+> Balth	B-/location
+6447c6447
+< 	
+---
+> 
+6460c6460
+< ”	O	
+---
+> ”	O
+6464c6464
+< 	
+---
+> 
+6484c6484
+< 	
+---
+> 
+6499c6499
+< 	
+---
+> 
+6501c6501
+< Balth	B-/person,/person/artist
+---
+> Balth	B-/location
+6511c6511
+< Balth	B-/person
+---
+> Balth	B-/organization
+6530c6530
+< 	
+---
+> 
+6550c6550
+< 	
+---
+> 
+6571c6571
+< 	
+---
+> 
+6589c6589
+< ”	O	
+---
+> ”	O
+6593c6593
+< 	
+---
+> 
+6598,6600c6598,6600
+< The	B-/organization,/organization/company,/news_agency
+< Seattle	I-/organization,/organization/company,/news_agency
+< Times	I-/organization,/organization/company,/news_agency
+---
+> The	B-/organization
+> Seattle	I-/organization
+> Times	I-/organization
+6625c6625
+< 	
+---
+> 
+6647c6647
+< 	
+---
+> 
+6673c6673
+< 	
+---
+> 
+6698c6698
+< 	
+---
+> 
+6711c6711
+< 	
+---
+> 
+6720c6720
+< 	
+---
+> 
+6738c6738
+< 	
+---
+> 
+6752c6752
+< 	
+---
+> 
+6765c6765
+< 	
+---
+> 
+6777c6777
+< 	
+---
+> 
+6801,6802c6801,6802
+< South	B-/people/ethnicity
+< Asian	I-/people/ethnicity
+---
+> South	O
+> Asian	O
+6812c6812
+< 	
+---
+> 
+6832c6832
+< 	
+---
+> 
+6851c6851
+< 	
+---
+> 
+6872c6872
+< ASC	B-/organization
+---
+> ASC	B-/location
+6885c6885
+< 	
+---
+> 
+6888,6889c6888,6889
+< South	B-/people/ethnicity
+< Asian	I-/people/ethnicity
+---
+> South	O
+> Asian	O
+6899,6900c6899,6900
+< East	B-/people/ethnicity
+< Asian	I-/people/ethnicity
+---
+> East	O
+> Asian	O
+6923c6923
+< ”	O	
+---
+> ”	O
+6927c6927
+< 	
+---
+> 
+6954c6954
+< 	
+---
+> 
+6977c6977
+< 	
+---
+> 
+6993c6993
+< 	
+---
+> 
+7016c7016
+< 	
+---
+> 
+7045c7045
+< 	
+---
+> 
+7052,7053c7052,7053
+< South	B-/people/ethnicity
+< Asian	I-/people/ethnicity
+---
+> South	O
+> Asian	O
+7072c7072
+< 	
+---
+> 
+7098c7098
+< 	
+---
+> 
+7141c7141
+< 	
+---
+> 
+7173c7173
+< 	
+---
+> 
+7175c7175
+< Director	B-/title
+---
+> Director	B-/person
+7209c7209
+< 	
+---
+> 
+7224c7224
+< 	
+---
+> 
+7243c7243
+< 	
+---
+> 
+7250,7254c7250,7254
+< UW	B-/organization,/organization/educational_institution
+< Office	B-/organization
+< of	I-/organization
+< the	I-/organization
+< Registrar	I-/organization
+---
+> UW	B-/organization
+> Office	B-/product
+> of	I-/product
+> the	I-/product
+> Registrar	I-/product
+7258c7258
+< Asian	B-/people/ethnicity
+---
+> Asian	O
+7260c7260
+< Asian-American	B-/people/ethnicity
+---
+> Asian-American	O
+7272c7272
+< 	
+---
+> 
+7290c7290
+< 	
+---
+> 
+7299c7299
+< ASC	B-/organization
+---
+> ASC	O
+7305c7305
+< 	
+---
+> 
+7324c7324
+< 	
+---
+> 
+7343c7343
+< 	
+---
+> 
+7373c7373
+< ASC	B-/organization
+---
+> ASC	B-/person
+7379c7379
+< 	
+---
+> 
+7386,7387c7386,7387
+< South	B-/people/ethnicity
+< Asian	I-/people/ethnicity
+---
+> South	O
+> Asian	O
+7412c7412
+< ASC	B-/organization
+---
+> ASC	O
+7415c7415
+< 	
+---
+> 
+7435c7435
+< 	
+---
+> 
+7468c7468
+< 	
+---
+> 
+7484c7484
+< 	
+---
+> 
+7501,7502c7501,7502
+< Bhangra	B-/event
+< Bash	I-/event
+---
+> Bhangra	B-/person
+> Bash	I-/person
+7504c7504
+< 	
+---
+> 
+7506,7507c7506,7507
+< Bhangra	B-/event
+< Bash	I-/event
+---
+> Bhangra	B-/person
+> Bash	I-/person
+7550c7550
+< 	
+---
+> 
+7554,7555c7554,7555
+< South	B-/people/ethnicity
+< Asian	I-/people/ethnicity
+---
+> South	O
+> Asian	O
+7595c7595
+< 	
+---
+> 
+7625c7625
+< 	
+---
+> 
+7627c7627
+< Seattle	B-/location/city,/location
+---
+> Seattle	B-/person
+7686c7686
+< 	
+---
+> 
+7691,7694c7691,7694
+< Foster	B-/organization,/organization/educational_institution
+< School	I-/organization,/organization/educational_institution
+< of	I-/organization,/organization/educational_institution
+< Business	I-/organization,/organization/educational_institution
+---
+> Foster	B-/organization
+> School	I-/organization
+> of	I-/organization
+> Business	I-/organization
+7729c7729
+< 	
+---
+> 
+7739,7742c7739,7742
+< Foster	B-/organization,/organization/educational_institution
+< School	I-/organization,/organization/educational_institution
+< of	I-/organization,/organization/educational_institution
+< Business	I-/organization,/organization/educational_institution
+---
+> Foster	B-/organization
+> School	I-/organization
+> of	I-/organization
+> Business	I-/organization
+7750c7750
+< GSEC	B-/event
+---
+> GSEC	B-/organization
+7760c7760
+< 	
+---
+> 
+7790c7790
+< 	
+---
+> 
+7835c7835
+< 	
+---
+> 
+7859c7859
+< 	
+---
+> 
+7884c7884
+< March	B-/time
+---
+> March	B-/location
+7886c7886
+< 	
+---
+> 
+7904c7904
+< 	
+---
+> 
+7953,7956c7953,7956
+< Seattle	B-/building,/building/hospital
+< Children	I-/building,/building/hospital
+< ’s	I-/building,/building/hospital
+< Hospital	I-/building,/building/hospital
+---
+> Seattle	B-/organization
+> Children	I-/organization
+> ’s	I-/organization
+> Hospital	I-/organization
+7965c7965
+< 	
+---
+> 
+7998c7998
+< ”	O	
+---
+> ”	O
+8002c8002
+< 	
+---
+> 
+8020c8020
+< 	
+---
+> 
+8042c8042
+< 	
+---
+> 
+8060c8060
+< 	
+---
+> 
+8071c8071
+< 	
+---
+> 
+8091c8091
+< 	
+---
+> 
+8114,8115c8114,8115
+< 	
+< Choe	B-/person
+---
+> 
+> Choe	B-/organization
+8121,8122c8121,8122
+< Ali	B-/organization
+< Baba	I-/organization
+---
+> Ali	B-/person
+> Baba	I-/person
+8137c8137
+< India	B-/location,/location/country
+---
+> India	B-/person
+8148c8148
+< 	
+---
+> 
+8170c8170
+< 	
+---
+> 
+8191c8191
+< 	
+---
+> 
+8221c8221
+< 	
+---
+> 
+8240c8240
+< 	
+---
+> 
+8255c8255
+< 	
+---
+> 
+8297,8299c8297,8299
+< Adirondack	B-/organization,/government_agency
+< Park	I-/organization,/government_agency
+< Agency	I-/organization,/government_agency
+---
+> Adirondack	B-/organization
+> Park	I-/organization
+> Agency	I-/organization
+8306,8309c8306,8309
+< Adirondack	B-/building/hotel,/building
+< Club	I-/building/hotel,/building
+< and	I-/building/hotel,/building
+< Resort	I-/building/hotel,/building
+---
+> Adirondack	B-/organization
+> Club	I-/organization
+> and	I-/organization
+> Resort	I-/organization
+8313c8313
+< 	
+---
+> 
+8337,8338c8337,8338
+< Tupper	B-/person
+< Lakers	I-/person
+---
+> Tupper	B-/organization
+> Lakers	I-/organization
+8351c8351
+< 	
+---
+> 
+8372c8372
+< 	
+---
+> 
+8382c8382
+< 	
+---
+> 
+8415c8415
+< 	
+---
+> 
+8437c8437
+< 	
+---
+> 
+8452,8455c8452,8455
+< Franklin	B-/government_agency,/organization
+< County	I-/government_agency,/organization
+< Court	I-/government_agency,/organization
+< Judge	B-/title
+---
+> Franklin	B-/organization
+> County	I-/organization
+> Court	I-/organization
+> Judge	B-/person
+8462c8462
+< 	
+---
+> 
+8475,8476c8475,8476
+< Lake	B-/location/city,/location
+< Placid	I-/location/city,/location
+---
+> Lake	B-/location
+> Placid	I-/location
+8484c8484
+< 	
+---
+> 
+8488c8488
+< Judge	B-/title
+---
+> Judge	B-/person
+8513c8513
+< 	
+---
+> 
+8530c8530
+< 	
+---
+> 
+8559c8559
+< 	
+---
+> 
+8566c8566
+< Ogdensburg	B-/location/city,/location
+---
+> Ogdensburg	B-/location
+8579c8579
+< 	
+---
+> 
+8607c8607
+< 	
+---
+> 
+8631c8631
+< 	
+---
+> 
+8633c8633
+< Mr.	B-/title
+---
+> Mr.	O
+8639c8639
+< Ms.	B-/title
+---
+> Ms.	B-/organization
+8652c8652
+< 	
+---
+> 
+8684c8684
+< 	
+---
+> 
+8693c8693
+< Judge	B-/title
+---
+> Judge	B-/location
+8700c8700
+< 	
+---
+> 
+8719,8720c8719,8720
+< 	
+< Scaringe	B-/person
+---
+> 
+> Scaringe	B-/location
+8725c8725
+< Barrett	B-/person
+---
+> Barrett	B-/location
+8751c8751
+< 	
+---
+> 
+8766c8766
+< Judge	B-/title
+---
+> Judge	B-/location
+8773c8773
+< 	
+---
+> 
+8799c8799
+< 	
+---
+> 
+8819,8821c8819,8821
+< 	
+< Spencer	B-/person,/person/doctor
+< Anderson	I-/person,/person/doctor
+---
+> 
+> Spencer	B-/person
+> Anderson	I-/person
+8830,8831c8830,8831
+< U.S.	B-/military,/organization
+< Army	I-/military,/organization
+---
+> U.S.	B-/organization
+> Army	I-/organization
+8835c8835
+< 	
+---
+> 
+8842c8842
+< 	
+---
+> 
+8845c8845
+< Billings	B-/location/city,/location
+---
+> Billings	B-/person
+8853c8853
+< 	
+---
+> 
+8876c8876
+< Spencer	B-/person,/person/soldier
+---
+> Spencer	B-/person
+8885c8885
+< 	
+---
+> 
+8891c8891
+< Spencer	B-/person,/person/soldier
+---
+> Spencer	B-/organization
+8897c8897
+< Army	B-/military,/organization
+---
+> Army	B-/organization
+8909c8909
+< Iraq	B-/location/country,/location
+---
+> Iraq	B-/location
+8911c8911
+< 	
+---
+> 
+8916,8917c8916,8917
+< German	B-/living_thing,/livingthing/animal
+< shepherds	I-/living_thing,/livingthing/animal
+---
+> German	B-/person
+> shepherds	I-/person
+8919,8920c8919,8920
+< Belgian	B-/living_thing,/livingthing/animal
+< malinois	I-/living_thing,/livingthing/animal
+---
+> Belgian	B-/person
+> malinois	I-/person
+8941,8944c8941,8944
+< Baxter	B-/building,/building/hospital
+< Creek	I-/building,/building/hospital
+< Veterinary	I-/building,/building/hospital
+< Clinic	I-/building,/building/hospital
+---
+> Baxter	B-/art
+> Creek	I-/art
+> Veterinary	I-/art
+> Clinic	I-/art
+8946c8946
+< 	
+---
+> 
+8960c8960
+< 	
+---
+> 
+8990c8990
+< 	
+---
+> 
+9016c9016
+< 	
+---
+> 
+9022c9022
+< acupuncture	B-/medicine/medical_treatment
+---
+> acupuncture	B-/person
+9024c9024
+< 	
+---
+> 
+9029c9029
+< Army	B-/military,/organization
+---
+> Army	B-/organization
+9031c9031
+< Spencer	B-/person,/person/soldier
+---
+> Spencer	B-/location
+9036c9036
+< Bozeman	B-/location/city,/location
+---
+> Bozeman	B-/location
+9052c9052
+< 	
+---
+> 
+9067c9067
+< 	
+---
+> 
+9081c9081
+< 	
+---
+> 
+9089c9089
+< 	
+---
+> 
+9103c9103
+< 	
+---
+> 
+9111c9111
+< Newfoundland	B-/living_thing,/livingthing/animal
+---
+> Newfoundland	B-/person
+9116c9116
+< Spencer	B-/person
+---
+> Spencer	B-/location
+9120c9120
+< 	
+---
+> 
+9134c9134
+< 	
+---
+> 
+9157c9157
+< 	
+---
+> 
+9172c9172
+< 	
+---
+> 
+9187c9187
+< 	
+---
+> 
+9202c9202
+< 	
+---
+> 
+9226,9233c9226,9233
+< Bridger	B-/location
+< Bowl	I-/location
+< ski	I-/location
+< area	I-/location
+< .	O
+< 	
+< Northwestern	B-/organization,/organization/company
+< Energy	I-/organization,/organization/company
+---
+> Bridger	B-/event
+> Bowl	I-/event
+> ski	I-/event
+> area	I-/event
+> .	O
+> 
+> Northwestern	B-/organization
+> Energy	I-/organization
+9245c9245
+< 	
+---
+> 
+9262c9262
+< 	
+---
+> 
+9269,9270c9269,9270
+< Bridger	B-/location
+< Bowl	I-/location
+---
+> Bridger	B-/person
+> Bowl	I-/person
+9287c9287
+< Facebook	B-/internet/website,/organization/company,/organization
+---
+> Facebook	B-/person
+9290c9290
+< 	
+---
+> 
+9293c9293
+< Bridger	B-/organization,/organization/company
+---
+> Bridger	B-/location
+9303c9303
+< 	
+---
+> 
+9308c9308
+< Sony	B-/organization,/organization/company
+---
+> Sony	B-/person
+9331,9332c9331,9332
+< 	
+< Sony	B-/organization,/organization/company
+---
+> 
+> Sony	B-/organization
+9348c9348
+< 	
+---
+> 
+9351c9351
+< UHS-I	B-/product
+---
+> UHS-I	O
+9374c9374
+< 	
+---
+> 
+9382c9382
+< Sony	B-/organization,/organization/company
+---
+> Sony	B-/location
+9401c9401
+< 	
+---
+> 
+9404c9404
+< CES	B-/event
+---
+> CES	B-/organization
+9422c9422
+< 	
+---
+> 
+9428,9429c9428,9429
+< EyeFi	B-/product
+< cards	I-/product
+---
+> EyeFi	B-/time
+> cards	I-/time
+9444c9444
+< 	
+---
+> 
+9479c9479
+< 	
+---
+> 
+9500c9500
+< 	
+---
+> 
+9503c9503
+< PhotographyBlog	B-/internet/website,/organization
+---
+> PhotographyBlog	B-/product
+9505c9505
+< SanDisk	B-/organization,/organization/company
+---
+> SanDisk	B-/organization
+9507c9507
+< Lexar	B-/organization,/organization/company
+---
+> Lexar	B-/organization
+9520c9520
+< 	
+---
+> 
+9523c9523
+< CES	B-/event
+---
+> CES	B-/organization
+9542c9542
+< Lexar	B-/organization,/organization/company
+---
+> Lexar	B-/person
+9553c9553
+< Sony	B-/organization,/organization/company
+---
+> Sony	B-/location
+9557c9557
+< 	
+---
+> 
+9569c9569
+< Port-au-Prince	B-/location/city,/location
+---
+> Port-au-Prince	B-/location
+9580c9580
+< Haiti	B-/location/country,/location
+---
+> Haiti	B-/location
+9593c9593
+< 	
+---
+> 
+9599,9600c9599,9600
+< Maggie	B-/person,/person/artist
+< Steber	I-/person,/person/artist
+---
+> Maggie	B-/organization
+> Steber	I-/organization
+9607c9607
+< Haiti	B-/location/country,/location
+---
+> Haiti	B-/location
+9621c9621
+< FotoKonbit	B-/organization
+---
+> FotoKonbit	O
+9629c9629
+< 	
+---
+> 
+9638,9639c9638,9639
+< United	B-/organization
+< Nations	I-/organization
+---
+> United	B-/location
+> Nations	I-/location
+9658c9658
+< Steber	B-/person
+---
+> Steber	B-/location
+9677c9677
+< 	
+---
+> 
+9683c9683
+< Holga	B-/product,/product/camera
+---
+> Holga	O
+9718c9718
+< 	
+---
+> 
+9724c9724
+< Haitians	B-/people/ethnicity
+---
+> Haitians	B-/person
+9753c9753
+< 	
+---
+> 
+9761c9761
+< Haitians	B-/people/ethnicity
+---
+> Haitians	B-/location
+9776c9776
+< 	
+---
+> 
+9806c9806
+< 	
+---
+> 
+9840c9840
+< 	
+---
+> 
+9873c9873
+< 	
+---
+> 
+9906c9906
+< 	
+---
+> 
+9926c9926
+< 	
+---
+> 
+9950c9950
+< 	
+---
+> 
+9968c9968
+< 	
+---
+> 
+10005c10005
+< 	
+---
+> 
+10011,10022c10011,10022
+< College	B-/organization,/organization/educational_institution
+< of	I-/organization,/organization/educational_institution
+< Medical	I-/organization,/organization/educational_institution
+< ,	I-/organization,/organization/educational_institution
+< Veterinary	I-/organization,/organization/educational_institution
+< &	I-/organization,/organization/educational_institution
+< Life	I-/organization,/organization/educational_institution
+< Sciences	I-/organization,/organization/educational_institution
+< ,	O
+< University	B-/organization,/organization/educational_institution
+< of	I-/organization,/organization/educational_institution
+< Glasgow	I-/organization,/organization/educational_institution
+---
+> College	B-/organization
+> of	I-/organization
+> Medical	I-/organization
+> ,	I-/organization
+> Veterinary	I-/organization
+> &	I-/organization
+> Life	I-/organization
+> Sciences	I-/organization
+> ,	O
+> University	B-/organization
+> of	I-/organization
+> Glasgow	I-/organization
+10024c10024
+< Glasgow	B-/location/city,/location
+---
+> Glasgow	B-/organization
+10026c10026
+< UK	B-/location/country,/location
+---
+> UK	B-/location
+10028c10028
+< 	
+---
+> 
+10049c10049
+< 	
+---
+> 
+10112c10112
+< 	
+---
+> 
+10136c10136
+< 	
+---
+> 
+10151c10151
+< 	
+---
+> 
+10176c10176
+< 	
+---
+> 
+10204c10204
+< 	
+---
+> 
+10224c10224
+< 	
+---
+> 
+10252c10252
+< 	
+---
+> 
+10275c10275
+< 	
+---
+> 
+10295c10295
+< 	
+---
+> 
+10316c10316
+< 	
+---
+> 
+10332,10333c10332,10333
+< New	B-/location/country,/location
+< Zealand	I-/location/country,/location
+---
+> New	B-/location
+> Zealand	I-/location
+10339c10339
+< 	
+---
+> 
+10365c10365
+< 	
+---
+> 
+10378c10378
+< anaesthesia	B-/medicine/symptom
+---
+> anaesthesia	B-/person
+10380c10380
+< analgesia	B-/medicine/symptom
+---
+> analgesia	B-/person
+10389c10389
+< 	
+---
+> 
+10426c10426
+< 	
+---
+> 
+10432,10435c10432,10435
+< Unitec	B-/organization/educational_institution,/organization
+< Institute	I-/organization/educational_institution,/organization
+< of	I-/organization/educational_institution,/organization
+< Technology	I-/organization/educational_institution,/organization
+---
+> Unitec	B-/organization
+> Institute	I-/organization
+> of	I-/organization
+> Technology	I-/organization
+10437c10437
+< Auckland	B-/location/city,/location
+---
+> Auckland	B-/location
+10439,10440c10439,10440
+< New	B-/location/country,/location
+< Zealand	I-/location/country,/location
+---
+> New	B-/organization
+> Zealand	I-/organization

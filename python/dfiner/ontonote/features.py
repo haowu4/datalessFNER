@@ -1,6 +1,7 @@
 # Define features:
 import re
 import numpy as np
+from unidecode import unidecode
 
 def word_shape_func(text):
     text = re.sub("[a-z]+", "a" ,text)
@@ -17,7 +18,7 @@ class FeatureFunc(object):
         decorator_self = self
         def wrappee( *args, **kwargs):
             for feat in original_func(*args,**kwargs):
-                yield ("%s=%s" % (self.name, feat), 1.0)
+                yield ("%s=%s" % (unidecode(self.name), feat), 1.0)
         return wrappee
 
 class RealFeatureFunc(object):
@@ -28,7 +29,7 @@ class RealFeatureFunc(object):
         decorator_self = self
         def wrappee( *args, **kwargs):
             for feat,v in original_func(*args,**kwargs):
-                yield ("%s=%s" % (self.name, feat), v)
+                yield ("%s=%s" % (unidecode(self.name), feat), v)
         return wrappee
 
 

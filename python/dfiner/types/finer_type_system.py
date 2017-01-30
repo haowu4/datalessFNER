@@ -1,4 +1,14 @@
+import yaml
+
+
 class FinerTypeSystem(object):
+
+    @staticmethod
+    def load_type_system(config):
+        with open(config["figer_hierarchy"]) as input:
+            types = yaml.load(input.read())
+        return FinerTypeSystem(types)
+
     def __init__(self, tree):
         self.tree = tree
 
@@ -33,9 +43,3 @@ class FinerTypeSystem(object):
             it = self.tree[it]["parent"]
         return path
 
-
-if __name__ == '__main__':
-    import yaml
-    with open("/home/haowu4/codes/dataless_finer/resources/figer_hier.yaml") as input:
-        types = yaml.load(input.read())
-    finer_types = FinerTypeSystem(types)

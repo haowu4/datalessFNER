@@ -49,13 +49,11 @@ class MentionClassifier(object):
             doc, start, end = x
             for ff in feature_func:
                 for k, v in ff(doc, start, end):
-                    try:
+                    if k in lex:
                         idx = lex[k]
                         row_ids.append(i)
                         col_ids.append(idx)
                         vs.append(v)
-                    except KeyError:
-                        pass
 
             if len(dense_real_vec_features) > 0:
                 ds = []

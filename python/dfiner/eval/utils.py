@@ -1,8 +1,9 @@
 from collections import defaultdict
 
 
-def set_to_string(s):
-    return ",".join(sorted(list(s)))
+def set_to_string(set_of_type):
+    labels = ["/" + s.replace(".", "/") for s in set_of_type]
+    return ",".join(sorted(labels))
 
 
 def to_column_format(doc, use_views):
