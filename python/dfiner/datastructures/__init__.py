@@ -119,3 +119,9 @@ class View(object):
     @property
     def constituents(self):
         return self._constituents_map.values()
+
+    def __iter__(self):
+        return self._constituents_map.itervalues()
+
+    def __len__(self):
+        return len(self._constituents_map)
