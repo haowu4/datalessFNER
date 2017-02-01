@@ -4,6 +4,7 @@ import json
 from dfiner.datastructures import View, Constituent
 from dfiner.types.finer_type_system import FinerTypeSystem
 
+
 class KBBiasTypeAnnotator(object):
 
     TYPE_NAME = "KBBiasType"
