@@ -22,10 +22,10 @@ class KBBiasTypeAnnotator(object):
 
     def __init__(self,
                  config,
-                 mention_view="corase_type"):
-        # surface_totype_dist maps
-        #       (surface, corase type) => fine type to fine type.
-        self.surface_totype_dist = self.load_surface_to_typedist(
+                 mention_view="coarse_type"):
+        # surface_to_type_dist maps
+        #       (surface, coarse type) => fine type to fine type.
+        self.surface_to_type_dist = self.load_surface_to_typedist(
             config["mention_to_type_dist"])
         self.coarse_view_name = mention_view
         self.config = config
@@ -40,7 +40,7 @@ class KBBiasTypeAnnotator(object):
             coarse_type = constituent.best_label_name
             surface = doc[start:end].text
             try:
-                type_dist = self.surface_totype_dist[surface]
+                type_dist = self.surface_to_type_dist[surface]
                 fine_type_name = self.pick_fine_type_or_none(type_dist,
                                                              coarse_type)
                 if fine_type_name:

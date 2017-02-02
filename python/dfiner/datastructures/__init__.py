@@ -23,6 +23,9 @@ class Constituent(object):
     def get_id(self):
         return self.start, self.end, self.name
 
+    def __len__(self):
+        return self.end - self.start
+
     @staticmethod
     def hash(start, end, name):
         return start * 41 + end * 43 + (name.__hash__() * 53 if name else 0)

@@ -27,6 +27,7 @@ pavankumar :
     ontonotes_dev_path : "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/ontonotes-data/Dev.name"
     ontonotes_train_and_dev_path : "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/ontonotes-data/TrainAndDev.name"
     ontonotes_test_path : "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/ontonotes-data/Test.name"
+    mention_to_type_dist: "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/datalessFNER/resources/mention_to_type_dist.txt.gz"
     figer_type_to_alias : "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/finer_annotation/type_to_alias.txt"
 
 
