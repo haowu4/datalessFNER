@@ -3,9 +3,10 @@ import yaml
 
 class FinerTypeSystem(object):
 
-    @staticmethod
-    def load_type_system(config):
-        with open(config["figer_hierarchy"]) as input:
+    @classmethod
+    def load_type_system(clz, config):
+        f = config["figer_hierarchy"]
+        with open(f) as input:
             types = yaml.load(input.read())
         return FinerTypeSystem(types)
 
@@ -43,3 +44,8 @@ class FinerTypeSystem(object):
             it = self.tree[it]["parent"]
         return path
 
+    def get_root(self, node):
+        it = node
+        while self.tree[it]["parent"]:
+            it = self.tree[it]["parent"]
+        return it

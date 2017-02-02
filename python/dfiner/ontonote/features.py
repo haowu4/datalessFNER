@@ -1,6 +1,7 @@
 # Define features:
 import re
 import numpy as np
+from collections import defaultdict
 from unidecode import unidecode
 
 def word_shape_func(text):
@@ -465,8 +466,29 @@ def mention_pronoun_wh_dep(doc, start, end):
                 yield cleaned_path
 
 
-def get_default_feature():
-    default_features = [CONSTANT_BIAS,
+def kb_bias(kba):
+    @RealFeatureFunc("KBBias")
+    def wrapee(doc, start, end):
+        surface = doc[start:end].text
+        try:
+            m = kba.surface_totype_dist[surface]
+        except KeyError:
+            return
+        ss = defaultdict(float)
+        for k in m:
+            if "." in k:
+                nk = k.split(".")[0]
+                ss[nk] += m[k]
+            else:
+                ss[k] += m[k]
+        for k in ss:
+            s = ss[k]
+            if s > 0.6:
+                yield (k, 1)
+    return wrapee
+
+def get_default_feature(kba):
+    default_features = [CONSTANT_BIAS, kb_bias(kba),
                         mention_details,
                         word_in_mention, word_in_mention_lemma,
                         word_in_mention_loc, word_in_mention_loc_lemma,

@@ -33,9 +33,9 @@ public class PipelineUtils {
                 Configurator.TRUE);
 
         props.setProperty("useNerConll",
-                Configurator.TRUE);
-        props.setProperty("useNerOntonotes",
                 Configurator.FALSE);
+        props.setProperty("useNerOntonotes",
+                Configurator.TRUE);
         props.setProperty("useStanfordParse",
                 Configurator.FALSE);
         props.setProperty("useStanfordDep",
@@ -69,52 +69,52 @@ public class PipelineUtils {
         props.setProperty(
                 AnnotatorServiceConfigurator.FORCE_CACHE_UPDATE.key,
                 Configurator.FALSE);
-
-        String embeddingFile =
-                "/home/haowu4/data/autoextend/GoogleNews-vectors" +
-                        "-negative300.combined_500k.txt";
-
-        if (!new File(embeddingFile).exists()) {
-            embeddingFile =
-                    "/shared/preprocessed/muddire2/Google/GoogleNews-vectors" +
-                            "-negative300.combined_500k.txt";
-        }
-
-        props.setProperty(
-                "wsd-word-embedding-file", embeddingFile
-        );
-
-        embeddingFile =
-                "/home/haowu4/data/autoextend/synset_embeddings_300.txt";
-
-        if (!new File(embeddingFile).exists()) {
-            embeddingFile =
-                    "/shared/preprocessed/muddire2/Google/synset_embeddings_300.txt";
-        }
-
-        props.setProperty(
-                "wsd-sense-embedding-file",
-                embeddingFile);
-
-        embeddingFile =
-                "/home/haowu4/data/autoextend/word_pos_to_synsets.txt";
-
-        if (!new File(embeddingFile).exists()) {
-            embeddingFile =
-                    "/shared/preprocessed/muddire2/Google/word_pos_to_synsets.txt";
-        }
-
-        props.setProperty(
-                "wsd-sense-mapping-file", embeddingFile
-        );
+//
+//        String embeddingFile =
+//                "/home/haowu4/data/autoextend/GoogleNews-vectors" +
+//                        "-negative300.combined_500k.txt";
+//
+//        if (!new File(embeddingFile).exists()) {
+//            embeddingFile =
+//                    "/shared/preprocessed/muddire2/Google/GoogleNews-vectors" +
+//                            "-negative300.combined_500k.txt";
+//        }
+//
+//        props.setProperty(
+//                "wsd-word-embedding-file", embeddingFile
+//        );
+//
+//        embeddingFile =
+//                "/home/haowu4/data/autoextend/synset_embeddings_300.txt";
+//
+//        if (!new File(embeddingFile).exists()) {
+//            embeddingFile =
+//                    "/shared/preprocessed/muddire2/Google/synset_embeddings_300.txt";
+//        }
+//
+//        props.setProperty(
+//                "wsd-sense-embedding-file",
+//                embeddingFile);
+//
+//        embeddingFile =
+//                "/home/haowu4/data/autoextend/word_pos_to_synsets.txt";
+//
+//        if (!new File(embeddingFile).exists()) {
+//            embeddingFile =
+//                    "/shared/preprocessed/muddire2/Google/word_pos_to_synsets.txt";
+//        }
+//
+//        props.setProperty(
+//                "wsd-sense-mapping-file", embeddingFile
+//        );
 
         ResourceManager resourceManager = new ResourceManager(props);
-        WordSenseAnnotator wsd = new WordSenseAnnotator("SENSE", new String[]{ViewNames.POS},
-                resourceManager);
+//        WordSenseAnnotator wsd = new WordSenseAnnotator("SENSE", new String[]{ViewNames.POS},
+//                resourceManager);
 
         BasicAnnotatorService processor = PipelineFactory
                 .buildPipeline(new ResourceManager(props));
-        processor.addAnnotator(wsd);
+//        processor.addAnnotator(wsd);
 
         return processor;
     }

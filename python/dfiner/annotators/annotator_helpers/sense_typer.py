@@ -10,7 +10,7 @@ from dfiner.utils import syn_from_offset_pos, get_default_config
 
 class SynsetFineTyper(object):
 
-    def __init__(self, figer_type_senses):
+    def __init__(self, config):
         """
 
         :param figer_type_senses: Path to fine type to synset map
@@ -24,7 +24,7 @@ class SynsetFineTyper(object):
         """
         self.entity_synset = wn.synset("entity.n.01")
         self.synset_to_type_positive, self.synset_to_type_negative = \
-            self._read_synset_to_type(figer_type_senses)
+            self._read_synset_to_type(config["figer_type_senses"])
         # we will do lazy population of synset_offset_pos_to_types
         self.synset_offset_pos_to_types = {}
 
@@ -76,4 +76,4 @@ if __name__ == '__main__':
     # unit test
 
     default_config = get_default_config()
-    sense_typer = SynsetFineTyper(default_config["figer_type_senses"])
+    sense_typer = SynsetFineTyper(default_config)

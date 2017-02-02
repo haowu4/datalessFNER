@@ -219,7 +219,7 @@ medicine.medical_treatment :
     parent : medicine
     is_figer_type : true
 livingthing.animal : 
-    parent : livingthing
+    parent : living_thing
     is_figer_type : true
 
 product.engine_device : 
