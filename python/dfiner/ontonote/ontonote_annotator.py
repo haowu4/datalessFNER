@@ -29,7 +29,7 @@ class OntonoteTypeAnnotator(object):
         model = joblib.load(config["ontonote-model"])
 
         return MentionClassifier(model,
-                                 get_default_feature(),
+                                 get_default_feature(config["kba"]),
                                  get_default_dense_feature(w2v_dict, w2v_mean),
                                  lex, type_lex
                                  )
@@ -38,7 +38,7 @@ class OntonoteTypeAnnotator(object):
                  config,
                  mention_view="gold_mention_view"):
         # surface_totype maps (surface, corase type) => fine type to fine type.
-        self.surface_totype_dist = self.load_yaml(config)
+        self.ontonote_to_figer_map = self.load_yaml(config)
         self.classifier = self.load_classifier(config)
         self.config = config
         self.mention_view = mention_view
@@ -49,14 +49,17 @@ class OntonoteTypeAnnotator(object):
         for constituent in view.constituents:
             start = constituent.start
             end = constituent.end
-            label = self.classifier.classify(doc, start, end)
-            try:
-                label = self.surface_totype_dist[label]
-            except KeyError:
-                continue
+            coarse_label2score = self.classifier.classify(doc, start, end)
+            figer_label2score = {}
+            for l in coarse_label2score:
+                try:
+                    label = self.ontonote_to_figer_map[l]
+                    figer_label2score[label] = coarse_label2score[l]
+                except KeyError:
+                    continue
             c = Constituent(start,
                             end,
                             self.TYPE_NAME,
-                            label2score={label: 1.0})
+                            label2score=figer_label2score)
             new_view.add_constituent(c)
         doc.user_data[self.TYPE_NAME] = new_view

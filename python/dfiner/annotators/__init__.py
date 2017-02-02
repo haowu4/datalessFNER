@@ -7,7 +7,7 @@ from dfiner.annotators.hyp_pattern_annotator import HypPatternAnnotator
 
 
 def get_non_default_annotator(nlp, config, ngram_length=5, mention_view=None):
-    sense_typer = SynsetFineTyper(config["figer_type_senses"])
+    sense_typer = SynsetFineTyper(config)
 
     nsd_cache_path = config["nsd_cache_path"]
     embeddings_path = config["embeddings_path"]

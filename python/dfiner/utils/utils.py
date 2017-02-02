@@ -13,6 +13,11 @@ import dfiner
 quotes = {"\"", "“", "”"}
 
 
+def best_k_label(label2score, k):
+    min_v = sorted(label2score.values(), reverse=True)[k]
+    return [x for x in label2score if label2score[x] > min_v]
+
+
 def read_embeddings(feature_embeddings_file):
     """
 

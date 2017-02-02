@@ -20,7 +20,8 @@ class MentionClassifier(object):
         self.dense_feature_functions = dense_feature_functions
         self.feature_lex = feature_lex
         self.type_lex = type_lex
-        self.idx_to_typ = {}
+        self.idx_to_typ = [None] * len(type_lex)
+
         for i in type_lex:
             self.idx_to_typ[type_lex[i]] = i
 
@@ -29,8 +30,8 @@ class MentionClassifier(object):
                                 self.feature_functions,
                                 self.dense_feature_functions,
                                 self.feature_lex)
-        idx = self.model.predict(vx)[0]
-        return self.idx_to_typ[idx]
+        scores = self.model.decision_function(vx)[0]
+        return {t: s for t, s in zip(self.idx_to_typ, scores)}
 
     @staticmethod
     def generate_vecs(objs,
