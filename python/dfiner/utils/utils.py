@@ -129,7 +129,6 @@ def get_default_config():
     return user_config
 
 
-
 def get_size(obj, seen=None):
     """Recursively finds size of objects in bytes"""
     size = sys.getsizeof(obj)

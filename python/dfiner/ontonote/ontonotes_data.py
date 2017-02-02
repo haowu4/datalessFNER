@@ -40,6 +40,8 @@ def get_sentence_doc(nlp, tokens, labels):
         gold_mention_view.add_constituent_from_args(current_start, len(labels), current_label)
 
     doc = nlp.tokenizer.tokens_from_list(tokens)
+    for annotator in nlp.pipeline:
+        annotator(doc)
     doc.user_data[GoldMentionView.GOLD_MENTION_VIEW_NAME] = gold_mention_view
 
     return doc
@@ -73,7 +75,7 @@ def load_ontonotes(nlp, file, max_docs=None):
     if len(tokens) == 0:
         return docs
 
-    sent_doc = get_sentence_doc(tokens, labels)
+    sent_doc = get_sentence_doc(nlp, tokens, labels)
     docs.append(sent_doc)
     return docs
 
@@ -141,14 +143,16 @@ if __name__ == '__main__':
     nlp.pipeline = [nlp.tagger, nlp.parser]
     non_default_annotators = \
         get_non_default_annotator(nlp, config, ngram_length=5, mention_view=GoldMentionView.GOLD_MENTION_VIEW_NAME)
-    non_default_annotators = []
-    print()
-    cache_root = config["cache_root"]
-    for filepath, name in zip(
-            [config["ontonotes_test_path"], config["ontonotes_dev_path"], config["ontonotes_train_path"]],
-            ["test_wo", "dev_wo", "train_wo"]
-    ):
-        load_annotate_and_cache(nlp, non_default_annotators,
-                                filepath,
-                                os.path.join(cache_root, "%s.serial.json" % name))
-        print ""
+    figer_docs = read_figer(nlp, config["figer_path"])
+    for doc in figer_docs:
+        for ann in non_default_annotators:
+            ann(doc)
+    # cache_root = config["cache_root"]
+    # for filepath, name in zip(
+    #         [config["ontonotes_test_path"], config["ontonotes_dev_path"], config["ontonotes_train_path"]],
+    #         ["test_wo", "dev_wo", "train_wo"]
+    # ):
+    #     load_annotate_and_cache(nlp, non_default_annotators,
+    #                             filepath,
+    #                             os.path.join(cache_root, "%s.serial.json" % name))
+    #     print ""
