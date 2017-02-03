@@ -14,9 +14,11 @@ def get_constituent_text(doc, constituent):
     return txt
 
 
-def print_view(doc, view):
-    cons = view.constituents
-    for con in cons:
+def print_view(doc, viewname):
+    if viewname not in doc.user_data:
+        print "%s not in doc" % viewname
+        return
+    for con in doc.user_data[viewname]:
         con_str = get_constituent_text(doc, con)
         rels = con.outgoing_relations
         if rels:

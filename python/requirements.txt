@@ -3,3 +3,4 @@ nltk
 spacy
 flask
 pyyaml
+gensim

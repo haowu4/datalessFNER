@@ -29,6 +29,10 @@ pavankumar :
     ontonotes_test_path : "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/ontonotes-data/Test.name"
     mention_to_type_dist: "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/datalessFNER/resources/mention_to_type_dist.txt.gz"
     figer_type_to_alias : "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/finer_annotation/type_to_alias.txt"
+    ontonote_to_figer_map : "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/datalessFNER/resources/ontonote_to_figer_type.yaml"
+    lsi_model_path : "/Users/pavankumar/Developer/NLPResearch/NER/FNER/cache/lsi_model_100k/wiki_en_lsi_%s.model"
+    lda_model_path : "/Users/pavankumar/Developer/NLPResearch/NER/FNER/cache/lda_model_100k/wiki_en_lda_%s.model"
+    tfidf_model_path : "/Users/pavankumar/Developer/NLPResearch/NER/FNER/cache/wiki_preprocessed/wiki_en.tfidf_model"
 
 
 muddire2 :
@@ -58,6 +62,7 @@ muddire2 :
     ontonotes_test_path : "/home/muddire2/nlpresearch2/data/ontonotes/ColumnFormat/Test.name"
     figer_type_to_alias : "/home/muddire2/nlpresearch2/finer_annotation/type_to_alias.txt"
     figer_path : "/home/muddire2/nlpresearch2/figer/aaai/exp.label"
+    ontonote_to_figer_map: "/home/muddire2/nlpresearch2/datalessFNER/resources/ontonote_to_figer_type.yaml"
 
 
 haowu4 :

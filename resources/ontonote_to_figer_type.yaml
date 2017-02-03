@@ -6,7 +6,19 @@ DATE : "time"
 TIME : "time"
 FAC : "building"
 EVENT : "event"
-WORK_OF_ART : "art"
+WORK_OF_ART : "work"
 PRODUCT : "product"
 LAW : "law"
-NORP : "people.ethnicity"
+NORP : "norpl"
+LANGUAGE : "norpl"
+PERCENT : null
+TITLE : "title"
+ORDINAL : null
+MONEY : "finance.currency"
+MEDICINE : "medicine"
+CARDINAL : null
+GPE : "location"
+ANIMAL : "living_thing"
+QUANTITY : null
+ROAD : "transportation.road"
+# award is missing

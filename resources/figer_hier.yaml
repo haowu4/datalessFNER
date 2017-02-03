@@ -307,8 +307,8 @@ visual_art.color :
     parent : null
     is_figer_type : true
 geography :
-    parent : null
-    is_figer_type : false
+    parent : location
+    is_figer_type : true
 norpl :
     parent : null
     is_figer_type : false

@@ -2028,8 +2028,8 @@ streets	O
 Hirsh	O
 pointed	O
 to	O
-San	B-/organization,/organization/sports_team
-Antonio	I-/organization,/organization/sports_team
+San	B-/location,/location/city
+Antonio	I-/location,/location/city
 as	O
 an	O
 example	O
