@@ -1,5 +1,7 @@
-from dfiner.utils.union_find import UnionFind
+from dfiner.utils import get_default_config
+from dfiner.utils.union_find import UnionFind, UnionComponents
 from spacy import symbols
+import spacy
 
 
 class Node(object):
@@ -68,66 +70,83 @@ def validate_match(target, match):
     return True
 
 
-def execute(path_iter, tokens):
+# @profile
+def execute(path_iter, doc, token_ids):
     try:
         step = path_iter.next()
         matches = []
         cons_func = all if step.cons_and else any
         # print tokens, step.cons_and, cons_func
         if step.dirn is None:
-            for token in tokens:
+            for token_id in token_ids:
                 if step.cons is None \
-                        or cons_func([len(execute(iter(con_path), [token])) > 0
+                        or cons_func([len(execute(iter(con_path), doc, [token_id])) > 0
                                       for con_path in step.cons]):
-                    matches.append(token)
+                    matches.append(token_id)
         else:
-            for token in tokens:
+            for token_id in token_ids:
+                token = doc[token_id]
                 if step.dirn == Direction.IN:
                     if not check_match(step.dep, token.dep):
                         continue
                     if step.cons is None \
-                            or cons_func([len(execute(iter(con_path), [token])) > 0
+                            or cons_func([len(execute(iter(con_path), doc, [token_id])) > 0
                                           for con_path in step.cons]):
                         if (not step.targets) \
                                 or any(validate_match(target, token.head)
                                        for target in step.targets):
-                            matches.append(token.head)
+                            matches.append(token.head.i)
                 elif step.dirn == Direction.OUT:
                     for child in token.children:
                         if not check_match(step.dep, child.dep):
                             continue
                         if step.cons is None \
-                                or cons_func([len(execute(iter(con_path), [token])) > 0
+                                or cons_func([len(execute(iter(con_path), doc, [token_id])) > 0
                                               for con_path in step.cons]):
                             if (not step.targets) \
                                     or any(validate_match(target, child)
                                            for target in step.targets):
-                                matches.append(child)
+                                matches.append(child.i)
                             if not step.acc:
                                 break
                 else:
                     raise ValueError("dir variable set to invalid value : %s" % step.dirn)
-        return execute(path_iter, matches) if len(matches) > 0 else []
+        return execute(path_iter, doc, matches) if len(matches) > 0 else []
     except StopIteration:
-        return tokens
+        return token_ids
 
 
 def is_noun(token):
     return token.pos == symbols.NOUN or token.pos == symbols.PROPN
 
 
-def get_conjs(token, only_noun=False):
-    doc = token.doc
-    uf = UnionFind(len(doc))
+# def get_conjs(token, conjs_uf=None, only_noun=False):
+#     doc = token.doc
+#     uf = conjs_uf if conjs_uf else get_conjs_uf(doc)
+#
+#     return [t for t in doc if (t.i != token.i and uf.find(t.i, token.i) and
+#                                ((not only_noun) or is_noun(t)))]
+
+
+# def get_conjs_uf(doc):
+#     uf = UnionFind(len(doc))
+#     for t in doc:
+#         if t.dep == symbols.conj:
+#             uf.union(t.i, t.head.i)
+#     return uf
+
+
+def get_conjs(doc, token_id, conjs_clusters=None):
+    conjs_clusters = conjs_clusters if conjs_clusters is not None else get_conjs_clusters(doc)
+    return UnionComponents.get_component(token_id, conjs_clusters)
+
+
+def get_conjs_clusters(doc):
+    clusters = []
     for t in doc:
         if t.dep == symbols.conj:
-            uf.union(t.i, t.head.i)
-
-    def is_conj(t):
-        return t != token and uf.find(t.i, token.i) and \
-               ((not only_noun) or is_noun(t))
-
-    return filter(is_conj, doc)
+            UnionComponents.union(t.i, t.head.i, clusters)
+    return clusters
 
 
 class HypPatterns(object):
@@ -337,38 +356,44 @@ class HypPatterns(object):
         path.append(Step(self._noun_targets, self.strings["compound"], Direction.IN, False, None))
         self._patterns["custom_amod_ncompmod"] = path
 
-    def apply_pattern_on_token(self, pattern_name, token, add_conjs=True, detect_conjs=True):
+    def _apply_pattern_on_token(self, pattern_name, doc, token_id, conjs_clusters=None, add_conjs=True, detect_conjs=True):
         assert pattern_name in self._patterns, "given pattern name - %s missing from the existing patterns" % pattern_name
-        try:
-            tokens = [token]
+        if True:
+            token_ids = {token_id}
             if detect_conjs:
-                tokens += get_conjs(token)
-            matches = filter(lambda match: match != token, execute(iter(self._patterns[pattern_name]), tokens))
-            conjs = []
+                token_ids = token_ids.union(get_conjs(doc, token_id, conjs_clusters=conjs_clusters))
+            matches = {match for match in execute(iter(self._patterns[pattern_name]), doc, token_ids) if match != token_id}
+            matches_conjs = {}
             if add_conjs:
-                conjs = \
-                    [conj for match in matches
-                     for conj in get_conjs(match, only_noun=True)
-                     if conj != match and conj != token]
-            matches += conjs
-            return map(lambda match_token: match_token.i, matches)
-        except:
-            print "got error while executing the pattern : %s" % pattern_name
+                matches_conjs = {conj for match in matches
+                                 for conj in get_conjs(
+                                    doc, match, conjs_clusters=conjs_clusters)
+                                 if conj != match and conj != token_id and is_noun(doc[conj])}
+            matches = matches.union(matches_conjs)
+            return matches
+        # except Exception as e:
+        #     print "got error while executing the pattern : %s" % pattern_name
+        #     raise e
 
-    def apply_pattern_on_doc(self, pattern_name, doc, add_conjs=True):
+    def apply_pattern_on_doc(self, pattern_name, doc, conjs_clusters=None, add_conjs=True):
         assert pattern_name in self._patterns, "given pattern name - %s missing from the existing patterns" % pattern_name
         results = []
-        for token in doc:
-            matches = self.apply_pattern_on_token(pattern_name, token, add_conjs)
+        if conjs_clusters is None:
+            conjs_clusters = get_conjs_clusters(doc)
+        for i in xrange(len(doc)):
+            matches = self._apply_pattern_on_token(
+                pattern_name, doc, i, conjs_clusters=conjs_clusters, add_conjs=add_conjs)
             if len(matches) > 0:
-                results.append((token.i, matches))
+                results.append((i, matches))
 
         return results
 
     def apply_all_patterns_on_doc(self, doc, add_conjs=True):
         pattern_results = {}
+        conjs_clusters = get_conjs_clusters(doc)
         for pattern_name in self._patterns.keys():
-            results = self.apply_pattern_on_doc(pattern_name, doc, add_conjs)
+            results = self.apply_pattern_on_doc(
+                pattern_name, doc, conjs_clusters=conjs_clusters, add_conjs=add_conjs)
             if len(results) > 0:
                 pattern_results[pattern_name] = results
 
@@ -420,16 +445,16 @@ if __name__ == '__main__':
                     'hearst_appos',
                     'hearst_copular', 'hearst_rev_copular']
 
-    # nlp = spacy.load('en')
-    # hyp_patterns = HypPatterns(nlp)
-    #
-    # def print_example(hearst_pattern_name, string):
-    #     doc = nlp(string.decode('utf-8'))
-    #     print string
-    #     for (token, matches) in hyp_patterns.apply_pattern_on_doc(hearst_pattern_name, doc, add_conjs=True):
-    #         print "%d: %s <= %s" % (token.i, token, matches)
-    #
-    # print "\n" * 3
-    # for string, hearst_pattern_name in zip(strings, hearst_funcs):
-    #     print_example(hearst_pattern_name, string)
-    #     print ""
+    nlp = spacy.load('en')
+    hyp_patterns = HypPatterns(nlp)
+
+    def print_example(hearst_pattern_name, string):
+        doc = nlp(string.decode('utf-8'))
+        print string
+        for (token_i, matches) in hyp_patterns.apply_pattern_on_doc(hearst_pattern_name, doc, add_conjs=True):
+            print "%d: %s <= %s" % (token_i, doc[token_i], matches)
+
+    print "\n" * 3
+    for string, hearst_pattern_name in zip(strings, hearst_funcs):
+        print_example(hearst_pattern_name, string)
+        print ""

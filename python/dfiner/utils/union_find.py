@@ -39,3 +39,41 @@ class UnionFind:
         else:
             self._id[j] = i
             self._sz[i] += self._sz[j]
+
+
+class UnionComponents(object):
+    @staticmethod
+    def get_membership(i, clusters):
+        for c_id in xrange(len(clusters)):
+            if i in clusters[c_id]:
+                return c_id
+        return None
+
+    @staticmethod
+    def union(i, j, clusters):
+        m_i = UnionComponents.get_membership(i, clusters)
+        m_j = UnionComponents.get_membership(j, clusters)
+        if m_i is None and m_j is None:
+            s = set()
+            s.add(i)
+            s.add(j)
+            clusters.append(s)
+        elif m_i is None:
+            clusters[m_j].add(i)
+        elif m_j is None:
+            clusters[m_i].add(j)
+        else:
+            # m_i will not be m_j but still
+            assert m_i != m_j
+            # we need to merge clusters at m_i and m_j
+            # first sort
+            m_i, m_j = (m_i, m_j) if m_i < m_j else (m_j, m_i)
+            s = clusters.pop(m_j).union(clusters.pop(m_i))
+            clusters.append(s)
+
+    @staticmethod
+    def get_component(i, clusters):
+        for cluster in clusters:
+            if i in cluster:
+                return cluster
+        return {i}
