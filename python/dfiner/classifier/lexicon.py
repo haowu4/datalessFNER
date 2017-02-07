@@ -9,12 +9,10 @@ class Lexicon(object):
         if d is None:
             self._lexeme_to_index = {}
             self._lexeme_counter = defaultdict(int)
-            self._lexeme_counter_per_class = defaultdict(lambda: defaultdict(int))
             self._index_to_lexeme = {}
         else:
             self._lexeme_to_index = d['lexeme_to_index']
             self._lexeme_counter = d['lexeme_counter']
-            self._lexeme_counter_per_class = d['lexeme_counter_per_class']
             self._index_to_lexeme = reverse_dict(self._lexeme_to_index)
         self._allow_new_lexemes = True
 
@@ -27,38 +25,22 @@ class Lexicon(object):
         assert isinstance(value, bool)
         self._allow_new_lexemes = value
 
-    def see_lexeme(self, lexeme, cls=None):
-        if self._allow_new_lexemes:
-            self._lexeme_counter[lexeme] += 1
-            if cls:
-                self._lexeme_counter_per_class[lexeme][cls] += 1
-            if lexeme not in self._lexeme_to_index:
-                self._lexeme_to_index[lexeme] = len(self._lexeme_to_index)
-                self._index_to_lexeme[self._lexeme_to_index[lexeme]] = lexeme
-
-    @staticmethod
-    def prune_dict_to_keys(d, keys):
-        if isinstance(d, defaultdict):
-            dd = defaultdict(d.default_factory)
-            for key, value in d.iteritems():
-                if key in keys:
-                    dd[key] = value
-            return dd
-        elif isinstance(d, dict):
-            return {key: value for key, value in d.iteritems() if key in keys}
-        else:
-            raise ValueError("d is not a dictionary")
-
     def prune(self, min_support):
         self._lexeme_to_index = {}
         for lexeme in self._lexeme_counter:
             if self._lexeme_counter[lexeme] >= min_support:
                 self._lexeme_to_index[lexeme] = len(self._lexeme_to_index)
         self._index_to_lexeme = reverse_dict(self._lexeme_to_index)
+        self.allow_new_lexemes = False
 
     def __getitem__(self, item):
         if isinstance(item, str) or isinstance(item, unicode):
-            return self._lexeme_to_index.get(item, -1)
+            lexeme = item
+            if self.allow_new_lexemes:
+                if lexeme not in self._lexeme_to_index:
+                    self._lexeme_to_index[lexeme] = lexeme_index = len(self._lexeme_to_index)
+                    self._index_to_lexeme[lexeme_index] = lexeme
+            return self._lexeme_to_index.get(lexeme, -1)
         elif isinstance(item, int):
             return self._index_to_lexeme.get(item, None)
         else:
@@ -71,8 +53,7 @@ class Lexicon(object):
     def _get_save_dict(self):
         return {
             'lexeme_to_index': self._lexeme_to_index,
-            'lexeme_counter': self._lexeme_counter,
-            'lexeme_counter_per_class': self._lexeme_counter_per_class
+            'lexeme_counter': self._lexeme_counter
         }
 
     def save_lexicon(self, save_path):
