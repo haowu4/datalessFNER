@@ -17,7 +17,8 @@ def build_lexicons(
         type_lex,
         prune_threshold,
         min_length,
-        mention_viewname
+        mention_viewname,
+        feat_cache
         ):
 
     if not (type_lex.allow_new_lexemes or feat_lex.allow_new_lexemes):
@@ -37,7 +38,18 @@ def build_lexicons(
 
             if feat_lex.allow_new_lexemes:
                 for ffunc in sparse_feature_funcs:
-                    features = ffunc(doc, mention_constituent)
+                    f_name = get_feat_template_name(ffunc)
+                    if feat_cache:
+                        features = \
+                            feat_cache.fetch_sparse_feats_or_none(
+                                doc, mention_constituent, f_name)
+                    if features is None:
+                        features = list(ffunc(doc, mention_constituent))
+                        # if feat_cache, then cache the features for this doc, mention
+                        if feat_cache:
+                            feat_cache.add_sparse_feats_to_cache(
+                                doc, mention_constituent, f_name, features
+                            )
                     for feat, val in features:
                         feat_lex.see_lexeme(feat, cls=type_func(mention_constituent))
 
@@ -64,16 +76,16 @@ def generate_vecs(
     if feat_lex is None:
         feat_lex = Lexicon()
 
-    build_lexicons(
-        docs, type_func, sparse_feature_funcs,
-        feat_lex, type_lex, prune_threshold, min_length, mention_viewname)
-
     # feat_cache
     # None: don't cache features
     # True: create a new cache object and cache features
     # FeatureCache object: use the FeatureCache object
     if feat_cache is True:
-        feat_cache = FeatureCache(feat_lex)
+        feat_cache = FeatureCache()
+
+    build_lexicons(
+        docs, type_func, sparse_feature_funcs,
+        feat_lex, type_lex, prune_threshold, min_length, mention_viewname, feat_cache)
 
     # sparse features
     row_ids = []
