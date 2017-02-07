@@ -1,98 +1,88 @@
+from collections import defaultdict
+import cPickle as pickle
+
+from dfiner.utils import reverse_dict
+
 
 class Lexicon(object):
+    def __init__(self, d=None):
+        if d is None:
+            self._lexeme_to_index = {}
+            self._lexeme_counter = defaultdict(int)
+            self._lexeme_counter_per_class = defaultdict(lambda: defaultdict(int))
+            self._index_to_lexeme = {}
+        else:
+            self._lexeme_to_index = d['lexeme_to_index']
+            self._lexeme_counter = d['lexeme_counter']
+            self._lexeme_counter_per_class = d['lexeme_counter_per_class']
+            self._index_to_lexeme = reverse_dict(self._lexeme_to_index)
+        self._allow_new_lexemes = True
 
-    def __init__(self):
-        self.curr = 0
-        self.m = {}
-        self.counter = defaultdict(int)
+    @property
+    def allow_new_lexemes(self):
+        return self._allow_new_lexemes
 
-    def see_feature(self, f):
-        self.counter[f] += 1
-        if f not in self.m:
-            self.m[f] = self.curr
-            self.curr += 1
+    @allow_new_lexemes.setter
+    def allow_new_lexemes(self, value):
+        assert isinstance(value, bool)
+        self._allow_new_lexemes = value
+
+    def see_lexeme(self, lexeme, cls=None):
+        if self._allow_new_lexemes:
+            self._lexeme_counter[lexeme] += 1
+            if cls:
+                self._lexeme_counter_per_class[lexeme][cls] += 1
+            if lexeme not in self._lexeme_to_index:
+                self._lexeme_to_index[lexeme] = len(self._lexeme_to_index)
+                self._index_to_lexeme[self._lexeme_to_index[lexeme]] = lexeme
+
+    @staticmethod
+    def prune_dict_to_keys(d, keys):
+        if isinstance(d, defaultdict):
+            dd = defaultdict(d.default_factory)
+            for key, value in d.iteritems():
+                if key in keys:
+                    dd[key] = value
+            return dd
+        elif isinstance(d, dict):
+            return {key: value for key, value in d.iteritems() if key in keys}
+        else:
+            raise ValueError("d is not a dictionary")
 
     def prune(self, min_support):
-        self.curr = 0
-        self.m = {}
-        for k in self.counter:
-            if self.counter[k] > min_support:
-                self.m[k] = self.curr
-                self.curr += 1
+        self._lexeme_to_index = {}
+        for lexeme in self._lexeme_counter:
+            if self._lexeme_counter[lexeme] >= min_support:
+                self._lexeme_to_index[lexeme] = len(self._lexeme_to_index)
+        self._index_to_lexeme = reverse_dict(self._lexeme_to_index)
 
-    def getOrNegOne(self, f):
-        if f in self.m:
-            return self.m[f]
+    def __getitem__(self, item):
+        if isinstance(item, str) or isinstance(item, unicode):
+            return self._lexeme_to_index.get(item, -1)
+        elif isinstance(item, int):
+            return self._index_to_lexeme.get(item, None)
         else:
-            return -1
+            raise ValueError("unknown key passed to __getitem__ = %s" % item)
 
-    def getOneHot(self, f):
-        ret = np.zeros((self.curr))
-        if f in self.m:
-            ret[self.m[f]] = 1.0
-        return ret
+    @property
+    def size(self):
+        return len(self._lexeme_to_index)
 
+    def _get_save_dict(self):
+        return {
+            'lexeme_to_index': self._lexeme_to_index,
+            'lexeme_counter': self._lexeme_counter,
+            'lexeme_counter_per_class': self._lexeme_counter_per_class
+        }
 
-def generate_vecs(objs,
-                  typ_function,
-                  feature_func,
-                  dense_real_vec_features = [],
-                  lex = None,
-                  type_lex = None
-                 ):
-    len_x = len(objs)
+    def save_lexicon(self, save_path):
+        with open(save_path, 'wb') as f_out:
+            pickle.dump(self._get_save_dict(), f_out, pickle.HIGHEST_PROTOCOL)
 
-    if lex is None:
-        lex = Lexicon()
-        for x in objs:
-            for ff in feature_func:
-                for k,v in ff(x):
-                    lex.see_feature(k)
-        lex.prune(10)
+    @classmethod
+    def load_from_path(cls, load_path):
+        with open(load_path, 'rb') as f_in:
+            d = pickle.load(f_in)
 
-    if type_lex is None:
-        type_lex = Lexicon()
-        for x in objs:
-            y = typ_function(x)
-            type_lex.see_feature(y)
-
-
-
-    row_ids = []
-    col_ids = []
-    vs = []
-
-    dense_vecs = []
-
-    ys = []
-
-    for i, x in enumerate(objs):
-        for ff in feature_func:
-            for k,v in ff(x):
-                idx = lex.getOrNegOne(k)
-                if idx > -1:
-                    row_ids.append(i)
-                    col_ids.append(idx)
-                    vs.append(v)
-
-        if len(dense_real_vec_features) > 0:
-            ds = []
-            for dff in dense_real_vec_features:
-                v  = dff(x)
-                ds.append(v)
-#             print(len(ds))
-            denv = np.hstack((ds))
-            dense_vecs.append(denv)
-
-        ys.append(type_lex.getOrNegOne(typ_function(x)))
-
-    sp = (len_x, lex.curr)
-    print(sp)
-    xs = coo_matrix((vs, (row_ids, col_ids)), shape=sp)
-    print("dense_vecs[0].shape", dense_vecs[0].shape)
-    dense_vecs = np.vstack(dense_vecs)
-    print("dense_vecs.shape", dense_vecs.shape)
-    if len(dense_real_vec_features) > 0:
-        print("shapes : ", xs.shape, dense_vecs.shape, )
-        xs = hstack((xs, dense_vecs))
-    return lex, type_lex, xs.tocsr(), np.asarray(ys)
+        lexicon = cls(d)
+        return lexicon

@@ -129,6 +129,10 @@ def get_default_config():
     return user_config
 
 
+def reverse_dict(d):
+    return {v: k for k, v in d.iteritems()}
+
+
 def get_size(obj, seen=None):
     """Recursively finds size of objects in bytes"""
     size = sys.getsizeof(obj)
