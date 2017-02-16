@@ -169,10 +169,21 @@ def eval_loose_macro(gold_sentences, pred_sentences):
         for e in predicted_sent.entities_map:
             te = gold_sent.entities_map[e]
             te_hat = predicted_sent.entities_map[e]
+            if len(te_hat) == 0:
+                continue
+
             c = float(len(te.intersection(te_hat)))
             p_non += (c / len(te_hat))
-            r_non += (c / len(te))
             p_den += 1.0
+
+        for e in gold_sent.entities_map:
+            te = gold_sent.entities_map[e]
+            te_hat = predicted_sent.entities_map[e]
+            if len(te) == 0:
+                continue
+
+            c = float(len(te.intersection(te_hat)))
+            r_non += (c / len(te))
             r_den += 1.0
 
     p = p_non / p_den
@@ -199,8 +210,13 @@ def eval_loose_micro(gold_sentences, pred_sentences):
             te_hat = predicted_sent.entities_map[e]
             c = float(len(te.intersection(te_hat)))
             p_non += c
-            r_non += c
             p_den += float(len(te_hat))
+
+        for e in gold_sent.entities_map:
+            te = gold_sent.entities_map[e]
+            te_hat = predicted_sent.entities_map[e]
+            c = float(len(te.intersection(te_hat)))
+            r_non += c
             r_den += float(len(te))
 
     p = p_non / p_den
@@ -224,7 +240,7 @@ def eval(a, b):
     print("Losse Marco F1 :")
     print("P: %.3f\t R: %.3f\t F1: %.3f" % (p, r, f))
 
-    x,y = analysis(a,b)
+    x, y = analysis(a, b)
 
     with open("/tmp/count.json", "w") as output:
         json.dump(x, output)
@@ -233,24 +249,30 @@ def eval(a, b):
         json.dump(y, output)
 
 
-def main():
-    gold_file = sys.argv[1]
-    pred_file = sys.argv[2]
+def eval_two_file(gold_file, pred_file):
 
     gold_labels_sents = load_labels(gold_file)
     pred_labels_sents = load_labels(pred_file)
 
-    figer_labels_set = set()
-    mine_labels_set = set()
-    for sent in gold_labels_sents:
-        for e in sent.entities:
-            for k in e.labels:
-                figer_labels_set.add(k)
+    # figer_labels_set = set()
+    # mine_labels_set = set()
+    # for sent in gold_labels_sents:
+    #     for e in sent.entities:
+    #         for k in e.labels:
+    #             figer_labels_set.add(k)
 
-    for sent in pred_labels_sents:
-        for e in sent.entities:
-            for k in e.labels:
-                mine_labels_set.add(k)
+    # for sent in pred_labels_sents:
+    #     for e in sent.entities:
+    #         for k in e.labels:
+    #             mine_labels_set.add(k)
+
+    eval(gold_labels_sents, pred_labels_sents)
+
+
+def main():
+    gold_file = sys.argv[1]
+    pred_file = sys.argv[2]
+    eval_two_file(gold_file, pred_file)
 
     # print(" Unique in Figer :")
     # for x in figer_labels_set.difference(mine_labels_set):
@@ -259,8 +281,6 @@ def main():
     # print(" Unique in Mine :")
     # for x in mine_labels_set.difference(figer_labels_set):
     #     print("\t", x)
-
-    eval(gold_labels_sents, pred_labels_sents)
 
 
 if __name__ == '__main__':
