@@ -77,7 +77,7 @@ haowu4 :
     ontonote_to_figer_map: "/home/haowu4/codes/dataless_finer/resources/ontonote_to_figer_type.yaml"
     ontonotes_train_path : ""
     figer_path : "/home/haowu4/codes/dataless_finer/sample_data/exp.label"
-    figer_gold : "/home/haowu4/codes/dataless_finer/eval_figer/data/gold_cleaned_figer_test.label"
+    figer_gold : "/home/haowu4/codes/dataless_finer/python/eval_output/gold_cleaned_figer_test.label"
     w2v_dict : "/home/haowu4/data/ontonotes_model/w2v_dict"
     w2v_mean : "/home/haowu4/data/ontonotes_model/w2v_mean"
     ontonote-lex : "/home/haowu4/data/ontonotes_model/lex.pkl"
