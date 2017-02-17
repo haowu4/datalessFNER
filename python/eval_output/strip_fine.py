@@ -22,7 +22,6 @@ def process(file):
             line = line.strip()
             if len(line) == 0:
                 print("")
-                break
             line = line.split("\t")
             word, label = line[0], line[1]
             print("%s\t%s" % (word, strip_fine_type(label)))

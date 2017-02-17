@@ -75,7 +75,7 @@ muddire2 :
     figer_type_to_alias : "/home/muddire2/nlpresearch2/finer_annotation/type_to_alias.txt"
     figer_path : "/home/muddire2/nlpresearch2/figer/aaai/exp.label"
     ontonote_to_figer_map: "/home/muddire2/nlpresearch2/datalessFNER/resources/ontonote_to_figer_type.yaml"
-
+    figer_gold: "/Users/pavankumar/Developer/NLPResearch/NER/Annotation/datalessFNER/python/data/gold_cleaned_figer_test.label"
 
 haowu4 :
   "264800833789999" :
@@ -88,9 +88,12 @@ haowu4 :
     mention_to_type_dist: "/home/haowu4/codes/dataless_finer/resources/mention_to_type_dist.txt.gz"
     ontonote_to_figer_map: "/home/haowu4/codes/dataless_finer/resources/ontonote_to_figer_type.yaml"
     ontonotes_train_path : ""
-    figer_path : "/home/haowu4/codes/dataless_finer/eval_figer/data/gold_cleaned_figer_test.label"
+    figer_path : "/home/haowu4/codes/dataless_finer/sample_data/exp.label"
+    figer_gold : "/home/haowu4/codes/dataless_finer/python/eval_output/gold_cleaned_figer_test.label"
     w2v_dict : "/home/haowu4/data/ontonotes_model/w2v_dict"
     w2v_mean : "/home/haowu4/data/ontonotes_model/w2v_mean"
     ontonote-lex : "/home/haowu4/data/ontonotes_model/lex.pkl"
     ontonote-lex-type : "/home/haowu4/data/ontonotes_model/type_lex.pkl"
     ontonote-model : "/home/haowu4/data/ontonotes_model/logreg.pkl"
+    ontonotes_train_and_dev_path : "/home/haowu4/data/ontonotes_ner/ColumnFormat/train_and_dev.col"
+    ontonotes_test_path : "/home/haowu4/data/ontonotes_ner/ColumnFormat/test.col"
