@@ -2390,9 +2390,9 @@ were	O
 compiled	O
 at	O
 the	O
-Sanctuary	B-/building
-Art	I-/building
-Center	I-/building
+Sanctuary	B-/organization
+Art	I-/organization
+Center	I-/organization
 ,	O
 a	O
 non-profit	O
@@ -2526,9 +2526,9 @@ everywhere	O
 ”	O
 	
 The	O
-Sanctuary	B-/building
-Art	I-/building
-Center	I-/building
+Sanctuary	B-/organization
+Art	I-/organization
+Center	I-/organization
 also	O
 has	O
 an	O
@@ -2905,9 +2905,9 @@ said	O
 Lee	B-/person
 said	O
 the	O
-Sanctuary	B-/building
-Art	I-/building
-Center	I-/building
+Sanctuary	B-/organization
+Art	I-/organization
+Center	I-/organization
 gives	O
 children	O
 the	O
@@ -4920,12 +4920,12 @@ will	O
 testify	O
 during	O
 the	O
-House	B-/event
-Committee	I-/event
-on	I-/event
-Judiciary	I-/event
-’s	I-/event
-public	I-/event
+House	B-/organization
+Committee	I-/organization
+on	I-/organization
+Judiciary	I-/organization
+’s	O
+public	B-/event
 hearing	I-/event
 today	O
 .	O

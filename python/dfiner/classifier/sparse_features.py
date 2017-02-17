@@ -60,7 +60,6 @@ def word_before(pos):
         start, end = mention.start, mention.end
         for i in range(max(start - pos, 0), start):
             yield doc[i].text
-            #             yield word_shape_func(doc[i].text)
 
     return f
 
@@ -91,7 +90,6 @@ def word_after(pos):
         start, end = mention.start, mention.end
         for i in range(end, min(end + pos, len(doc))):
             yield doc[i].text
-            #             yield word_shape_func(doc[i].text)
 
     return f
 
@@ -210,7 +208,7 @@ def kbbias(kbbias_annotator):
         if surface in kbbias_annotator.surface_to_type_dist:
             results = kbbias_annotator.surface_to_type_dist[surface]
         elif (surface[:4].lower() == 'the ') and \
-                        surface[4:] in kbbias_annotator.surface_to_type_dist:
+                surface[4:] in kbbias_annotator.surface_to_type_dist:
             results = kbbias_annotator.surface_to_type_dist[surface[4:]]
         if results:
             return results.iteritems()
@@ -221,7 +219,7 @@ def kbbias(kbbias_annotator):
 
 
 @FeatureFunc("bias")
-def CONSTANT_BIAS(doc, mention):
+def constant_bias(doc, mention):
     start, end = mention.start, mention.end
     return ["bias"]
 

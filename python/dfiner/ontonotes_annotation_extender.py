@@ -96,6 +96,20 @@ def get_hits(doc, gold_set, max_ngram_size=3, check_lower=False):
     return hits
 
 
+def fix_type1_to_type2(doc, type1, type2, triggers):
+    mention_view = doc.user_data[GoldMentionView.GOLD_MENTION_VIEW_NAME]
+    if len(mention_view) == 0:
+        return
+    for m_con in mention_view.constituents:
+        if m_con.name != type1:
+            continue
+        if any([
+                   any([trigger == token.text.lower() for trigger in triggers])
+                   for token in doc[m_con.start:m_con.end]
+                   ]):
+            m_con.name = type2
+
+
 # manually checked appropriate aliases on ontonotes
 title_set = {
     u'Acting President', u'Actor', u'Admiral', u'Agent', u'Ambassador', u'Artist',
@@ -189,11 +203,14 @@ animal_set = \
 
 road_set = \
     {
-        u'boulevard', u'expressway', u'federal highway', u'main street',
+        u'highway', u'boulevard', u'expressway', u'federal highway', u'main street',
         u'northern highway', u'parkway', u'the highway', u'the parkway',
         # unique test hits
         u'the mound'
     }
+
+# Shouldn't add "resort" and "clinic" as they are genuinly "ORG". Check train data for details.
+facility_as_org_trigger_words = {'museum', 'gallery', 'hospital'}
 
 if __name__ == '__main__':
     config = get_default_config()
@@ -218,4 +235,6 @@ if __name__ == '__main__':
     # _ = [add_typexs('MEDICINE', doc, symptom_alias_set.union(drug_set.union(treatment_set))) for doc in train_docs]
     # _ = [add_typexs('ANIMAL', doc, animal_set) for doc in train_docs]
     # _ = [add_typexs('ROAD', doc, road_set) for doc in train_docs]
+    _ = [fix_type1_to_type2(doc, "ORG", "FAC", facility_as_org_trigger_words) for doc in train_docs]
+    _ = [fix_type1_to_type2(doc, "FAC", "ROAD", road_set) for doc in train_docs]
 

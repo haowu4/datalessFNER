@@ -1,3 +1,6 @@
+import itertools
+from operator import itemgetter
+
 import numpy as np
 import scipy.sparse as sp
 
@@ -18,7 +21,8 @@ def build_lexicons(
         prune_threshold,
         min_length,
         mention_viewname,
-        feat_cache
+        feat_cache,
+        do_conjunctions
         ):
 
     if not (type_lex.allow_new_lexemes or feat_lex.allow_new_lexemes):
@@ -37,21 +41,49 @@ def build_lexicons(
                     type_lex.see_lexeme(t)
 
             if feat_lex.allow_new_lexemes:
+                all_features = {}
                 for ffunc in sparse_feature_funcs:
-                    f_name = get_feat_template_name(ffunc)
+                    f_template_name = get_feat_template_name(ffunc)
                     if feat_cache:
                         features = \
                             feat_cache.fetch_sparse_feats_or_none(
-                                doc, mention_constituent, f_name)
+                                doc, mention_constituent, f_template_name)
                     if features is None:
                         features = list(ffunc(doc, mention_constituent))
                         # if feat_cache, then cache the features for this doc, mention
                         if feat_cache:
                             feat_cache.add_sparse_feats_to_cache(
-                                doc, mention_constituent, f_name, features
+                                doc, mention_constituent, f_template_name, features
                             )
-                    for feat, val in features:
+
+                    for feat, _ in features:
                         feat_lex.see_lexeme(feat, cls=type_func(mention_constituent))
+
+                    all_features[f_template_name] = features
+
+                if do_conjunctions:
+                    if len(all_features) >= 2:
+                        for (f_template_name1, features1), (f_template_name2, features2) in itertools.combinations(all_features.items(), 2):
+                            # sort by template name
+                            (f_template_name1, features1), (f_template_name2, features2) = \
+                                sorted([(f_template_name1, features1), (f_template_name2, features2)], key=itemgetter(0))
+                            conj_f_template_name = "%s ^ %s" % (f_template_name1, f_template_name2)
+                            conj_features = None
+                            if feat_cache:
+                                conj_features = \
+                                    feat_cache.fetch_sparse_feats_or_none(
+                                        doc, mention_constituent, conj_f_template_name
+                                    )
+                            if conj_features is None:
+                                conj_features = \
+                                    [("%s ^ %s" % (feat1, feat2), val1*val2) for ((feat1, val1), (feat2, val2)) in itertools.product(features1, features2)]
+                                if feat_cache:
+                                    feat_cache.add_sparse_feats_to_cache(
+                                        doc, mention_constituent, conj_f_template_name, conj_features
+                                    )
+
+                            for feat, _ in conj_features:
+                                feat_lex.see_lexeme(feat, cls=type_func(mention_constituent))
 
     if feat_lex.allow_new_lexemes:
         feat_lex.prune(prune_threshold)
@@ -67,7 +99,8 @@ def generate_vecs(
         prune_threshold=7,
         min_length=0,
         mention_viewname=GoldMentionView.GOLD_MENTION_VIEW_NAME,
-        feat_cache=None
+        feat_cache=None,
+        do_conjunctions=False
         ):
 
     if type_lex is None:
@@ -85,7 +118,8 @@ def generate_vecs(
 
     build_lexicons(
         docs, type_func, sparse_feature_funcs,
-        feat_lex, type_lex, prune_threshold, min_length, mention_viewname, feat_cache)
+        feat_lex, type_lex, prune_threshold, min_length, mention_viewname,
+        feat_cache, do_conjunctions)
 
     # sparse features
     row_ids = []
