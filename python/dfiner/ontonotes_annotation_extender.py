@@ -84,7 +84,7 @@ def get_hits(doc, gold_set, max_ngram_size=3, check_lower=False):
     mention_view = doc.user_data[GoldMentionView.GOLD_MENTION_VIEW_NAME]
     hits = []
     # sents = []
-    for n in xrange(max_ngram_size, -1, -1):
+    for n in xrange(max_ngram_size, 0, -1):
         for i in xrange(len(doc)):
             candidate_text = doc[i:i + n].text
             if candidate_text in gold_set or (check_lower and candidate_text.lower() in gold_set):
@@ -209,6 +209,11 @@ road_set = \
         u'the mound'
     }
 
+written_work_set = \
+    {
+
+    }
+
 # Shouldn't add "resort" and "clinic" as they are genuinly "ORG". Check train data for details.
 facility_as_org_trigger_words = {'museum', 'gallery', 'hospital'}
 
@@ -235,6 +240,6 @@ if __name__ == '__main__':
     # _ = [add_typexs('MEDICINE', doc, symptom_alias_set.union(drug_set.union(treatment_set))) for doc in train_docs]
     # _ = [add_typexs('ANIMAL', doc, animal_set) for doc in train_docs]
     # _ = [add_typexs('ROAD', doc, road_set) for doc in train_docs]
-    _ = [fix_type1_to_type2(doc, "ORG", "FAC", facility_as_org_trigger_words) for doc in train_docs]
-    _ = [fix_type1_to_type2(doc, "FAC", "ROAD", road_set) for doc in train_docs]
+    # _ = [fix_type1_to_type2(doc, "ORG", "FAC", facility_as_org_trigger_words) for doc in train_docs]
+    # _ = [fix_type1_to_type2(doc, "FAC", "ROAD", road_set) for doc in train_docs]
 
