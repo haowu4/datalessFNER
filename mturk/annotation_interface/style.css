@@ -1,0 +1,219 @@
+/** {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    outline: 0
+}*/
+
+html {
+    font-family: sans-serif;
+    text-rendering: optimizeSpeed;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
+body {
+    width: 100%;
+    height: 100%;
+    /*background: #fff;*/
+    background: #ecedf3;
+    /*color: #1e1935;*/
+    color: #212121;
+    /*font: normal normal 1rem/1.5 Roboto,Helvetica,Arial,sans-serif;*/
+    font: normal normal 1rem/1.5 Montserrat,Helvetica,Arial,sans-serif;
+    padding: 0;
+    /*margin: 0;*/
+    overflow: auto;
+    min-height: 100vh
+}
+.page-header {
+    border-color: #ccc;
+}
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+.jumbotron {
+    background-color: inherit;
+}
+.section-header {
+    cursor: pointer;
+}
+.section-glyphicon {
+    margin-right: 20px;
+    font-size: 20px;
+}
+.section-content {
+    font-size: 16px;
+    line-height: 1.5em;
+    margin-bottom: 60px;
+}
+.collapsible-block {
+    display: none
+}
+.collapsible-block.open-block {
+    display: block
+}
+/* doc-view, sentence-view stuff */
+#doc-view, #sentence-view {
+    line-height: 2em;
+}
+span.sentence-list-index::after {
+    content: " →";
+}
+#doc-view .list-group-item {
+    margin: 10px 0;
+    background: inherit;
+}
+#doc-view .list-group-item.active {
+    background-color: #337ab7;
+}
+#doc-view .list-group-item.active mark {
+    color: white;
+}
+#sentence-view {
+    background-color: #ecedf3;
+}
+#questions {
+    margin-bottom: 100px;
+}
+#questions .panel-heading {
+    background-color: #ddd;
+}
+#questions .panel-title {
+    font-size: 24px;
+    font-weight: 500;
+}
+#questions .open>.dropdown-menu {
+    width: 100%;
+    background-color: #eee;
+}
+#questions .open>.dropdown-menu li {
+    text-align: justify;
+    margin: 3px 0;
+}
+#questions .btn-default {
+    background-color: inherit;
+}
+[data-entity] {
+    padding: 0.25em 0.35em;
+    margin: 0 0.25em;
+    line-height: 1;
+    display: inline-block;
+    border-radius: 0.25em;
+    border: 1px solid;
+    /*default color*/
+    background: rgba(67,198,252,0.2);
+    border-color: #43c6fc;
+}
+[data-entity].entity-nofocus {
+    background: rgb(232,232,232);/*rgba(67,198,252,0.2);*/
+    border-color: rgb(160,160,160);/*#43c6fc*/
+}
+
+
+/* experimental list options */
+
+.dropdown-menu li {
+    padding-left: 5px;
+    padding: 2px 16px;
+    cursor: pointer;
+}
+
+
+.dropdown-menu li:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+
+#questions ul.multi-options {
+    position: relative;
+    text-align: left;
+    margin-bottom: 25px;
+    list-style: none;
+}
+
+#questions ul.multi-options li {
+    position: relative;
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: top;
+    zoom: 1;
+    cursor: pointer;
+    margin: 4px 3px;
+    list-style: none;
+    /*color: #fff;*/
+    padding: 8px 37px;
+    width: 280px;
+    /*border-radius: 3px;
+    background-color: rgb(180,180,180);*/
+}
+
+#questions ul.multi-options li span.glyphicon {
+    margin-left: 10px;
+    opacity: 0;
+}
+
+#questions ul.multi-options li.selected span.glyphicon {
+    opacity: 1;
+}
+
+#questions .type-wrapper {
+    position: relative;
+    padding-top: 30px;
+    border-color: #e5e5e5;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 2px;
+    margin: 0 0 20px 0;
+}
+
+/* Echo out a label for the example */
+#questions .type-heading {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #959595;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  content: "Example";
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: inherit;
+    transition: all .2s;
+}
+
+.btn-primary.btn-outline {
+    color: #428bca;
+}
+
+.btn-success.btn-outline {
+    color: #5cb85c;
+}
+
+.btn-info.btn-outline {
+    color: #5bc0de;
+}
+
+.btn-warning.btn-outline {
+    color: #f0ad4e;
+}
+
+.btn-danger.btn-outline {
+    color: #d9534f;
+}
+
+.btn-gray.btn-outline:hover,
+.btn-primary.btn-outline:hover,
+.btn-success.btn-outline:hover,
+.btn-info.btn-outline:hover,
+.btn-warning.btn-outline:hover,
+.btn-danger.btn-outline:hover {
+    color: #fff;
+}
