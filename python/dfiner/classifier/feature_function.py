@@ -15,6 +15,10 @@ class FeatureStroage(object):
     DENSE = "DENSE"
 
     @staticmethod
+    def set_cache_dir(path):
+        FeatureStroage.cache_dir = path
+
+    @staticmethod
     def save_sparse_csr(filename, array):
         np.savez(filename,
                  data=array.data,
@@ -133,14 +137,12 @@ class FeatureExtractor(object):
 
 class FeatureFunction_(object):
 
-    cache_dir = "/tmp/cache"
-
     def __init__(self, feature_func, name, reuse_lex_from_cache=True):
         self.lex = None
         self.func = feature_func
         self.name = name
         if reuse_lex_from_cache:
-            lex_path = os.path.join(FeatureFunction_.cache_dir,
+            lex_path = os.path.join(FeatureStroage.cache_dir,
                                     "%s.cache_lex" % (name))
             if os.path.exists(lex_path):
                 # Load the lex file.
@@ -167,7 +169,7 @@ class FeatureFunction_(object):
                     k = x
                 self.lex.see_lexeme(k)
         self.lex.prune(min_support)
-        lex_path = os.path.join(FeatureFunction_.cache_dir,
+        lex_path = os.path.join(FeatureStroage.cache_dir,
                                 "%s.cache_lex" % (self.name))
         dump_pickle(self.lex.lexeme_to_index, lex_path)
 
