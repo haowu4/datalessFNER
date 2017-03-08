@@ -60,8 +60,10 @@ body {
 #doc-view, #sentence-view {
     line-height: 2em;
 }
-span.sentence-list-index::after {
-    content: " →";
+@media screen and (min-width: 992px) {
+    span.sentence-list-index::after {
+        content: " →";
+    }
 }
 #doc-view .list-group-item {
     margin: 10px 0;
@@ -127,15 +129,34 @@ span.sentence-list-index::after {
     background-color: rgba(0, 0, 0, 0.08);
 }
 
+.selectize-dropdown-content div.option {
+    padding-left: 5px;
+    padding: 5px 16px;
+    cursor: pointer;
+}
 
-#questions ul.multi-options {
+.selectize-input {
+    font-size: 14px;
+}
+
+.selectize-dropdown-content {
+    background-color: #eee;
+    font-size: 14px;
+}
+
+
+.selectize-dropdown-content:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+ul.multi-options {
     position: relative;
     text-align: left;
     margin-bottom: 25px;
     list-style: none;
 }
 
-#questions ul.multi-options li {
+ul.multi-options li {
     position: relative;
     display: -moz-inline-stack;
     display: inline-block;
@@ -160,9 +181,9 @@ span.sentence-list-index::after {
     opacity: 1;
 }
 
-#questions .type-wrapper {
+.type-wrapper {
     position: relative;
-    padding-top: 30px;
+    padding: 40px 20px 20px 20px;
     border-color: #e5e5e5;
     border-radius: 3px;
     border-style: solid;
@@ -171,7 +192,7 @@ span.sentence-list-index::after {
 }
 
 /* Echo out a label for the example */
-#questions .type-heading {
+.type-heading {
   position: absolute;
   top: 15px;
   left: 15px;

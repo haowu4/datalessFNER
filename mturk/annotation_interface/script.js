@@ -78,16 +78,12 @@ function highlightMention(docViewNode, sentIndex) {
 }
 
 
-function highlightHelper() {
-    highlightMention(document.querySelector("#doc-view"), 16);
-}
-
-
 // global variable to keep track of the current document
 // change this design later
-var curDocJson = null;
+var globalData = {};
+globalData.curDocJson = null;
 
-function loadDoc() {
+function getDocument(callback) {
     document.getElementById("load-doc").disabled = true;
 
     var httpRequest = new XMLHttpRequest();
@@ -99,12 +95,9 @@ function loadDoc() {
         if (httpRequest.readyState === XMLHttpRequest.DONE) {
             if (httpRequest.status === 200) {
                 var response = JSON.parse(httpRequest.responseText);
-                curDocJson = response;
+                globalData.curDocJson = response;
                 console.log(response['sentences'][0]['tokens']);
-                var docNode = document.getElementById('doc-view');
-                docNode.appendChild(getDocHTMLNode(response));
-                // loadDocInNode(docNode, response);
-                highlightHelper();
+                callback(response);
             } else {
                 alert('There was a problem with the request.');
             }
@@ -114,6 +107,55 @@ function loadDoc() {
     httpRequest.send(null);
 
     console.log('button pressed! XMLHttpRequest for doc content sent.');
+}
+
+
+function parseFigerHier(typeHier) {
+    // given the type-hier as presented in figer_type_hier.json,
+    // creates a dictionary from coarse types to all its fine-types
+    var getCoarse = function(type) {
+        while (typeHier[type]['parent'] != null)
+            type = typeHier[type]['parent'];
+        return type;
+    }
+    coarseToFine = {};
+    for (var type in typeHier) {
+        if (typeHier.hasOwnProperty(type)) {
+            var coarse = getCoarse(type);
+            // add coarse type to dictionary
+            if (!coarseToFine.hasOwnProperty(coarse))
+                coarseToFine[coarse] = []
+            // if this is a fine type add this to the coarse type list
+            if (typeHier[type]['parent'] != null)
+                coarseToFine[coarse].push(type)
+        }
+    }
+    return coarseToFine;
+}
+
+
+function loadFigerHier() {
+
+    var httpRequest = new XMLHttpRequest();
+    if (!httpRequest) {
+      alert('Giving up :( Cannot create an XMLHTTP instance');
+      return false;
+    }
+    httpRequest.onreadystatechange = function() {
+        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+            if (httpRequest.status === 200) {
+                var response = JSON.parse(httpRequest.responseText);
+                globalData.typeHier = response;
+                globalData.coarseToFine = parseFigerHier(response);
+            } else {
+                alert('There was a problem with the figer-hier request.');
+            }
+        }
+    };
+    httpRequest.open('GET', './figer_type_hier.json', false);
+    httpRequest.send(null);
+
+    console.log('XMLHttpRequest for figer-hier sent.');
 }
 
 

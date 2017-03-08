@@ -13,6 +13,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.bootstrap3.min.css" class="stylesheet">
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 
 
@@ -48,7 +49,7 @@
         <div id="document" class="section-content collapsible-block open-block">
             <button id="load-doc" type="button" class="btn btn-default"
                     style="background-color: inherit" 
-                    onclick="loadDoc()">Load document</button>
+                    onclick="loadDocument()">Load document</button>
             <div id="doc-view" class="entities"></div>
         </div>
 
@@ -59,50 +60,10 @@
                 Annotation Task
             </h2>
         </div>
-        <div id="questions" class="section-content collapsible-block open-block">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                  <div class="panel-title">Sentence #17</div>
-                </div>
-                <div id="sentence-view" class="panel-body">
-                    <div><mark data-entity="">Reynolds </mark>was best known for her role in <mark data-entity="" class="entity-nofocus">Singin’ </mark>in the Rain, the classic musical to which <mark data-entity="" class="entity-nofocus">this year</mark>’s leading Oscars contender, <mark data-entity="" class="entity-nofocus">La La Land</mark>, owes a significant debt.</div>
-                </div>
-            </div>
-
-            <div class="row vertical-align type-wrapper">
-                <div class="type-heading">COARSE TYPE</div>
-                <div class="col-xs-6">
-                    <div class="btn-group" id="coarse-type-dropdown">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select Course Type <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>PERSON</li>
-                            <li>ORGANIZATION</li>
-                            <li>LOCATION</li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- <div class="col-xs-3 type-checkbox">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" data-toggle="toggle">
-                        </label>
-                    </div>                    
-                </div> -->
-                <div class="col-xs-6">
-
-                    <ul class="multi-options">
-                        <li class="btn btn-primary btn-outline selected">From sentence context<span class="glyphicon glyphicon-ok"></span></li>
-                        <li class="btn btn-primary btn-outline">From words in mention<span class="glyphicon glyphicon-ok"> </span></li>
-                        <li class="btn btn-primary btn-outline">Background knowledge<span class="glyphicon glyphicon-ok"> </span></li>
-                        <li class="btn btn-primary btn-outline">Other places in Document<span class="glyphicon glyphicon-ok"> </span></li>
-                    </ul>
-                </div>
-            </div>
-            <button id="load-doc" type="button" class="btn btn-default"
-                    style="background-color: inherit" 
-                    onclick="loadFromJS()">Load from JS</button>
+        <div id="questions" class="section-content collapsible-block open-block">  
+            <button id="load-sentence" type="button" class="btn btn-default"
+                    style="background-color: inherit; margin: 20px 0;" 
+                    onclick="loadFromJS(14, 0)">Load from JS</button>
         </div>
     </div>
 
@@ -116,18 +77,14 @@
                 <div class="sentence-container"></div>
             </div>
         </div>
-
-        <div class="row vertical-align type-wrapper">
-            <div class="type-heading">COARSE TYPE</div>
-        </div>
     </template>
 
     <template id="reason-template">
-        <ul class="multi-options">
-            <li class="btn btn-primary btn-outline selected">From sentence context<span class="glyphicon glyphicon-ok"></span></li>
-            <li class="btn btn-primary btn-outline">From words in mention<span class="glyphicon glyphicon-ok"> </span></li>
-            <li class="btn btn-primary btn-outline">Background knowledge<span class="glyphicon glyphicon-ok"> </span></li>
-            <li class="btn btn-primary btn-outline">Other places in Document<span class="glyphicon glyphicon-ok"> </span></li>
+        <ul class="multi-options pull-right">
+            <li class="btn btn-primary btn-outline pull-right selected">From sentence context<span class="glyphicon glyphicon-ok"></span></li>
+            <li class="btn btn-primary btn-outline pull-right">From words in mention<span class="glyphicon glyphicon-ok"> </span></li>
+            <li class="btn btn-primary btn-outline pull-right">Background knowledge<span class="glyphicon glyphicon-ok"> </span></li>
+            <li class="btn btn-primary btn-outline pull-right">Other places in Document<span class="glyphicon glyphicon-ok"> </span></li>
         </ul>
     </template>
 
@@ -152,11 +109,26 @@
         </div>
     </template>
 
+
+    <template id="fine-types-dropdown-template">
+        <select placeholder="Select a person...">
+            <option value="">Select a fine type...</option>
+        </select>
+    </template>
+
     <template id="sentence-template">
         <div class="row sentence-list-item">
-            <div class="col-xs-2 col-md-1">
+            <div class="col-xs-1">
                 <span class="sentence-list-index"></span></div>
-            <div class="col-xs-10 col-md-11 sentence-content"></div>
+            <div class="col-xs-11 sentence-content"></div>
+        </div>
+    </template>
+
+    <template id="type-template">
+        <div class="row vertical-align type-wrapper">
+            <div class="type-heading"></div>
+            <div class="col-xs-3 col-lg-4 type-dropdown"></div>
+            <div class="col-xs-9 col-lg-8 reason"></div>
         </div>
     </template>
 
@@ -166,6 +138,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/js/standalone/selectize.min.js"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 
@@ -181,20 +154,88 @@
                 var coarseType = this.innerHTML;
                 $( this ).closest('.btn-group')[0].querySelector('[data-toggle="dropdown"]').innerHTML = coarseType + ' <span class="caret"></span>';
             });
+            // remove this from here
+            // selectize
+            $('#select-beast').selectize({
+                valueField: 'fine-type',
+                labelField: 'fine-type',
+                searchField: ['fine-type'],
+                options: globalData.coarseToFine['person'].map(function(fineType) {
+                    var tokens = fineType.split('.')
+                    return {'fine-type': tokens[tokens.length - 1].toUpperCase()}
+                })
+            });
+        }
+
+        function addCoarseTypeHTMLElement(parent) {
+            var row = document.getElementById('type-template').content.cloneNode(true);
+            row.querySelector('div').id = 'coarse-type-wrapper';
+            row.querySelector('.type-heading').innerText = 'COARSE TYPE';
+            var coarseTypeDropdown = document.getElementById('coarse-types-dropdown-template').content.cloneNode(true);
+            var reason = document.getElementById('reason-template').content.cloneNode(true);
+            
+            row.querySelector('.type-dropdown').appendChild(coarseTypeDropdown);
+            row.querySelector('.reason').appendChild(reason);
+
+            parent.appendChild(row);
+        }
+
+
+        function addFineTypeHTMLElement(parent, coarseType, fineTypeIdx) {
+            coarseType = coarseType.toLowerCase();
+            var row = document.getElementById('type-template').content.cloneNode(true);
+            var rowId = 'fine-type-' + (fineTypeIdx+1) + '-wrapper';
+            row.querySelector('div').id = rowId;
+            row.querySelector('.type-heading').innerText = coarseType.toUpperCase() + ' FINE TYPE ' + fineTypeIdx;
+            var fineTypeDropdown = document.getElementById('fine-types-dropdown-template').content.cloneNode(true);
+            var reason = document.getElementById('reason-template').content.cloneNode(true);
+
+            row.querySelector('.type-dropdown').appendChild(fineTypeDropdown);
+            row.querySelector('.reason').appendChild(reason);
+
+            parent.appendChild(row);
+            // row is part of DOM
+            console.log(rowId);
+            $('#' + rowId + ' select').selectize({
+                valueField: 'fine-type',
+                labelField: 'fine-type',
+                searchField: ['fine-type'],
+                options: globalData.coarseToFine[coarseType].map(function(fineType) {
+                    var tokens = fineType.split('.')
+                    return {'fine-type': tokens[tokens.length - 1].toUpperCase()}
+                })
+            });
         }
 
         // debug func. remove later!
-        function loadFromJS() {
+        function loadFromJS(sentIdx, entIdx) {
             var questionsTmpl = document.getElementById('questions-section-template');
             var questionsSection = questionsTmpl.content.cloneNode(true);
-            var sentenceContentNode = getSentenceHTMLElement(curDocJson.sentences[16], 1);
-            console.log(questionsSection)
+            var sentence = globalData.curDocJson.sentences[sentIdx];
+            if (sentence === undefined || sentence.ents[entIdx] === undefined) return;
+            var sentenceContentNode = getSentenceHTMLElement(sentence, entIdx);
+            // add sentence to sentence-view of questions section
             questionsSection.querySelector('div.sentence-container').appendChild(sentenceContentNode);
             $('#questions').append(questionsSection);
+            // highlight sentence in the doc-view
+            highlightMention($('#doc-view')[0], sentIdx);
+            // add coarse type wrapper
+
+            addCoarseTypeHTMLElement($('#questions')[0]);
+            addFineTypeHTMLElement($('#questions')[0], 'person', 0);
+        }
+
+        function loadDocument() {
+            getDocument(function(docJson) {
+                var docNode = document.getElementById('doc-view');
+                docNode.appendChild(getDocHTMLNode(docJson));
+            });
         }
 
         $(document).ready( function() {
-            refreshView();  
+            loadFigerHier();
+            refreshView();
+            // get all form values by adding event listeners to dropdowns etc..
         });
     </script>
 
