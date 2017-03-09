@@ -78,10 +78,19 @@ function highlightMention(docViewNode, sentIndex) {
 }
 
 
+function unHighlightMention(docViewNode, sentIndex) {
+    var listItem = docViewNode.querySelector('.list-group').childNodes[sentIndex];
+    if (listItem == undefined)
+        console.log("wrong sentIndex - " + sentIndex);
+    else
+        listItem.classList.remove('active');
+}
+
+
 // global variable to keep track of the current document
 // change this design later
 var globalData = {};
-globalData.curDocJson = null;
+
 
 function getDocument(callback) {
     document.getElementById("load-doc").disabled = true;
@@ -110,24 +119,59 @@ function getDocument(callback) {
 }
 
 
-function parseFigerHier(typeHier) {
+function getAnnotationDataStructure(docJson) {
+    var docAnnotations = {};
+    for (var sentenceIdx in docJson['sentences']) {
+        if (docJson['sentences'].hasOwnProperty(sentenceIdx)) {
+            var ents = docJson['sentences'][sentenceIdx].ents.sort(function(e1, e2) {return e1.start - e2.start});
+            if (ents.length > 0) {
+                docAnnotations[sentenceIdx] = {};
+                ents.forEach(function(ent, entIdx){
+                    docAnnotations[sentenceIdx][entIdx] = {
+                        'coarse-type': undefined,
+                        'fine-types': [],
+                        'reasons': {}
+                    }});
+            }
+        }
+    }
+    return docAnnotations;
+}
+
+
+function getStatesForDoc(docJson) {
+    var states = [];
+    for (var sentenceIdx in docJson['sentences']) {
+        if (docJson['sentences'].hasOwnProperty(sentenceIdx)) {
+            var ents = docJson['sentences'][sentenceIdx].ents.sort(function(e1, e2) {return e1.start - e2.start});
+            if (ents.length > 0) {
+                ents.forEach(function(ent, entIdx){
+                    states.push([parseInt(sentenceIdx), parseInt(entIdx)])});
+            }
+        }
+    }
+    return states;
+}
+
+
+function getCoarseToFine(typeHier) {
     // given the type-hier as presented in figer_type_hier.json,
     // creates a dictionary from coarse types to all its fine-types
     var getCoarse = function(type) {
-        while (typeHier[type]['parent'] != null)
-            type = typeHier[type]['parent'];
+        while (typeHier.get(type)['parent'] != null)
+            type = typeHier.get(type)['parent'];
         return type;
     }
-    coarseToFine = {};
-    for (var type in typeHier) {
-        if (typeHier.hasOwnProperty(type)) {
+    coarseToFine = new Map();
+    for (var [type, properties] of typeHier) {
+        if (typeHier.has(type)) {
             var coarse = getCoarse(type);
             // add coarse type to dictionary
-            if (!coarseToFine.hasOwnProperty(coarse))
-                coarseToFine[coarse] = []
+            if (!coarseToFine.has(coarse))
+                coarseToFine.set(coarse, [])
             // if this is a fine type add this to the coarse type list
-            if (typeHier[type]['parent'] != null)
-                coarseToFine[coarse].push(type)
+            if (typeHier.get(type)['parent'] != null)
+                coarseToFine.get(coarse).push(type)
         }
     }
     return coarseToFine;
@@ -145,8 +189,11 @@ function loadFigerHier() {
         if (httpRequest.readyState === XMLHttpRequest.DONE) {
             if (httpRequest.status === 200) {
                 var response = JSON.parse(httpRequest.responseText);
-                globalData.typeHier = response;
-                globalData.coarseToFine = parseFigerHier(response);
+                var typeHier = new Map();
+                for (var i = 0; i < response.length; i++)
+                    typeHier.set(response[i][0], response[i][1]);
+                globalData.typeHier = typeHier;
+                globalData.coarseToFine = getCoarseToFine(typeHier);
             } else {
                 alert('There was a problem with the figer-hier request.');
             }

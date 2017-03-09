@@ -130,20 +130,31 @@ body {
 }
 
 .selectize-dropdown-content div.option {
-    padding-left: 5px;
     padding: 5px 16px;
     cursor: pointer;
 }
 
 .selectize-input {
     font-size: 14px;
+    min-width: 250px;
+}
+
+/*.reason {
+    display: none;
+}*/
+
+.reason.show {
+    display: block;
+}
+
+.reason.hide {
+    display: none;
 }
 
 .selectize-dropdown-content {
     background-color: #eee;
     font-size: 14px;
 }
-
 
 .selectize-dropdown-content:hover {
     background-color: rgba(0, 0, 0, 0.08);
@@ -183,7 +194,7 @@ ul.multi-options li {
 
 .type-wrapper {
     position: relative;
-    padding: 40px 20px 20px 20px;
+    padding: 60px 20px 20px 20px;
     border-color: #e5e5e5;
     border-radius: 3px;
     border-style: solid;
@@ -202,6 +213,11 @@ ul.multi-options li {
   text-transform: uppercase;
   letter-spacing: 1px;
   content: "Example";
+}
+
+.control {
+    background-color: inherit;
+    margin: 20px 0;
 }
 
 .btn-outline {

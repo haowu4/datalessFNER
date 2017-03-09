@@ -49,7 +49,7 @@
         <div id="document" class="section-content collapsible-block open-block">
             <button id="load-doc" type="button" class="btn btn-default"
                     style="background-color: inherit" 
-                    onclick="loadDocument()">Load document</button>
+                    onclick="loadDocument();">Load document</button>
             <div id="doc-view" class="entities"></div>
         </div>
 
@@ -61,9 +61,21 @@
             </h2>
         </div>
         <div id="questions" class="section-content collapsible-block open-block">  
-            <button id="load-sentence" type="button" class="btn btn-default"
-                    style="background-color: inherit; margin: 20px 0;" 
-                    onclick="loadFromJS(14, 0)">Load from JS</button>
+            <button id="start-annotation" type="button" class="btn btn-default control" 
+                    onclick="startAnnotation(14, 0)">Start Annotating</button>
+            <div id="controls-wrapper" class="row hide">
+                <div class="col-xs-6">
+                    <button type="button" class="btn btn-default control" onclick="previousState();">
+                        <span class="glyphicon glyphicon-chevron-left"></span> Previous
+                    </button>
+                </div>
+                <div class="col-xs-6">
+                    <button type="button" class="btn btn-default control pull-right" onclick="nextState()">
+                        Next <span class="glyphicon glyphicon-chevron-right"></span>
+                    </button>
+                </div>
+            </div>
+            <div id="annotation-wrapper"></div>
         </div>
     </div>
 
@@ -81,10 +93,10 @@
 
     <template id="reason-template">
         <ul class="multi-options pull-right">
-            <li class="btn btn-primary btn-outline pull-right selected">From sentence context<span class="glyphicon glyphicon-ok"></span></li>
-            <li class="btn btn-primary btn-outline pull-right">From words in mention<span class="glyphicon glyphicon-ok"> </span></li>
-            <li class="btn btn-primary btn-outline pull-right">Background knowledge<span class="glyphicon glyphicon-ok"> </span></li>
-            <li class="btn btn-primary btn-outline pull-right">Other places in Document<span class="glyphicon glyphicon-ok"> </span></li>
+            <li value="1" class="btn btn-primary btn-outline pull-right">From sentence context<span class="glyphicon glyphicon-ok"></span></li>
+            <li value="2" class="btn btn-primary btn-outline pull-right">From words in mention<span class="glyphicon glyphicon-ok"> </span></li>
+            <li value="3" class="btn btn-primary btn-outline pull-right">Background knowledge<span class="glyphicon glyphicon-ok"> </span></li>
+            <li value="4" class="btn btn-primary btn-outline pull-right">Other places in Document<span class="glyphicon glyphicon-ok"> </span></li>
         </ul>
     </template>
 
@@ -96,23 +108,9 @@
         </div>
     </template>
 
-    <template id="coarse-types-dropdown-template">
-        <div class="btn-group" id="coarse-type-dropdown">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Select Course Type <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li>PERSON</li>
-                <li>ORGANIZATION</li>
-                <li>LOCATION</li>
-            </ul>
-        </div>
-    </template>
-
-
-    <template id="fine-types-dropdown-template">
-        <select placeholder="Select a person...">
-            <option value="">Select a fine type...</option>
+    <template id="types-dropdown-template">
+        <select placeholder="Select a type...">
+            <option value="">Select a type...</option>
         </select>
     </template>
 
@@ -128,7 +126,7 @@
         <div class="row vertical-align type-wrapper">
             <div class="type-heading"></div>
             <div class="col-xs-3 col-lg-4 type-dropdown"></div>
-            <div class="col-xs-9 col-lg-8 reason"></div>
+            <div class="col-xs-9 col-lg-8 reason hide"></div>
         </div>
     </template>
 
@@ -154,88 +152,288 @@
                 var coarseType = this.innerHTML;
                 $( this ).closest('.btn-group')[0].querySelector('[data-toggle="dropdown"]').innerHTML = coarseType + ' <span class="caret"></span>';
             });
-            // remove this from here
-            // selectize
-            $('#select-beast').selectize({
-                valueField: 'fine-type',
-                labelField: 'fine-type',
-                searchField: ['fine-type'],
-                options: globalData.coarseToFine['person'].map(function(fineType) {
-                    var tokens = fineType.split('.')
-                    return {'fine-type': tokens[tokens.length - 1].toUpperCase()}
-                })
+        }
+
+
+        function addCoarseTypeListeners(rowId, selectize) {
+            selectize.on('change', function(value) {
+                // remove fine types ids
+                $('div.row[id^=fine-type][id$=wrapper]').remove();
+                var [sentIdx, entIdx] = globalData.states[globalData.curStateIndex];
+                var prevCoarseType = globalData.docAnnotations[sentIdx][entIdx]['coarse-type'];
+                console.log(prevCoarseType);
+                // remove any reasons for previous type
+                if (prevCoarseType != null) {
+                    var reasons = globalData.docAnnotations[sentIdx][entIdx]['reasons'];
+                    if (reasons.hasOwnProperty(prevCoarseType))
+                        reasons[prevCoarseType] = undefined;
+                }
+                // deselect all reasons
+                $('#' + rowId + ' .reason li').removeClass('selected');
+                globalData.docAnnotations[sentIdx][entIdx]['coarse-type'] = value;
+                var fineTypes = globalData.docAnnotations[sentIdx][entIdx]['fine-types'];
+                fineTypes.length = 0;
+                if (value.length > 0) {
+                    $('#' + rowId + ' .reason').removeClass('hide');
+                    addTypeHTMLElement($('#annotation-wrapper')[0], null, false, value, 0);
+                }
+                else {
+                    $('#' + rowId + ' .reason').addClass('hide');
+                }
             });
         }
 
-        function addCoarseTypeHTMLElement(parent) {
-            var row = document.getElementById('type-template').content.cloneNode(true);
-            row.querySelector('div').id = 'coarse-type-wrapper';
-            row.querySelector('.type-heading').innerText = 'COARSE TYPE';
-            var coarseTypeDropdown = document.getElementById('coarse-types-dropdown-template').content.cloneNode(true);
-            var reason = document.getElementById('reason-template').content.cloneNode(true);
-            
-            row.querySelector('.type-dropdown').appendChild(coarseTypeDropdown);
-            row.querySelector('.reason').appendChild(reason);
 
-            parent.appendChild(row);
+        function getCurStateData() {
+            var curState = globalData.states[globalData.curStateIndex];
+            if (curState == null)
+                return;
+            var [sIdx, eIdx] = curState;
+            return globalData.docAnnotations[sIdx][eIdx];
         }
 
 
-        function addFineTypeHTMLElement(parent, coarseType, fineTypeIdx) {
-            coarseType = coarseType.toLowerCase();
-            var row = document.getElementById('type-template').content.cloneNode(true);
-            var rowId = 'fine-type-' + (fineTypeIdx+1) + '-wrapper';
-            row.querySelector('div').id = rowId;
-            row.querySelector('.type-heading').innerText = coarseType.toUpperCase() + ' FINE TYPE ' + fineTypeIdx;
-            var fineTypeDropdown = document.getElementById('fine-types-dropdown-template').content.cloneNode(true);
-            var reason = document.getElementById('reason-template').content.cloneNode(true);
-
-            row.querySelector('.type-dropdown').appendChild(fineTypeDropdown);
-            row.querySelector('.reason').appendChild(reason);
-
-            parent.appendChild(row);
-            // row is part of DOM
-            console.log(rowId);
-            $('#' + rowId + ' select').selectize({
-                valueField: 'fine-type',
-                labelField: 'fine-type',
-                searchField: ['fine-type'],
-                options: globalData.coarseToFine[coarseType].map(function(fineType) {
-                    var tokens = fineType.split('.')
-                    return {'fine-type': tokens[tokens.length - 1].toUpperCase()}
-                })
+        function addReasonOptionsListeners(reason, selectize) {
+            $(reason).find('li').click(function() {
+                $(this).toggleClass('selected');
+                var type = selectize.getValue();
+                var stateData = getCurStateData();
+                if (type.length > 0) {
+                    if (stateData['reasons'][type] == null)
+                        stateData['reasons'][type] = []
+                    vals = stateData['reasons'][type];
+                    if ($(this).hasClass('selected')) {
+                        if (!(vals.indexOf(this.value) > -1)) {
+                            vals.push(this.value);
+                        }
+                    }
+                    else {
+                        removeIndex = vals.indexOf(this.value);
+                        // console.log(removeIndex);
+                        if (removeIndex > -1) {
+                            vals.splice(removeIndex, 1);
+                        }
+                    }
+                }
             });
         }
 
-        // debug func. remove later!
-        function loadFromJS(sentIdx, entIdx) {
+
+        function addFineTypeListeners(rowId, selectize) {
+            selectize.on('change', function(value) {
+                var [sentIdx, entIdx] = globalData.states[globalData.curStateIndex];
+                var coarseType = globalData.docAnnotations[sentIdx][entIdx]['coarse-type'];
+                var fineTypes = globalData.docAnnotations[sentIdx][entIdx]['fine-types'];
+                var thisFineType = value;
+                // truncate fineTypes to this row
+                fineTypes.length = $('#' + rowId).prevAll('div.row[id^=fine-type][id$=wrapper]').length;
+                // remove reasons
+                var reasons = globalData.docAnnotations[sentIdx][entIdx]['reasons'];
+                for (var type in reasons) {
+                    if (reasons.hasOwnProperty(type)) {
+                        if (fineTypes.indexOf(type) == -1 && type != coarseType)
+                            reasons[type] = undefined;
+                    }
+                }
+                // deselect reasons
+                $('#' + rowId + ' .reason li').removeClass('selected');
+                // remove all subsequent rows
+                $('#' + rowId).nextAll('div.row[id^=fine-type][id$=wrapper]').remove();
+                if (thisFineType.length > 0) {
+                    fineTypes.push(thisFineType);
+                    $('#' + rowId + ' .reason').removeClass('hide');
+                    // if all types in the list has a row, don't add
+                    // more rows
+                    if (fineTypes.length < globalData.coarseToFine.get(coarseType).length) {
+                        // console.log(thisFineType);
+                        var numFineTypeRows = $('div.row[id^=fine-type][id$=wrapper]').length;
+                        addTypeHTMLElement($('#annotation-wrapper')[0], null, false, coarseType, numFineTypeRows);
+                    }
+                }
+                else {
+                    $('#' + rowId + ' .reason').addClass('hide');
+                }
+                
+            });
+        }
+
+
+        function addTypeHTMLElement(parent, initValue, isCoarseType, coarseType, fineTypeIdx) {
+            if (globalData.coarseToFine == null)
+                throw 'coarseToFine map not found!!';
+            // if adding fine type element with no fine-types for the corresponding
+            // coarse type, just ignore
+            if (!isCoarseType) {
+                if (globalData.coarseToFine.get(coarseType).length == 0)
+                    return;
+            }
+
+            var tmplNode = document.getElementById('type-template').content.cloneNode(true);
+            var typeDropdown = document.getElementById('types-dropdown-template').content.cloneNode(true);
+            var reason = document.getElementById('reason-template').content.cloneNode(true);
+
+            tmplNode.querySelector('.type-dropdown').appendChild(typeDropdown);
+            tmplNode.querySelector('.reason').appendChild(reason);
+
+            var rowId = (isCoarseType) ? 'coarse-type-wrapper' : 'fine-type-' + (fineTypeIdx+1) + '-wrapper';
+            tmplNode.querySelector('div.row').id = rowId;
+
+            parent.appendChild(tmplNode);
+            row = parent.querySelector('div.row#' + rowId);
+            reason = parent.querySelector('div.row#' + rowId + ' .reason');
+
+            var selectize;
+            if (isCoarseType) {
+                // console.log('coarse type');
+                row.querySelector('.type-heading').innerText = 'COARSE TYPE';
+                row.querySelector('select').setAttribute('placeholder', 'Select a coarse type...');
+
+                var coarseTypes = [];
+                for (var type of globalData.coarseToFine.keys())
+                    coarseTypes.push(type);
+
+                var $select = $('#' + rowId + ' select').selectize({
+                    valueField: 'type',
+                    labelField: 'cap-type',
+                    searchField: ['type'],
+                    options: coarseTypes.map(function(coarseType) { return {
+                        'type': coarseType,
+                        'cap-type': coarseType.toUpperCase()} })
+                });
+                selectize = $select[0].selectize;
+                // initialize if provided
+                if (initValue) {
+                    selectize.setValue(initValue);
+                    $('#' + rowId + ' .reason').removeClass('hide');
+                }
+
+                addCoarseTypeListeners(rowId, selectize);
+            }
+            else {
+                var [sentIdx, entIdx] = globalData.states[globalData.curStateIndex];
+                var selectedFineTypes = globalData.docAnnotations[sentIdx][entIdx]['fine-types'];
+
+                // console.log('fine type');
+                row.querySelector('.type-heading').innerText = coarseType.toUpperCase() + ' FINE TYPE ' + (fineTypeIdx+1);
+                row.querySelector('select').setAttribute('placeholder', 'Select a fine type...');
+
+                var allFineTypes = globalData.coarseToFine.get(coarseType);
+                options = []
+                for (var i = 0; i < allFineTypes.length; i++) {
+                    var type = allFineTypes[i];
+                    if (selectedFineTypes.includes(type) && !(type == initValue))
+                        continue;
+                    var tokens = type.split('.');
+                    options.push({
+                        'truncated-type': tokens[tokens.length - 1].toUpperCase(),
+                        'type': type
+                    });
+                }
+                var $select = $('#' + rowId + ' select').selectize({
+                    valueField: 'type',
+                    labelField: 'truncated-type',
+                    searchField: ['truncated-type'],
+                    options: options
+                });
+                selectize = $select[0].selectize;
+                if (initValue) {
+                    selectize.setValue(initValue);
+                    $('#' + rowId + ' .reason').removeClass('hide');
+                }
+
+                addFineTypeListeners(rowId, selectize);
+            }
+            globalData.reason = reason;
+            addReasonOptionsListeners(reason, selectize);
+        }
+
+        function startAnnotation() {
+            globalData.curStateIndex = -1;
+            $('#start-annotation').addClass('hide');
+            $('#controls-wrapper').removeClass('hide');
+            nextState();
+        }
+
+        function nextState() {
+            if (globalData.curStateIndex == globalData.states.length-1)
+                return;
+            var prevState = globalData.states[globalData.curStateIndex];
+            globalData.curStateIndex += 1;
+            var state = globalData.states[globalData.curStateIndex];
+            updateState(state, prevState);
+        }
+
+        function previousState() {
+            if (globalData.curStateIndex <= 0)
+                return;
+            var prevState = globalData.states[globalData.curStateIndex];
+            globalData.curStateIndex -= 1;
+            var state = globalData.states[globalData.curStateIndex];
+            updateState(state, prevState);
+        }
+
+        function updateState(state, prevState) {
+            if (state == null) {
+                // notify that it's done;
+                console.log('null state!!');
+            }
+            else {
+                var prevSentIdx, prevEntIdx;
+                if (prevState)
+                    [prevSentIdx, prevEntIdx] = prevState;
+                var [sentIdx, entIdx] = state;
+                // highlight sentence in the doc-view
+                if (prevSentIdx != sentIdx)
+                    unHighlightMention($('#doc-view')[0], prevSentIdx);
+                highlightMention($('#doc-view')[0], sentIdx);
+                loadAnnotationInterface(sentIdx, entIdx);
+            }
+        }
+
+        // debug func. remove or edit!
+        function loadAnnotationInterface(sentIdx, entIdx) {
             var questionsTmpl = document.getElementById('questions-section-template');
             var questionsSection = questionsTmpl.content.cloneNode(true);
             var sentence = globalData.curDocJson.sentences[sentIdx];
-            if (sentence === undefined || sentence.ents[entIdx] === undefined) return;
+            if (sentence == undefined || sentence.ents[entIdx] == undefined) return;
             var sentenceContentNode = getSentenceHTMLElement(sentence, entIdx);
             // add sentence to sentence-view of questions section
             questionsSection.querySelector('div.sentence-container').appendChild(sentenceContentNode);
-            $('#questions').append(questionsSection);
-            // highlight sentence in the doc-view
-            highlightMention($('#doc-view')[0], sentIdx);
+            // clear previous stuff if any
+            $('#annotation-wrapper').html("");
+            $('#annotation-wrapper').append(questionsSection);
             // add coarse type wrapper
 
-            addCoarseTypeHTMLElement($('#questions')[0]);
-            addFineTypeHTMLElement($('#questions')[0], 'person', 0);
+            // if already parially/fully annotated add the annotations
+            var curAnnotations = globalData.docAnnotations[sentIdx][entIdx]
+            var coarseType = curAnnotations['coarse-type'];
+            addTypeHTMLElement($('#annotation-wrapper')[0], coarseType, true);
+            if (coarseType) {
+                var fineTypes = curAnnotations['fine-types'];
+                for (var i = 0; i < fineTypes.length; i++) {
+                    addTypeHTMLElement($('#annotation-wrapper')[0], fineTypes[i], false, coarseType, i);
+                }
+            }
         }
 
         function loadDocument() {
             getDocument(function(docJson) {
                 var docNode = document.getElementById('doc-view');
                 docNode.appendChild(getDocHTMLNode(docJson));
+
+                // add the datastructure to collect annotations
+                globalData.docAnnotations = getAnnotationDataStructure(docJson);
+                globalData.states = getStatesForDoc(docJson);
+
+                globalData.curStateIndex = 0;
             });
         }
 
         $(document).ready( function() {
             loadFigerHier();
             refreshView();
-            // get all form values by adding event listeners to dropdowns etc..
+
+            // loadDocument();
         });
     </script>
 
