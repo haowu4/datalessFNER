@@ -204,26 +204,3 @@ function loadFigerHier() {
 
     console.log('XMLHttpRequest for figer-hier sent.');
 }
-
-
-function toggleMenu(node, collapseId) {
-    // toggle glyphicon
-    var glyphiconSpan = node.querySelector('span.glyphicon');
-    if (glyphiconSpan == undefined) return
-    classList = glyphiconSpan.classList
-    var menuUpClass = 'glyphicon-menu-up';
-    var menuDownClass = 'glyphicon-menu-down';
-    var collapseNode = document.getElementById(collapseId);
-    if (classList.contains(menuUpClass)) {
-        // content hidden
-        classList.remove(menuUpClass);
-        classList.add(menuDownClass);
-        collapseNode.classList.add('open-block');
-    }
-    else if (classList.contains(menuDownClass)) {
-        // content visible
-        classList.remove(menuDownClass);
-        classList.add(menuUpClass);
-        collapseNode.classList.remove('open-block');
-    }
-}
