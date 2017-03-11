@@ -96,15 +96,11 @@ body {
 }
 
 #doc-view .type-select-wrapper,.coref-wrapper {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.8);
     margin: 20px 0 0 0;
     padding: 0px 15px;
     border-radius: 4px;
     border: 1px solid #ddd;
-}
-
-.type-select-wrapper ul {
-    list-style: none;
 }
 
 .type-select-wrapper .btn {
@@ -120,16 +116,31 @@ body {
     content: '\e013  ';
 }
 
-.type-select-wrapper .btn.level-1 {
+.type-select-wrapper .btn.coarse-type {
     font-size: 11px;
     font-weight: bold;
     /*margin: 10px 0 20px 0;*/
 }
 
-.type-select-wrapper .btn.level-2 {
+.type-select-wrapper .btn.fine-type {
     font-size: 11px;
     /*margin: 5px 0 5px 0;*/
     /*width: 150px;*/
+}
+
+#coarse-types-col {
+    border-right: 1px solid #ddd;
+}
+
+.col-heading {
+  /*position: absolute;
+  top: 15px;
+  left: 15px;*/
+  font-size: 12px;
+  font-weight: bold;
+  color: #959595;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .type-row {
@@ -137,9 +148,9 @@ body {
     border: 1px solid #ddd;
 }
 
-.type-row div[class^='col-'] {
+/*.type-row div[class^='col-'] {
     padding: 20px;
-}
+}*/
 
 /* Custom checkbox buttons */
 .btn-outline {
