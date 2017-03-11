@@ -319,16 +319,24 @@
 
             var curEntSelected = globalStore.curEntSelected;
             
-            hideTypeAnnotationWindow();
-            $('#sentence-' + sIdx).append($typeWindow);
-            $typeWindow.slideDown(0);
+            var hidePromise = hideTypeAnnotationWindow();
+            var showPromise = hidePromise.then( function() {
+                $('#sentence-' + sIdx).append($typeWindow);
+                $typeWindow.hide();
+                $typeWindow.slideDown(100);
+                return $typeWindow.promise();
+            });
+
+            return showPromise;
         }
 
 
         function hideTypeAnnotationWindow() {
             var $typeWindow = globalStore.$typeWindow;
             $typeWindow.slideUp(0);
-            $typeWindow.remove();
+            var hidePromise = $typeWindow.promise();
+            hidePromise.done(function() {$typeWindow.remove()});
+            return hidePromise;
         }
 
 
@@ -418,11 +426,34 @@
             });
         }
 
+        function getParameterByName(name, url) {
+            if (!url) {
+              url = window.location.href;
+            }
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        function getMTurkParams() {
+            var params = {};
+            params.assignmentId = getParameterByName('assignmentId');
+            params.workerId = getParameterByName('workerId');
+            params.hitId = getParameterByName('hitId');
+            params.turkSubmitTo = getParameterByName('turkSubmitTo');
+            return params;
+        }
+
 
         var globalStore = {};
         $(document).ready( function() {
             loadFigerHier();
             loadDocument();
+            globalStore.mTurkParams = getMTurkParams();
+            globalStore.preview_id = 'ASSIGNMENT_ID_NOT_AVAILABLE';
         });
     </script>
 

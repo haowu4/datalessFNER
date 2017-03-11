@@ -117,13 +117,13 @@ body {
 }
 
 .type-select-wrapper .btn.coarse-type {
-    font-size: 11px;
+    font-size: 13px;
     font-weight: bold;
     /*margin: 10px 0 20px 0;*/
 }
 
 .type-select-wrapper .btn.fine-type {
-    font-size: 11px;
+    font-size: 13px;
     /*margin: 5px 0 5px 0;*/
     /*width: 150px;*/
 }
