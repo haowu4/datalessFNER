@@ -7,4 +7,4 @@ deploy:
 	babel script.js --out-file app.js
 
 web:
-	python -m SimpleHTTPServer
+	python -m http.server || python -m SimpleHTTPServer
