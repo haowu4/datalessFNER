@@ -23,11 +23,11 @@
   <body>
     <div class="container">
         <div class="jumbotron">
-            <h1 class="text-center">Fine-Type Annotation Interface</h1>
+            <h1 class="text-center">Type Annotatation Task</h1>
         </div>
 
         <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#instructionsModal">Open Modal</button>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#instructionsModal">Click for Instructions</button>
 
         <!-- Modal -->
         <div id="instructionsModal" class="modal fade" role="dialog">
@@ -47,23 +47,23 @@
                             You will be given a document with each entity (phrase) highlighted. The goal is to click on them, and select the best types,
                             that best categorize the entity mentioned in the sentence. For example:
 
-                            <div class="list-group-item" id="sentence-0">
+                            <div class="list-group-item">
                                 <div class="row sentence-list-item sentence-wrapper">
                                     <div class="col-xs-1">
                                         <span class="sentence-list-index">1</span></div>
                                     <div class="col-xs-11 sentence-content">
                                         <div>
-                                            <mark data-entity="" ent-id="0" class="selected">Mel Gibso </mark> is a well-known film actor, director and producer, having starred in
-                                            <mark data-entity="" , ent-id=0>Braveheart</mark>,
-                                            <mark data-entity="" , ent-id=0>Hamlet</mark>,
-                                            <mark data-entity="" , ent-id=0>Maverick</mark>.
+                                            <mark data-entity class="selected">Mel Gibso </mark> is a well-known film actor, director and producer, having starred in
+                                            <mark data-entity>Braveheart</mark>,
+                                            <mark data-entity>Hamlet</mark>,
+                                            <mark data-entity>Maverick</mark>.
 
                                         </div>
                                     </div>
                                 </div>
-                                <div class="type-select-wrapper" id="type-window">
+                                <div class="type-select-wrapper">
                                     <div class="row type-row">
-                                        <div class="col-xs-6" id="coarse-types-col">
+                                        <div class="col-xs-6">
                                             <div class="col-heading">Coarse type</div>
                                             <div class="col-content">
                                                 <div class="btn btn-primary btn-outline coarse-type">ORGANIZATION</div>
@@ -84,7 +84,7 @@
                                                 <div class="btn btn-primary btn-outline coarse-type">ETHNICITY</div>
                                             </div>
                                         </div>
-                                        <div class="col-xs-6" id="fine-types-col">
+                                        <div class="col-xs-6">
                                             <div class="col-heading">person types</div>
                                             <div class="col-content">
                                                 <div class="btn btn-outline fine-type btn-success selected">ACTOR</div>

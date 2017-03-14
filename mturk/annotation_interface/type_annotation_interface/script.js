@@ -652,7 +652,7 @@ function getCoarseToFine(typeHier) {
 // ----------------------------------------------------------------------
 
 
-function getFigerHier(url='./figer_type_hier.json') {
+function getFigerHier(url='../figer_type_hier.json') {
     return $.ajax({
         url: url,
         dataType: 'json'
@@ -669,7 +669,7 @@ function getFigerHier(url='./figer_type_hier.json') {
 }
 
 
-function getDocument(url='./sample_doc.json') {
+function getDocument(url='../sample_doc.json') {
     return $.ajax({
         url: url,
         dataType: 'json'

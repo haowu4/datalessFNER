@@ -36,6 +36,22 @@ body {
 .jumbotron {
     background-color: inherit;
 }
+
+/*.jumbotron {
+    padding: 0.5em 0.6em;
+    background-color: inherit;
+}
+
+.jumbotron h1 {
+    font-size: 2em;
+}
+.jumbotran p {
+    font-size: 1.2em;
+}
+.jumbotran p .btn {
+    padding: 0.5em;
+}*/
+
 .page-header {
     border-color: #ccc;
 }
