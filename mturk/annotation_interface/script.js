@@ -21,7 +21,7 @@
         function onCoarseTypeClick($liCoarse) {
             toggleTypeButton($liCoarse);
             var coarseType = $liCoarse.attr('value');
-            $fineCol = $liCoarse.closest('.type-row').find('#fine-types-col');
+            var $fineCol = $liCoarse.closest('.type-row').find('#fine-types-col');
             $fineCol.find('.col-heading').text(coarseType + ' types');
             $fineCol.find('.col-content').empty();
             if ($liCoarse.hasClass('selected')) {
@@ -65,7 +65,7 @@
                     type = typeHier.get(type)['parent'];
                 return type;
             }
-            coarseToFine = {};
+            var coarseToFine = {};
             for (var [type, properties] of typeHier) {
                 if (typeHier.has(type)) {
                     var coarse = getCoarse(type);

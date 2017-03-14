@@ -95,6 +95,16 @@ body {
     border-color: #43c6fc;
 }
 
+[data-entity].done {
+    background: rgba(166,226,45,0.2);
+    border-color: #a6e22d;
+}
+
+[data-entity].error {
+    background: rgba(217,83,79, .2);
+    border-color: #d43f3a;
+}
+
 #doc-view .type-select-wrapper,.coref-wrapper {
     background-color: rgba(255, 255, 255, 0.8);
     margin: 20px 0 0 0;
@@ -146,6 +156,9 @@ body {
 .type-row {
     padding: 5px 0;
     border: 1px solid #ddd;
+
+    /*display: flex;
+    flex-direction: row;*/
 }
 
 /*.type-row div[class^='col-'] {
@@ -185,4 +198,21 @@ body {
 .btn-warning.btn-outline:hover,
 .btn-danger.btn-outline:hover {
     color: #fff;
+}
+
+
+#submit {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+#submit-button {
+    font-size: 20px;
+    display: inline-block;
+}
+
+#submit-error {
+    font-size: 14px;
+    text-align: center;
 }
