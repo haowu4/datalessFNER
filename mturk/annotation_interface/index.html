@@ -26,12 +26,115 @@
             <h1 class="text-center">Fine-Type Annotation Interface</h1>
         </div>
 
-        <button 
-            type="button" 
-            class="btn btn-info" 
-            onclick="window.open('./ner-instruction.html')">
-            Instruction
-        </button>
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#instructionsModal">Open Modal</button>
+
+        <!-- Modal -->
+        <div id="instructionsModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Instructions</h4>
+                </div>
+                <div class="modal-body">
+                    <!--<p>Some text in the modal.</p>-->
+                    <ul>
+                        <li>
+
+                            You will be given a document with each entity (phrase) highlighted. The goal is to click on them, and select the best types,
+                            that best categorize the entity mentioned in the sentence. For example:
+
+                            <div class="list-group-item" id="sentence-0">
+                                <div class="row sentence-list-item sentence-wrapper">
+                                    <div class="col-xs-1">
+                                        <span class="sentence-list-index">1</span></div>
+                                    <div class="col-xs-11 sentence-content">
+                                        <div>
+                                            <mark data-entity="" ent-id="0" class="selected">Mel Gibso </mark> is a well-known film actor, director and producer, having starred in
+                                            <mark data-entity="" , ent-id=0>Braveheart</mark>,
+                                            <mark data-entity="" , ent-id=0>Hamlet</mark>,
+                                            <mark data-entity="" , ent-id=0>Maverick</mark>.
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="type-select-wrapper" id="type-window">
+                                    <div class="row type-row">
+                                        <div class="col-xs-6" id="coarse-types-col">
+                                            <div class="col-heading">Coarse type</div>
+                                            <div class="col-content">
+                                                <div class="btn btn-primary btn-outline coarse-type">ORGANIZATION</div>
+                                                <div class="btn btn-outline coarse-type btn-success selected">PERSON</div>
+                                                <div class="btn btn-outline coarse-type btn-primary">LOCATION</div>
+                                                <div class="btn btn-primary btn-outline coarse-type">PRODUCT</div>
+                                                <div class="btn btn-primary btn-outline coarse-type">BUILDING</div>
+                                                <div class="btn btn-primary btn-outline coarse-type">WORK</div>
+                                                <div class="btn btn-primary btn-outline coarse-type">EVENT</div>
+                                                <div class="btn btn-primary btn-outline coarse-type">MEDICINE</div>
+                                                <div class="btn btn-primary btn-outline coarse-type">LIVING_THING</div>
+                                                <div class="btn btn-outline coarse-type btn-primary">TIME</div>
+                                                <div class="btn btn-primary btn-outline coarse-type">AWARD</div>
+                                                <div class="btn btn-primary btn-outline coarse-type">FINANCE.CURRENCY</div>
+                                                <div class="btn btn-primary btn-outline coarse-type">LAW</div>
+                                                <div class="btn btn-outline coarse-type btn-primary">SOFTWARE</div>
+                                                <div class="btn btn-primary btn-outline coarse-type">LANGUAGE</div>
+                                                <div class="btn btn-primary btn-outline coarse-type">ETHNICITY</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6" id="fine-types-col">
+                                            <div class="col-heading">person types</div>
+                                            <div class="col-content">
+                                                <div class="btn btn-outline fine-type btn-success selected">ACTOR</div>
+                                                <div class="btn btn-primary btn-outline fine-type">ARCHITECT</div>
+                                                <div class="btn btn-primary btn-outline fine-type">ARTIST</div>
+                                                <div class="btn btn-primary btn-outline fine-type">ATHLETE</div>
+                                                <div class="btn btn-primary btn-outline fine-type">AUTHOR</div>
+                                                <div class="btn btn-primary btn-outline fine-type">COACH</div>
+                                                <div class="btn btn-outline fine-type btn-success selected">DIRECTOR</div>
+                                                <div class="btn btn-primary btn-outline fine-type">DOCTOR</div>
+                                                <div class="btn btn-primary btn-outline fine-type">ENGINEER</div>
+                                                <div class="btn btn-primary btn-outline fine-type">MONARCH</div>
+                                                <div class="btn btn-primary btn-outline fine-type">MUSICIAN</div>
+                                                <div class="btn btn-primary btn-outline fine-type">POLITICIAN</div>
+                                                <div class="btn btn-primary btn-outline fine-type">RELIGIOUS_LEADER</div>
+                                                <div class="btn btn-primary btn-outline fine-type">SOLDIER</div>
+                                                <div class="btn btn-primary btn-outline fine-type">TERRORIST</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </li>
+                        <li>
+                            For each entity, you need to select one <b>Coarse type</b>, and <b>All Fine type</b> that you think is suitable.
+                            If none of the types applies to the highlighted phrase, select, select
+                            <div class="btn btn-warning btn-outline coarse-type">NONE</div>.
+                        </li>
+
+                        <li>
+                            <div class="btn btn-primary btn-outline coarse-type">WORK</div> refers to all artworks, books, movies, newspaper and other similar creations. For example:
+                            <b>Mona Lisa</b>, <b>the Times</b>, <b>the Godfather</b> and etc.
+
+                        </li>
+
+                        <li>
+                            <div class="btn btn-primary btn-outline coarse-type">TIME</div> is phrase describing time. For example: <b>1990</b>, <b>last Tuesday</b>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+
+            </div>
+        </div>
               
 
         <div id="document-header" class="section-header page-header">
@@ -101,7 +204,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script type="text/javascript" src="mvc.js" defer></script>
+    <script type="text/javascript" src="script.js" defer></script>
 
 
   </body>

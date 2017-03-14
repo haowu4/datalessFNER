@@ -402,8 +402,13 @@ TAWindowView.prototype = {
     },
 
     _toggleTypeButton: function($btn) {
-        if (!$btn.hasClass('disabled'))
-            $btn.toggleClass('btn-primary btn-success selected');
+        if (!$btn.hasClass('disabled')) {
+            if ($btn.hasClass('btn-primary') || $btn.hasClass('btn-success'))
+                $btn.toggleClass('btn-primary btn-success selected');
+            else if ($btn.hasClass('btn-warning')) {
+                $btn.toggleClass('selected');
+            }
+        }
     },
 
     _renderFineTypeHtmlInNode: function($node, coarseType) {
@@ -418,9 +423,10 @@ TAWindowView.prototype = {
                 $li.find('div.btn').attr('value', fineType).addClass('fine-type').text(fineType.split('.').pop().toUpperCase());
                 $li.find('div.btn').on( 'click', function() { _this._onFineTypeClick($(this)) } );
                 _this._fineTypeToNode[fineType] = $li.find('div.btn');
+                if (fineType == NO_TYPE)
+                    $li.find('div.btn').addClass('no-type btn-warning').removeClass('btn-primary');
                 $node.append($li);
             });
-            $li.addClass('no-type');
         }
         else {
             const infoTmpl = document.getElementById('info-template');
@@ -488,10 +494,10 @@ TAWindowView.prototype = {
             $li.find('div.btn').on('click', function() { 
                 _this._onCoarseTypeClick($(this)) } );
             _this._coarseTypeToNode[coarseType] = $li.find('div.btn');
+            if (coarseType == NO_TYPE)
+                $li.find('div.btn').addClass('no-type btn-warning').removeClass('btn-primary');
             $colcontent.append($li);
         });
-        // last $li will be NO_TYPE
-        $li.addClass('no-type');
 
         $root.append($typerow);
         return $root;
