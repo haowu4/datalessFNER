@@ -23,7 +23,7 @@
   <body>
     <div class="container">
         <div class="jumbotron">
-            <h1 class="text-center">Type Annotatation Task</h1>
+            <h1 class="text-center">Co-reference Annotation Task</h1>
         </div>
 
         <!-- Trigger the modal with a button -->
@@ -41,35 +41,7 @@
                 </div>
                 <div class="modal-body">
                     <!--<p>Some text in the modal.</p>-->
-                    <ul>
-                        <li>
-
-                            You will be given a document with each entity (phrase) highlighted. The goal is to click on them, and select the types (categories),
-                            that best categorize the entity mentioned in the sentence. For example:
-                            <img src="https://s3.amazonaws.com/finer-annotation/type-annotation.png" style="width:100%;">
-                            
-
-
-                        </li>
-                        <li>
-                            For each entity, you need to select at-least one <b>Coarse Type</b> (Note that <b>No Type</b> is acceptable too). After you select the
-                            <b>Coarse Type</b>, you will be presented with more fine-grained types - <b>Fine Types</b>. Note that here multiple fine types might
-                            be applicable as shown in the figure above. Select at-least one (Note that <b>No Type</b> is acceptable too)
-                        </li>
-                        <li>While selecting fine-grained types, select as many as applicable.</li>
-
-                        <li>
-                            <div class="btn btn-primary btn-outline coarse-type">WORK</div> refers to all artworks, books, movies, newspaper and other similar creations (works by 
-                            people). For example:
-                            <b>Mona Lisa</b>, <b>the Times</b>, <b>the Godfather</b> etc.
-
-                        </li>
-
-                        <li>
-                            <div class="btn btn-primary btn-outline coarse-type">TIME</div> is phrase describing time. For example: <b>1990</b>, <b>last Tuesday</b> etc.
-
-                        </li>
-                    </ul>
+                    Instructions come here.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -84,17 +56,13 @@
             <h2>Document</h2>
         </div>
         <div id="document" class="section-content collapsible-block open-block">
-            <!-- <button id="load-doc" type="button" class="btn btn-default"
-                    style="background-color: inherit" 
-                    onclick="">Load document</button> -->
+            <!--<button id="no-ref" type="button" class="btn btn-default disabled"
+                    onclick="">No Previous Reference</button> -->
+            <div style="margin-bottom: 20px;">
+                <mark data-entity id="no-ref">No Previous Reference</mark>
+            </div>
             <div id="doc-view"></div>
         </div>
-        <form>
-            <div style="font-size: 16px" class="form-group">
-                <label for="feedback">Feedback:</label> <span> (Any feedback less than 250 characters about the task if welcome)</span>
-                <textarea class="form-control" rows="5" id="feedback" maxlength="250"></textarea>
-            </div>
-        </form>
         <div id="submit">
             <button type="button" id="submit-button" class="btn btn-primary" aria-label="Left Align">
                 <span class="glyphicon" aria-hidden="true">Submit</span>
@@ -153,7 +121,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script type="text/javascript" src="app.js" defer></script>
+    <script type="text/javascript" src="script.js" defer></script>
 
 
   </body>
