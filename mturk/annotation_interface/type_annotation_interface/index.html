@@ -44,7 +44,7 @@
                     <ul>
                         <li>
 
-                            You will be given a document with each entity (phrase) highlighted. The goal is to click on them, and select the best types,
+                            You will be given a document with each entity (phrase) highlighted. The goal is to click on them, and select the types (categories),
                             that best categorize the entity mentioned in the sentence. For example:
                             <img src="https://s3.amazonaws.com/finer-annotation/type-annotation.png" style="width:100%;">
                             
@@ -52,19 +52,21 @@
 
                         </li>
                         <li>
-                            For each entity, you need to select one <b>Coarse type</b>, and <b>All Fine type</b> that you think is suitable.
-                            If none of the types applies to the highlighted phrase, select, select
-                            <div class="btn btn-warning btn-outline coarse-type">NONE</div>.
+                            For each entity, you need to select at-least one <b>Coarse Type</b> (Note that <b>No Type</b> is acceptable too). After you select the
+                            <b>Coarse Type</b>, you will be presented with more fine-grained types - <b>Fine Types</b>. Note that here multiple fine types might
+                            be applicable as shown in the figure above. Select at-least one (Note that <b>No Type</b> is acceptable too)
+                        </li>
+                        <li>While selecting fine-grained types, select as many as applicable.</li>
+
+                        <li>
+                            <div class="btn btn-primary btn-outline coarse-type">WORK</div> refers to all artworks, books, movies, newspaper and other similar creations (works by 
+                            people). For example:
+                            <b>Mona Lisa</b>, <b>the Times</b>, <b>the Godfather</b> etc.
+
                         </li>
 
                         <li>
-                            <div class="btn btn-primary btn-outline coarse-type">WORK</div> refers to all artworks, books, movies, newspaper and other similar creations. For example:
-                            <b>Mona Lisa</b>, <b>the Times</b>, <b>the Godfather</b> and etc.
-
-                        </li>
-
-                        <li>
-                            <div class="btn btn-primary btn-outline coarse-type">TIME</div> is phrase describing time. For example: <b>1990</b>, <b>last Tuesday</b>
+                            <div class="btn btn-primary btn-outline coarse-type">TIME</div> is phrase describing time. For example: <b>1990</b>, <b>last Tuesday</b> etc.
 
                         </li>
                     </ul>
