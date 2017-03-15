@@ -106,9 +106,21 @@ body {
     cursor: pointer;
 }
 
+[data-entity]:active {
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+
+[data-entity]:hover {
+    background: rgb(210, 210, 210);
+}
+
 [data-entity].selected {
     background: rgba(67,198,252,0.2);
     border-color: #43c6fc;
+}
+
+[data-entity].selected:hover {
+    background: rgba(67,198,252,0.3);
 }
 
 [data-entity].done {
@@ -116,8 +128,18 @@ body {
     border-color: #a6e22d;
 }
 
+[data-entity].done:hover {
+    background: rgba(166,226,45,0.3);
+    border-color: #a6e22d;
+}
+
 [data-entity].error {
     background: rgba(217,83,79, .2);
+    border-color: #d43f3a;
+}
+
+[data-entity].error:hover {
+    background: rgba(217,83,79, .3);
     border-color: #d43f3a;
 }
 
@@ -231,4 +253,8 @@ body {
 #submit-error {
     font-size: 14px;
     text-align: center;
+}
+
+#instructionsModal {
+    font-size: 15px;
 }
