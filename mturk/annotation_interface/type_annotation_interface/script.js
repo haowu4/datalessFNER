@@ -279,7 +279,7 @@ TAView.prototype = {
 
         // tuples of tokens, spaces ( => zip(tokens, spaces) )
         const tokenSpaces = _.isUndefined(sentence.spaces) ? 
-            _.map(sentence.tokens, (t) => [t, " "]) :
+            _.map(sentence.tokens, (t) => [renderChar(t), " "]) :
             _.zip(sentence.tokens, sentence.spaces);
 
         const getTextFromSpan = _.partial(getTextFromSpanForTokenSpaces, tokenSpaces);
@@ -669,7 +669,7 @@ function getFigerHier(url='../figer_type_hier.json') {
 }
 
 
-function getDocument(url='../sample_doc.json') {
+function getDocument(url='../sample_doc_2.json') {
     return $.ajax({
         url: url,
         dataType: 'json'
@@ -687,7 +687,24 @@ function getDocument(url='../sample_doc.json') {
     );
 }
 
+function renderChar(token) {
+    if(token == "-LCB-"){
+        return "{";
+    }
 
+    if(token == "-RRB-"){
+        return ")";
+    }
+
+    if(token == "-RCB-"){
+        return "}";
+    }
+
+    if(token == "-LRB-"){
+        return "(";
+    }
+    return token;
+}
 
 
 function postAnnotations(url, postQuery) {
