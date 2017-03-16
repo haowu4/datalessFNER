@@ -669,7 +669,7 @@ function getFigerHier(url='../figer_type_hier.json') {
 }
 
 
-function getDocument(url='../sample_doc_2.json') {
+function getDocument(url='../sample_doc.json') {
     return $.ajax({
         url: url,
         dataType: 'json'
