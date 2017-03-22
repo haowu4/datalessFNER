@@ -126,7 +126,7 @@ TAModel.prototype = {
         }
     },
 
-    annotationDStoString: function() {
+    annotationDStoPostDict: function() {
         let docJson = this._docJson;
         let annotationDS = this._annotationDS;
         let postDS = {};
@@ -137,7 +137,7 @@ TAModel.prototype = {
                 postDS[`${docJson['doc_id']}-${sIdx}-${ent.start}-${ent.end}`] = val;
             })
         });
-        return $.param(postDS);
+        return postDS;
     }
 
 }
@@ -278,9 +278,10 @@ TAView.prototype = {
             (`<mark data-entity ent-id="${eIdx}" sent-id="${sIdx}">${text}</mark>`);
 
         // tuples of tokens, spaces ( => zip(tokens, spaces) )
+        const tokens = _.map(sentence.tokens, renderChar);
         const tokenSpaces = _.isUndefined(sentence.spaces) ? 
-            _.map(sentence.tokens, (t) => [renderChar(t), " "]) :
-            _.zip(sentence.tokens, sentence.spaces);
+            _.map(tokens, (t) => [t, " "]) :
+            _.zip(tokens, sentence.spaces);
 
         const getTextFromSpan = _.partial(getTextFromSpanForTokenSpaces, tokenSpaces);
 
@@ -644,7 +645,9 @@ function getCoarseToFine(typeHier) {
         }
     }
     // sort the fine-types for each coarse type
-    _.each(coarseToFine, function(fineTypes, coarseType) { fineTypes.sort() });
+    _.each(coarseToFine, function(fineTypes, coarseType) { 
+        coarseToFine[coarseType] = _.sortBy(fineTypes, [(t) => t.split('.').pop()]);
+    });
     return coarseToFine;
 }
 
@@ -652,8 +655,9 @@ function getCoarseToFine(typeHier) {
 // ----------------------------------------------------------------------
 
 
-function getFigerHier(url='../figer_type_hier.json') {
+function getFigerHier(url='./figer_type_hier.json') {
     return $.ajax({
+        type: 'GET',
         url: url,
         dataType: 'json'
     }).then(
@@ -664,12 +668,14 @@ function getFigerHier(url='../figer_type_hier.json') {
             let coarseToFine = getCoarseToFine(typeHier);
             return coarseToFine;
         },
-        () => null
+        () => {
+            console.log('figer promise failed');
+        }
     );
 }
 
 
-function getDocument(url='../sample_doc_2.json') {
+function getDocument(url='./sample_doc.json') {
     return $.ajax({
         url: url,
         dataType: 'json'
@@ -683,7 +689,9 @@ function getDocument(url='../sample_doc_2.json') {
             // validate data and not load if incorrect
             return response;
         },
-        () => null
+        () => {
+            console.log(`encountered error while loading ${url}`);
+        }
     );
 }
 
@@ -711,10 +719,12 @@ function postAnnotations(url, postQuery) {
     return $.ajax({
         type: 'POST',
         url: `${url}?${postQuery}`
-    });
+    }).then(() => {console.log('successfully submitted')}, () => {console.log('something wrong with submission')});
 }
 
-function submit(url, taModel, taView, taController) {
+function submit(url, assignmentId, taModel, taView, taController) {
+    const feedBackText = $('#feedback').val();
+
     const numErrors = taView.highlightErrorMarks();
     if (numErrors > 0) {
         const errTmpl = document.getElementById('error-template');
@@ -726,22 +736,50 @@ function submit(url, taModel, taView, taController) {
         $('#submit').prepend($errorbox);
     }
     else {
-        const annotationString = taModel.annotationDStoString();
-        const postPromise = postAnnotations(url, annotationString);
-        postPromise.then(() => console.log('succesfully posted!'));
+        const postDict = taModel.annotationDStoPostDict();
+        postDict['feedBackText'] = feedBackText;
+        // const queryString = $.param(postDict);
+        // console.log(`post string: ${queryString}`)
+        // const postPromise = postAnnotations(url, queryString);
+        console.log(postDict);
+        $('#submit-form').attr('action', url);
+        $('#submit-form [name=assignmentId]').attr('value', assignmentId);
+        $('#submit-form [name=data]').attr('value', JSON.stringify(postDict));
+        $('#submit-form').submit();
+        // postPromise.then(() => console.log('succesfully posted!'));
     }
 
 }
 
 
+function queryURL(url, name) {
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+
 var taModel, taView, tAWindowView, taController;
 var debug = {};
+var figerPromise, docPromise;
 $(document).ready( function() {
-    let figerPromise = getFigerHier();
-    let docPromise = getDocument();
+    const docURL = queryURL(window.location.href, 'doc_url');
+    const postURL = queryURL(window.location.href, 'post_url');
+    const assignmentId = queryURL(window.location.href, 'assignmentId');
+    console.log(`post_url : ${postURL}`);
+    console.log(`assignmentId : ${assignmentId}`);
+
+    figerPromise = getFigerHier();
+    docPromise = getDocument(docURL);
+
+    console.log(`trying to fetch doc at ${docURL}`);
 
     $.when( figerPromise, docPromise ).then(
         ( coarseToFine, docJson ) => {
+
             taModel = new TAModel(docJson, coarseToFine);
             taView = new TAView(taModel);
             taController = new TAController(taModel, taView);
@@ -753,10 +791,14 @@ $(document).ready( function() {
             // taModel.fineTypeRemoved.attach( (sender, args) => console.log(`fine type removed: ${args.fineType}`) );
             // taModel.fineTypesReset.attach( (sender, args) => console.log(`cleared fine types`) );
 
-            $('#submit-button').on('click', () => submit('http://localhost:8000', taModel, taView, taController));
+            if (assignmentId == 'ASSIGNMENT_ID_NOT_AVAILABLE')
+                $('#submit-button').addClass('disabled')
+            else
+                $('#submit-button').on('click', () => submit(postURL, assignmentId, taModel, taView, taController));
         },
         () => { 
             //error handling if figer data is not loaded
+            console.log(`some error. Sorry couldn't load`)
         }
     );
 });
