@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Annotator Interface</title>
+
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto">
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.4/css/selectize.bootstrap3.min.css" class="stylesheet">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+  </head>
+  <body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="text-center">Co-reference Annotation Task</h1>
+        </div>
+
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#instructionsModal">Click for Instructions</button>
+
+        <!-- Modal -->
+        <div id="instructionsModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Instructions</h4>
+                </div>
+                <div class="modal-body">
+                    <!--<p>Some text in the modal.</p>-->
+                    Instructions come here.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+
+            </div>
+        </div>
+              
+
+        <div id="document-header" class="section-header page-header">
+            <h2>Document</h2>
+        </div>
+        <div id="document" class="section-content collapsible-block open-block">
+            <!--<button id="no-ref" type="button" class="btn btn-default disabled"
+                    onclick="">No Previous Reference</button> -->
+            <div style="margin-bottom: 20px;">
+                <mark data-entity id="no-ref">No Previous Reference</mark>
+            </div>
+            <div id="doc-view"></div>
+        </div>
+        <div id="submit">
+            <button type="button" id="submit-button" class="btn btn-primary" aria-label="Left Align">
+                <span class="glyphicon" aria-hidden="true">Submit</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Templates -->
+    <template id="sentence-template">
+        <div class="row sentence-list-item sentence-wrapper">
+            <div class="col-xs-1">
+                <span class="sentence-list-index"></span></div>
+            <div class="col-xs-11 sentence-content"></div>
+        </div>
+        <div class="row annotaion-wrapper">
+        </div>
+    </template>
+
+    <template id="type-list-item-template">
+        <div class="btn btn-primary btn-outline" onclick=""></li>
+    </template>
+
+    <template id="type-row-template">
+        <div class="row type-row">
+            <div class="col-xs-6" id="coarse-types-col">
+                <div class="col-heading">Coarse type</div>
+                <div class="col-content"></div>
+            </div><!--
+            --><div class="col-xs-6" id="fine-types-col">
+                <div class="col-heading">No Coarse type selected</div>
+                <div class="col-content"></div>
+            </div>
+        </div>
+    </template>
+
+    <template id="info-template">
+        <div class="alert alert-warning" role="alert">
+            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info:</span>
+        </div>
+    </template>
+
+    <template id="error-template">
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+        </div>
+    </template>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!--<script src="https://fastcdn.org/Underscore.js/1.8.3/underscore-min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="script.js" defer></script>
+
+
+  </body>
+</html>

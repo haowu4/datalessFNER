@@ -1,3 +1,60 @@
+person : 
+    parent : null
+    is_figer_type : true
+organization : 
+    parent : null
+    is_figer_type : true
+location : 
+    parent : null
+    is_figer_type : true
+building : 
+    parent : null
+    is_figer_type : true
+time : 
+    parent : null
+    is_figer_type : true
+norpl :
+    parent : null
+    is_figer_type : false
+product : 
+    parent : null
+    is_figer_type : true
+work :
+    parent : null
+    is_figer_type : false
+event : 
+    parent : null
+    is_figer_type : true
+title : 
+    parent : null
+    is_figer_type : true
+award : 
+    parent : null
+    is_figer_type : true
+finance.currency : 
+    parent : null
+    is_figer_type : true
+law : 
+    parent : null
+    is_figer_type : true
+transportation.road : 
+    parent : null
+    is_figer_type : true
+living_thing : 
+    parent : null
+    is_figer_type : true
+software : 
+    parent : null
+    is_figer_type : true
+visual_art.color : 
+    parent : null
+    is_figer_type : true
+medicine :
+    parent : null
+    is_figer_type : false
+geography :
+    parent : location
+    is_figer_type : true
 person.actor : 
     parent : person.artist
     is_figer_type : true
@@ -96,9 +153,6 @@ location.country :
     is_figer_type : true
 location.cemetery : 
     parent : location
-    is_figer_type : true
-location : 
-    parent : 
     is_figer_type : true
 location.bridge : 
     parent : building
@@ -261,60 +315,6 @@ train :
 astral_body : 
     parent : geography
     is_figer_type : true
-person : 
-    parent : null
-    is_figer_type : true
-event : 
-    parent : null
-    is_figer_type : true
-finance.currency : 
-    parent : null
-    is_figer_type : true
 finance.stock_exchange : 
     parent : organization
     is_figer_type : true
-building : 
-    parent : null
-    is_figer_type : true
-organization : 
-    parent : null
-    is_figer_type : true
-law : 
-    parent : null
-    is_figer_type : true
-title : 
-    parent : null
-    is_figer_type : true
-transportation.road : 
-    parent : null
-    is_figer_type : true
-award : 
-    parent : null
-    is_figer_type : true
-living_thing : 
-    parent : null
-    is_figer_type : true
-product : 
-    parent : null
-    is_figer_type : true
-software : 
-    parent : null
-    is_figer_type : true
-time : 
-    parent : null
-    is_figer_type : true
-visual_art.color : 
-    parent : null
-    is_figer_type : true
-geography :
-    parent : location
-    is_figer_type : true
-norpl :
-    parent : null
-    is_figer_type : false
-work :
-    parent : null
-    is_figer_type : false
-medicine :
-    parent : null
-    is_figer_type : false

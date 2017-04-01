@@ -4,6 +4,7 @@ import sys, os
 import codecs
 import getpass, uuid
 import yaml
+from collections import OrderedDict
 import numpy as np
 from nltk.corpus import wordnet as wn
 import cPickle as pickle
@@ -11,6 +12,20 @@ import cPickle as pickle
 import dfiner
 
 quotes = {"\"", "“", "”"}
+
+
+def ordered_yaml_load(
+        stream, Loader=yaml.Loader, object_pairs_hook=OrderedDict):
+    class OrderedLoader(Loader):
+        pass
+
+    def construct_mapping(loader, node):
+        loader.flatten_mapping(node)
+        return object_pairs_hook(loader.construct_pairs(node))
+    OrderedLoader.add_constructor(
+        yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
+        construct_mapping)
+    return yaml.load(stream, OrderedLoader)
 
 
 def best_k_label(label2score, k):
