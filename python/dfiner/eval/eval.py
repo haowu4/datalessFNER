@@ -119,6 +119,15 @@ def analysis(gold_sentences, pred_sentences):
     return a, b
 
 
+def set_exact_match(s1, s2):
+    for e1 in s1:
+        if e1 not in s2:
+            return False
+    for e2 in s2:
+        if e2 not in s1:
+            return False
+    return True
+
 def eval_strict(gold_sentences, pred_sentences):
     c = 0.0
     p_den = 0.0
@@ -137,16 +146,59 @@ def eval_strict(gold_sentences, pred_sentences):
         # bp()
         # if counter > 10:
         #     sys.exit(1)
-        for e in predicted_sent.entities_map:
+        alles_ = set(predicted_sent.entities_map.keys()).union(set(gold_sent.entities_map.keys()))
+
+        for e in alles_:
             te = gold_sent.entities_map[e]
             te_hat = predicted_sent.entities_map[e]
-            intersect = te.intersection(te_hat)
-            if len(intersect) == len(te_hat):
-                if len(intersect) == len(te):
-                    c += 1.0
-            p_den += 1.0
-            r_den += 1.0
+            
+            if set_exact_match(te, te_hat):
+                c += 1.0
+        
+        p_den += (len(predicted_sent.entities_map) * 1.0)
+        r_den += (len(gold_sent.entities_map) * 1.0)
 
+    p = c / p_den
+    r = c / r_den
+    print(counter)
+    print(c, p_den, r_den)
+    return p, r, 2 * p * r / (p + r)
+
+
+def eval_strict_intersection(gold_sentences, pred_sentences):
+    c = 0.0
+    p_den = 0.0
+    r_den = 0.0
+
+    counter = 0
+
+    for sent_id in range(len(gold_sentences)):
+        # p_den += len(pred_sentences[sent_id].entities)
+        # r_den += len(gold_sentences[sent_id].entities)
+        predicted_sent = pred_sentences[sent_id]
+        gold_sent = gold_sentences[sent_id]
+        counter += len(predicted_sent.entities_map)
+        # print(predicted_sent)
+        # print(predicted_sent.entities_map)
+        # bp()
+        # if counter > 10:
+        #     sys.exit(1)
+        alles_ = set(predicted_sent.entities_map.keys()).intersection(set(gold_sent.entities_map.keys()))
+
+        for e in alles_:
+            te = gold_sent.entities_map[e]
+            te_hat = predicted_sent.entities_map[e]
+            # print("------------")
+            # print(e)
+            # print(te)
+            # print(te_hat)
+            if set_exact_match(te, te_hat):
+                # print("++++++++++++++++++")
+                c += 1.0
+        
+        p_den += (len(predicted_sent.entities_map) * 1.0)
+        r_den += (len(gold_sent.entities_map) * 1.0)
+    
     p = c / p_den
     r = c / r_den
     print(counter)
@@ -226,6 +278,12 @@ def eval_loose_micro(gold_sentences, pred_sentences):
 
 
 def eval(a, b):
+
+    # p, r, f = eval_strict_intersection(a, b)
+    # print("Strict Intersection F1 :")
+    # print("P: %.3f\t R: %.3f\t F1: %.3f" % (p, r, f))
+    # print("\n\n")
+
     p, r, f = eval_strict(a, b)
     print("Strict F1 :")
     print("P: %.3f\t R: %.3f\t F1: %.3f" % (p, r, f))
@@ -265,7 +323,7 @@ def eval_two_file(gold_file, pred_file):
     #     for e in sent.entities:
     #         for k in e.labels:
     #             mine_labels_set.add(k)
-
+    print("Evaluating %s vs %s" % (gold_file, pred_file))
     eval(gold_labels_sents, pred_labels_sents)
 
 

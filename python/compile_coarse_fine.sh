@@ -1,0 +1,2 @@
+python dfiner/eval/strip_coarse_types.py eval_output/organized/outs/figer.out > eval_output/organized/outs/figer.out.fine_only
+python dfiner/eval/strip_fine_types.py eval_output/organized/outs/figer.out > eval_output/organized/outs/figer.out.coarse

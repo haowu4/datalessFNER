@@ -80,15 +80,15 @@ muddire2 :
 
 haowu4 :
   "264800833789999" :
+    embeddings_path : "/home/haowu4/data/autoextend/GoogleNews-vectors-negative300.combined_500k.txt"
+    embeddings_cache_path : "/home/haowu4/data/simple_finer/GoogleNews-vectors-negative300.combined_500k.pkl"
     figer_type_senses : "/home/haowu4/codes/dataless_finer/resources/figer_type_senses.yaml"
     figer_hierarchy : "/home/haowu4/codes/dataless_finer/resources/figer_hier.yaml"
     figer_test_json : null
     nsd_cache_path : "/home/haowu4/codes/dataless_finer/cache/nsd.pkl"
-    embeddings_path : "/home/haowu4/data/autoextend/GoogleNews-vectors-negative300.combined_500k.txt"
     synset_offset_pos_embeddings_path : "/home/haowu4/data/autoextend/synset_embeddings_300.txt"
     mention_to_type_dist: "/home/haowu4/codes/dataless_finer/resources/mention_to_type_dist.txt.gz"
     ontonote_to_figer_map: "/home/haowu4/codes/dataless_finer/resources/ontonote_to_figer_type.yaml"
-    ontonotes_train_path : ""
     figer_path : "/home/haowu4/codes/dataless_finer/sample_data/exp.label"
     figer_gold : "/home/haowu4/codes/dataless_finer/python/eval_output/gold_cleaned_figer_test.label"
     w2v_dict : "/home/haowu4/data/ontonotes_model/w2v_dict"
@@ -96,9 +96,15 @@ haowu4 :
     ontonote-lex : "/home/haowu4/data/ontonotes_model/lex.pkl"
     ontonote-lex-type : "/home/haowu4/data/ontonotes_model/type_lex.pkl"
     ontonote-model : "/home/haowu4/data/ontonotes_model/logreg.pkl"
-    ontonotes_train_and_dev_path : "/home/haowu4/data/ontonotes_ner/ColumnFormat/train_and_dev.col"
-    ontonotes_test_path : "/home/haowu4/data/ontonotes_ner/ColumnFormat/test.col"
-
+    lsi_model_path : "/home/haowu4/data/simple_finer/lsi_model_100k/wiki_en_lsi_%s.model"
+    lda_model_path : "/home/haowu4/data/simple_finer/lda_model_100k/wiki_en_lda_%s.model"
+    tfidf_model_path : "/home/haowu4/data/simple_finer/wiki_preprocessed/wiki_en.tfidf_model"
+    ontonotes_train_path : "/home/haowu4/data/simple_finer/Train.name"
+    ontonotes_dev_path : "/home/haowu4/data/simple_finer/Dev.name"
+    ontonotes_train_and_dev_path : "/home/haowu4/data/simple_finer/TrainAndDev.name"
+    ontonotes_test_path : "/home/haowu4/data/simple_finer/Test.name"   
+    common_us_city_path : "/home/haowu4/data/simple_finer/Top5000Population.csv"    
+ 
   # dickens config
   "22095312515053" :
     figer_type_senses : "/home/muddire2/nlpresearch/datalessFNER/resources/figer_type_senses.yaml"

@@ -14,7 +14,7 @@ def strip_fine_type(label, tps):
         label = label.replace("/", ".")[1:]
         if not tps.has_type(label):
             print >> sys.stderr, "%s is missing" % label
-            return "O"
+            # return "O"
         else:
             label = tps.get_root(label)
         coarse_types.add("/%s" % label)
@@ -23,24 +23,25 @@ def strip_fine_type(label, tps):
 
 
 def process(file, tps):
+    ret = []
     with open(file) as input:
         for line in input:
             line = line.strip()
             if len(line) == 0:
-                print("")
+                ret.append("")
                 continue
                 # break
             line = line.split("\t")
             word, label = line[0], line[1]
-            print("%s\t%s" % (word, strip_fine_type(label, tps)))
-
+            ret.append("%s\t%s" % (word, strip_fine_type(label, tps)))
+    return ret
 
 def main(tps):
     gold_file = sys.argv[1]
-    process(gold_file, tps)
+    return process(gold_file, tps)
 
 
 if __name__ == '__main__':
     config = get_default_config()
     tps = FinerTypeSystem.load_type_system(config)
-    main(tps)
+    print "\n".join(main(tps))

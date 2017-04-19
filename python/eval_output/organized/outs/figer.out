@@ -252,7 +252,7 @@ are	O
 part	O
 of	O
 the	O
-UW	B-/organization
+UW	B-/organization,/organization/educational_institution
 Department	B-/organization
 of	I-/organization
 Chemistry	I-/organization
@@ -660,9 +660,9 @@ Blue	B-/organization
 Moon	I-/organization
 ,	O
 31140	O
-Pacific	B-/location,/transportation/road
-Highway	I-/location,/transportation/road
-South	I-/location,/transportation/road
+Pacific	B-/transportation/road
+Highway	I-/transportation/road
+South	I-/transportation/road
 ,	O
 were	O
 recruiting	O
@@ -774,8 +774,8 @@ search	O
 warrants	O
 on	O
 the	O
-Blue	B-/art,/work
-Moon	I-/art,/work
+Blue	B-/art
+Moon	I-/art
 and	O
 several	O
 homes	O
@@ -1045,7 +1045,7 @@ are	O
 sought	O
 .	O
 
-Han	B-/location,/people,/people/ethnicity
+Han	B-/people,/people/ethnicity
 is	O
 suspected	O
 of	O
@@ -2634,11 +2634,11 @@ was	O
 held	O
 at	O
 the	O
-UW	B-/organization
-School	I-/organization
-of	I-/organization
-Social	I-/organization
-Work	I-/organization
+UW	B-/organization,/organization/educational_institution
+School	I-/organization,/organization/educational_institution
+of	I-/organization,/organization/educational_institution
+Social	I-/organization,/organization/educational_institution
+Work	I-/organization,/organization/educational_institution
 on	O
 Jan.	B-/time
 11	I-/time
@@ -3075,7 +3075,7 @@ Wash.	B-/location
 ,	O
 where	O
 the	O
-UW	B-/organization
+UW	B-/organization,/organization/educational_institution
 will	O
 attempt	O
 to	O
@@ -3112,7 +3112,7 @@ Saturday	B-/time
 Rogers	B-/person
 ,	O
 the	O
-UW	B-/organization
+UW	B-/organization,/organization/educational_institution
 ’s	O
 leading	O
 scorer	O
@@ -3322,7 +3322,7 @@ been	O
 part	O
 of	O
 the	O
-UW	B-/organization
+UW	B-/organization,/organization/educational_institution
 ’s	O
 revolving	O
 door	O
@@ -3399,7 +3399,7 @@ team	O
 Saturday	B-/time
 ,	O
 the	O
-UW	B-/organization
+UW	B-/organization,/organization/educational_institution
 will	O
 begin	O
 preparing	O
@@ -3753,8 +3753,8 @@ him	O
 .	O
 
 "	O
-Real	B-/art,/work
-Change	I-/art,/work
+Real	B-/art
+Change	I-/art
 ?	O
 "	O
 
@@ -3973,8 +3973,8 @@ stories	O
 
 Employees	O
 of	O
-Real	B-/art,/work
-Change	I-/art,/work
+Real	B-/art
+Change	I-/art
 work	O
 as	O
 their	O
@@ -4586,8 +4586,8 @@ Safeway	B-/organization,/organization/company
 as	O
 well	O
 as	O
-Real	B-/art,/work
-Change	I-/art,/work
+Real	B-/art
+Change	I-/art
 to	O
 show	O
 his	O
@@ -5907,12 +5907,12 @@ In	O
 ,	O
 he	O
 curated	O
-“	B-/art,/work
-The	B-/art,/work
-Desire	I-/art,/work
-of	I-/art,/work
-the	I-/art,/work
-Museum	I-/art,/work
+“	B-/art
+The	B-/art,/written_work
+Desire	I-/art,/written_work
+of	I-/art,/written_work
+the	I-/art,/written_work
+Museum	I-/art,/written_work
 ”	O
 at	O
 the	O
@@ -6162,7 +6162,7 @@ of	O
 Balth	B-/person
 ’s	O
 “	O
-Videowatercolors	B-/art,/work
+Videowatercolors	B-/art
 .	O
 ”	O
 
@@ -6416,13 +6416,13 @@ one	O
 of	O
 his	O
 “	O
-Videowatercolor	B-/art,/work
+Videowatercolor	B-/art
 ”	O
 pieces	O
 ,	O
 “	O
-Moving	B-/art,/work
-II	I-/art,/work
+Moving	B-/art
+II	I-/art
 ,	O
 ”	O
 Balth	B-/person
@@ -6502,10 +6502,10 @@ Balth	B-/person
 ’s	O
 work	O
 “	O
-Artwork	B-/art,/work
-without	I-/art,/work
-the	I-/art,/work
-Tulipman	I-/art,/work
+Artwork	B-/art
+without	I-/art
+the	I-/art
+Tulipman	I-/art
 ,	O
 ”	O
 Balth	B-/person
@@ -6798,8 +6798,8 @@ a	O
 new	O
 commission	O
 representing	O
-South	B-/location,/people,/people/ethnicity
-Asian	I-/location,/people,/people/ethnicity
+South	B-/people,/people/ethnicity
+Asian	I-/people,/people/ethnicity
 student	O
 groups	O
 would	O
@@ -6885,8 +6885,8 @@ others	O
 
 “	O
 The	O
-South	B-/location,/people,/people/ethnicity
-Asian	I-/location,/people,/people/ethnicity
+South	B-/people,/people/ethnicity
+Asian	I-/people,/people/ethnicity
 student	O
 groups	O
 and	O
@@ -6896,8 +6896,8 @@ very	O
 different	O
 than	O
 the	O
-East	B-/location,/people,/people/ethnicity
-Asian	I-/location,/people,/people/ethnicity
+East	B-/people,/people/ethnicity
+Asian	I-/people,/people/ethnicity
 student	O
 groups	O
 and	O
@@ -7049,8 +7049,8 @@ bill	O
 regarding	O
 a	O
 proposed	O
-South	B-/location,/people,/people/ethnicity
-Asian	I-/location,/people,/people/ethnicity
+South	B-/people,/people/ethnicity
+Asian	I-/people,/people/ethnicity
 commission	O
 created	O
 a	O
@@ -7255,9 +7255,9 @@ Registrar	I-/organization,/organization/educational_institution
 last	O
 quarter	O
 ,	O
-Asian	B-/location,/people,/people/ethnicity
+Asian	B-/people,/people/ethnicity
 and	O
-Asian-American	B-/location,/people,/people/ethnicity
+Asian-American	B-/people,/people/ethnicity
 students	O
 currently	O
 make	O
@@ -7383,8 +7383,8 @@ people	O
 have	O
 felt	O
 that	O
-South	B-/location,/people,/people/ethnicity
-Asian	I-/location,/people,/people/ethnicity
+South	B-/people,/people/ethnicity
+Asian	I-/people,/people/ethnicity
 people	O
 have	O
 been	O
@@ -7551,8 +7551,8 @@ said	O
 “	O
 Having	O
 the	O
-South	B-/location,/people,/people/ethnicity
-Asian	I-/location,/people,/people/ethnicity
+South	B-/people,/people/ethnicity
+Asian	I-/people,/people/ethnicity
 student	O
 commission	O
 would	O
@@ -7736,10 +7736,10 @@ committee	O
 members	O
 used	O
 the	O
-Foster	B-/organization
-School	I-/organization
-of	I-/organization
-Business	I-/organization
+Foster	B-/organization,/organization/educational_institution
+School	I-/organization,/organization/educational_institution
+of	I-/organization,/organization/educational_institution
+Business	I-/organization,/organization/educational_institution
 ’	O
 annual	O
 Global	B-/organization
@@ -9721,7 +9721,7 @@ When	O
 you	O
 see	O
 what	O
-Haitians	B-/location,/people,/people/ethnicity
+Haitians	B-/people,/people/ethnicity
 think	O
 is	O
 beautiful	O
@@ -9758,7 +9758,7 @@ in	O
 the	O
 hands	O
 of	O
-Haitians	B-/location,/people,/people/ethnicity
+Haitians	B-/people,/people/ethnicity
 give	O
 them	O
 the	O
@@ -10017,9 +10017,9 @@ Veterinary	I-/organization
 Life	I-/organization
 Sciences	I-/organization
 ,	O
-University	B-/organization
-of	I-/organization
-Glasgow	I-/organization
+University	B-/organization,/organization/educational_institution
+of	I-/organization,/organization/educational_institution
+Glasgow	I-/organization,/organization/educational_institution
 ,	O
 Glasgow	B-/location,/location/city
 ,	O
@@ -10429,10 +10429,10 @@ study	O
 is	O
 from	O
 the	O
-Unitec	B-/organization
-Institute	I-/organization
-of	I-/organization
-Technology	I-/organization
+Unitec	B-/organization,/organization/educational_institution
+Institute	I-/organization,/organization/educational_institution
+of	I-/organization,/organization/educational_institution
+Technology	I-/organization,/organization/educational_institution
 ,	O
 Auckland	B-/location,/location/city
 ,	O
