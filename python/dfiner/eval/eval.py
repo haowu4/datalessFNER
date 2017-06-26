@@ -300,11 +300,11 @@ def eval(a, b):
 
     x, y = analysis(a, b)
 
-    with open("/tmp/count.json", "w") as output:
-        json.dump(x, output)
+    # with open("/tmp/count.json", "w") as output:
+    #     json.dump(x, output)
 
-    with open("/tmp/example.json", "w") as output:
-        json.dump(y, output)
+    # with open("/tmp/example.json", "w") as output:
+    #     json.dump(y, output)
 
 
 def eval_two_file(gold_file, pred_file):
